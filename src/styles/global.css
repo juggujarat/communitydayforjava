@@ -1,0 +1,161 @@
+/* Google Fonts — replaces the design tool's embedded woff2 blobs */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,800&family=Roboto:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ---- App styles (ported verbatim from the original bundle's app <style> block) ---- */
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:#131C56; color:#fff; font-family:'Roboto',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  ::selection{ background:#FEC400; color:#0E1667; }
+  h1,h2,h3{ text-transform:uppercase; }
+  #dc-root h1, #dc-root h2, #dc-root h1 span, #dc-root h2 span{ font-family:'Space Grotesk',sans-serif!important; }
+  ::-webkit-scrollbar{ width:11px; }
+  ::-webkit-scrollbar-track{ background:#0E1667; }
+  ::-webkit-scrollbar-thumb{ background:#FEC400; border-radius:0; }
+  @keyframes cdj-marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @keyframes cdj-marquee-rev{ from{ transform:translateX(-50%);} to{ transform:translateX(0);} }
+  @keyframes cdj-float1{ 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(-26px) rotate(8deg);} }
+  @keyframes cdj-float2{ 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(22px) rotate(-10deg);} }
+  @keyframes cdj-spin{ from{ transform:rotate(0);} to{ transform:rotate(360deg);} }
+  @keyframes cdj-textshine{ from{ background-position:0% center;} to{ background-position:-200% center;} }
+  @keyframes cdj-pulse{ 0%,100%{ opacity:.5; transform:scale(1);} 50%{ opacity:1; transform:scale(1.08);} }
+  @keyframes cdj-cue{ 0%{ transform:translateY(0); opacity:0;} 40%{ opacity:1;} 100%{ transform:translateY(16px); opacity:0;} }
+  @keyframes cdj-shine{ from{ background-position:-200% 0;} to{ background-position:200% 0;} }
+  @keyframes cdj-cardfloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  @keyframes cdj-logofloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-9px);} }
+  @keyframes cdj-introzoom{ 0%{ transform:scale(.5); opacity:0;} 14%{ opacity:1;} 70%{ transform:scale(3.2); opacity:1;} 100%{ transform:scale(9); opacity:0;} }
+  @keyframes cdj-introfade{ 0%,68%{ opacity:1;} 100%{ opacity:0; visibility:hidden;} }
+  #layered-text:hover [data-lt]{ transform:translateY(-60px); }
+  @keyframes cdj-kickglow{ 0%,100%{ opacity:.68; text-shadow:0 0 0 currentColor; } 50%{ opacity:1; text-shadow:0 0 16px currentColor; } }
+  #dc-root [style*="letter-spacing: 5px"]{ animation:cdj-kickglow 2.8s ease-in-out infinite; }
+  @media (max-width:768px){
+    #dc-root nav{ padding-left:16px!important; padding-right:16px!important; }
+    #dc-root nav img{ height:46px!important; }
+    #dc-root section{ padding-left:18px!important; padding-right:18px!important; }
+    #dc-root footer{ padding-left:18px!important; padding-right:18px!important; }
+    #top{ padding-top:130px!important; }
+    #manifesto h2{ font-size:40px!important; letter-spacing:-1px!important; }
+    #dc-root [style*="repeat(4, minmax(0px, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
+    #dc-root [style*="repeat(5, minmax(0px, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
+    #dc-root [style*="repeat(3, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
+    #dc-root [style*="repeat(2, 1fr)"]{ grid-template-columns:1fr!important; }
+    #dc-root [style*="margin-left: -20px"]{ margin-left:0!important; }
+    #committee-grid{ grid-template-columns:repeat(2,1fr)!important; }
+  }
+  @media (max-width:600px){
+    #manifesto h2{ font-size:32px!important; }
+    #top{ padding-top:120px!important; }
+    /* swipeable sliders for people / card rows */
+    #dc-root [style*="repeat(4, minmax(0px, 1fr)"],
+    #dc-root [style*="repeat(5, minmax(0px, 1fr)"],
+    #dc-root [style*="minmax(180px, 1fr)"],
+    #dc-root [style*="minmax(220px, 1fr)"],
+    #dc-root [style*="minmax(260px, 1fr)"]{
+      display:grid!important;
+      grid-template-columns:none!important;
+      grid-auto-flow:column!important;
+      grid-auto-columns:74%!important;
+      overflow-x:auto!important;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:12px;
+      scrollbar-width:none;
+    }
+    #dc-root [style*="repeat(4, minmax(0px, 1fr)"]::-webkit-scrollbar,
+    #dc-root [style*="repeat(5, minmax(0px, 1fr)"]::-webkit-scrollbar,
+    #dc-root [style*="minmax(180px, 1fr)"]::-webkit-scrollbar,
+    #dc-root [style*="minmax(220px, 1fr)"]::-webkit-scrollbar,
+    #dc-root [style*="minmax(260px, 1fr)"]::-webkit-scrollbar{ display:none; }
+    #dc-root [style*="repeat(4, minmax(0px, 1fr)"] > *,
+    #dc-root [style*="repeat(5, minmax(0px, 1fr)"] > *,
+    #dc-root [style*="minmax(180px, 1fr)"] > *,
+    #dc-root [style*="minmax(220px, 1fr)"] > *,
+    #dc-root [style*="minmax(260px, 1fr)"] > *{ scroll-snap-align:start; }
+    /* logo + sponsor grids just stack */
+    #dc-root [style*="minmax(170px, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
+    #dc-root [style*="minmax(320px, 1fr)"]{ grid-template-columns:1fr!important; }
+    /* Goodies: normal grid on mobile (no slider) */
+    #goodies-grid{ display:grid!important; grid-auto-flow:row!important; grid-template-columns:repeat(2,1fr)!important; grid-auto-columns:auto!important; overflow:visible!important; scroll-snap-type:none!important; padding-bottom:0!important; }
+    /* Gallery: static 2-col photo grid on mobile (no scroll-zoom) */
+    #gallery{ height:auto!important; }
+    #gallery [data-zoomstage]{ position:static!important; height:auto!important; display:grid!important; grid-template-columns:repeat(2,1fr)!important; gap:10px!important; padding:4px 16px 8px!important; overflow:visible!important; }
+    #gallery [data-zoomimg]{ position:static!important; inset:auto!important; transform:none!important; display:block!important; z-index:auto!important; }
+    #gallery [data-zoomimg] > div{ position:static!important; top:auto!important; left:auto!important; width:100%!important; height:auto!important; aspect-ratio:4/3; border-width:0!important; }
+    #gallery [data-zoomimg] img{ object-fit:cover!important; cursor:zoom-in; }
+  }
+  @media (max-width:600px){
+    /* Green stripe: keep on a single line */
+    #cdj-ann-bar{ flex-wrap:nowrap!important; font-size:11px!important; letter-spacing:.2px!important; line-height:1.3!important; gap:0!important; padding:8px 0!important; overflow:hidden!important; }
+    #cdj-ann-text, #cdj-ann-link{ display:none!important; }
+    #cdj-ann-marquee{ display:block!important; }
+    /* Agenda track tabs: tidy 2×2 grid */
+    #track-tabs{ display:grid!important; grid-template-columns:1fr 1fr!important; gap:6px!important; width:100%!important; border-radius:22px!important; padding:6px!important; }
+    #track-tabs button{ width:100%!important; padding:13px 8px!important; font-size:11.5px!important; letter-spacing:.3px!important; }
+    #dc-root nav{ top:35px!important; }
+    /* Trim side gutters */
+    #top{ padding-top:140px!important; padding-left:16px!important; padding-right:16px!important; }
+    #dc-root section{ padding-left:16px!important; padding-right:16px!important; padding-top:40px!important; padding-bottom:40px!important; margin-top:0!important; }
+    #top h1{ font-size:40px!important; }
+    #dc-root [data-cta]{ width:100%!important; justify-content:center!important; box-sizing:border-box; }
+    /* Hero CTAs: both full width, stacked */
+    #hero-ctas{ flex-direction:column!important; width:100%!important; }
+    #hero-ctas > a{ width:100%!important; justify-content:center!important; box-sizing:border-box!important; }
+    #dc-root span[style*="cdj-float1"], #dc-root span[style*="cdj-float2"]{ display:none!important; }
+    #top [style*="cdj-marquee 38s"]{ width:100vw!important; margin-left:calc(50% - 50vw)!important; }
+    #cdj-sticky-cta{ display:block!important; }
+    body{ padding-bottom:74px!important; }
+    #dc-root footer{ padding-left:22px!important; padding-right:22px!important; }
+    #footer-logo{ height:auto!important; width:auto!important; max-width:200px!important; }
+    #footer-pattern{ height:84px!important; background-size:auto 84px!important; display:block!important; }
+    /* CFP committee: 2-up on mobile */
+    #committee-grid{ grid-template-columns:repeat(2,1fr)!important; gap:14px!important; }
+  }
+  @media (max-width:600px){
+    /* People grids: tidy 2-up, no horizontal slider */
+    #dc-root #organizers-grid,
+    #dc-root #volunteers-grid,
+    #dc-root #goodies-grid{
+      display:grid!important; grid-auto-flow:row!important;
+      grid-template-columns:repeat(2,1fr)!important; grid-auto-columns:auto!important;
+      gap:14px!important; overflow:visible!important; scroll-snap-type:none!important; padding-bottom:0!important;
+    }
+    /* Speakers reveal: show all cards per track (2-up), no slider */
+    #dc-root #speakers [style*="repeat(4, minmax(0px, 1fr)"]{
+      display:grid!important; grid-auto-flow:row!important;
+      grid-template-columns:repeat(2,1fr)!important; grid-auto-columns:auto!important;
+      gap:12px!important; overflow:visible!important; scroll-snap-type:none!important; padding-bottom:0!important;
+    }
+    /* Agenda schedule: fully visible, no horizontal scroll */
+    #dc-root #schedule-wrap{ overflow:visible!important; overflow-x:visible!important; }
+    #dc-root #schedule-table{ min-width:0!important; width:100%!important; table-layout:fixed!important; font-size:10px!important; }
+    #dc-root #schedule-table th,
+    #dc-root #schedule-table td{ padding:9px 5px!important; letter-spacing:0!important; font-size:10px!important; word-break:break-word; }
+    #dc-root #schedule-table th:first-child,
+    #dc-root #schedule-table td:first-child{ width:48px!important; }
+    /* By the numbers: 2x2, images 40% smaller */
+    #dc-root #numbers-grid{ display:grid!important; grid-template-columns:repeat(2,1fr)!important; gap:8px!important; align-items:start!important; }
+    #dc-root #numbers-grid > div{ padding:4px!important; margin-left:0!important; width:100%!important; }
+    #dc-root #numbers-grid > div > div{ width:100%!important; }
+    #dc-root #numbers-grid > div > div > div:first-child{ height:180px!important; }
+    /* Goodies: lone last card spans full width */
+    #dc-root #goodies-grid > div:last-child:nth-child(odd){ grid-column:1 / -1!important; }
+    /* Three parallel tracks: vertical stacked cards */
+    #dc-root #moments-head{ padding-top:40px!important; padding-bottom:0!important; }
+    #dc-root #gallery{ padding-top:0!important; padding-bottom:20px!important; }
+    #dc-root #schedule-wrap{ box-shadow:none!important; overflow:visible!important; }
+    #dc-root #schedule-table{ font-size:13px!important; background:transparent!important; }
+    #dc-root #schedule-table thead{ display:none!important; }
+    #dc-root #schedule-table,
+    #dc-root #schedule-table tbody,
+    #dc-root #schedule-table tr,
+    #dc-root #schedule-table td{ display:block!important; width:auto!important; }
+    #dc-root #schedule-table tr{ background:#fff!important; border:1px solid rgba(14,22,103,.1)!important; border-radius:16px!important; margin-bottom:14px!important; padding:4px 6px!important; box-shadow:0 8px 22px rgba(14,22,103,.07)!important; overflow:hidden!important; }
+    #dc-root #schedule-table td{ border:none!important; padding:13px 14px!important; text-align:left!important; white-space:normal!important; font-size:14px!important; letter-spacing:0!important; }
+    /* Time = card header */
+    #dc-root #schedule-table td[data-label="Time"]{ font-weight:800!important; color:#0E1667!important; font-size:15px!important; padding-bottom:8px!important; border-bottom:1px solid rgba(14,22,103,.08)!important; white-space:nowrap!important; }
+    /* Track rows = label left, value right */
+    #dc-root #schedule-table td[data-label]:not([data-label="Time"]){ display:flex!important; justify-content:space-between!important; align-items:center!important; gap:16px!important; color:#5a6299!important; font-weight:600!important; text-align:right!important; border-bottom:1px solid rgba(14,22,103,.06)!important; }
+    #dc-root #schedule-table td[data-label]:not([data-label="Time"])::before{ content:attr(data-label); flex:none; font-size:12px; font-weight:800; letter-spacing:.3px; color:#0E1667; text-align:left; }
+    #dc-root #schedule-table tr td:last-child{ border-bottom:none!important; }
+    /* Break / full-width cells stay centered bands */
+    #dc-root #schedule-table td:not([data-label]){ text-align:center!important; font-weight:700!important; border-radius:8px!important; margin:2px 0!important; }
+  }

@@ -1,0 +1,80 @@
+/**
+ * Social / brand icons and the round social-link chip, ported verbatim from the
+ * original bundle's people cards (committee, organizers, volunteers, footer).
+ * The icon <path> data and per-icon sizes match the source exactly.
+ */
+import { h } from './handlers'
+
+type IconType = 'linkedin' | 'x' | 'github' | 'instagram' | 'website'
+
+const ICONS: Record<IconType, { size: number; path: string }> = {
+  linkedin: {
+    size: 17,
+    path: 'M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.2h.07c.67-1.2 2.3-2.46 4.73-2.46C21.6 7.74 24 10 24 14.6V24h-5v-8.3c0-2-.04-4.56-2.78-4.56-2.78 0-3.22 2.17-3.22 4.42V24h-5V8z',
+  },
+  x: {
+    size: 15,
+    path: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z',
+  },
+  github: {
+    size: 17,
+    path: 'M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.66.42.36.79 1.08.79 2.18v3.23c0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z',
+  },
+  instagram: {
+    size: 16,
+    path: 'M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.05-.41-2.22C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.05-.36 2.22-.41C8.42 2.21 8.8 2.2 12 2.2zm0 1.62c-3.15 0-3.52.01-4.76.07-.9.04-1.39.19-1.71.32-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.13.32-.28.81-.32 1.71-.06 1.24-.07 1.61-.07 4.76s.01 3.52.07 4.76c.04.9.19 1.39.32 1.71.17.43.37.74.69 1.06.32.32.63.52 1.06.69.32.13.81.28 1.71.32 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c.9-.04 1.39-.19 1.71-.32.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.13-.32.28-.81.32-1.71.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.04-.9-.19-1.39-.32-1.71a2.85 2.85 0 0 0-.69-1.06 2.85 2.85 0 0 0-1.06-.69c-.32-.13-.81-.28-1.71-.32-1.24-.06-1.61-.07-4.76-.07zm0 2.76a5.42 5.42 0 1 1 0 10.84 5.42 5.42 0 0 1 0-10.84zm0 1.62a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6zm5.6-.29a1.27 1.27 0 1 1-2.54 0 1.27 1.27 0 0 1 2.54 0z',
+  },
+  website: {
+    size: 16,
+    path: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-2.95a15.7 15.7 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 0 1 5.08 16zm2.95-8H5.08a8.03 8.03 0 0 1 4.33-3.56A15.7 15.7 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z',
+  },
+}
+
+export function Icon({ type }: { type: IconType }) {
+  const { size, path } = ICONS[type]
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d={path} />
+    </svg>
+  )
+}
+
+export interface Social {
+  type: IconType
+  href: string
+  label: string
+}
+
+/** Round social chip. `variant` sets the resting colors (dark cards vs light cards). */
+export function SocialLink({ social, variant = 'dark' }: { social: Social; variant?: 'dark' | 'light' }) {
+  const dark = variant === 'dark'
+  return (
+    <a
+      href={social.href}
+      target="_blank"
+      rel="noopener"
+      aria-label={social.label}
+      style={{
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 32, height: 32,
+        borderRadius: '50%', background: dark ? 'rgba(255,255,255,.08)' : 'rgba(14,22,103,.06)',
+        color: dark ? '#cdd3f0' : '#5a628f', textDecoration: 'none',
+        transition: 'background .25s ease, color .25s ease, transform .25s ease',
+      }}
+      onMouseEnter={h.socOn}
+      onMouseLeave={h.socOff}
+    >
+      <Icon type={social.type} />
+    </a>
+  )
+}
+
+/** Row of social chips (centered), matching the people-card markup. */
+export function SocialRow({ socials, variant = 'dark' }: { socials: Social[]; variant?: 'dark' | 'light' }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 13 }}>
+      {socials.map((s, i) => (
+        <SocialLink key={i} social={s} variant={variant} />
+      ))}
+    </div>
+  )
+}
