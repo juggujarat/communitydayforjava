@@ -8,9 +8,13 @@
   ::selection{ background:#FEC400; color:#0E1667; }
   h1,h2,h3{ text-transform:uppercase; }
   #dc-root h1, #dc-root h2, #dc-root h1 span, #dc-root h2 span{ font-family:'Space Grotesk',sans-serif!important; }
-  ::-webkit-scrollbar{ width:11px; }
-  ::-webkit-scrollbar-track{ background:#0E1667; }
-  ::-webkit-scrollbar-thumb{ background:#FEC400; border-radius:0; }
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
   @keyframes cdj-marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
   @keyframes cdj-marquee-rev{ from{ transform:translateX(-50%);} to{ transform:translateX(0);} }
   @keyframes cdj-float1{ 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(-26px) rotate(8deg);} }
@@ -21,6 +25,7 @@
   @keyframes cdj-cue{ 0%{ transform:translateY(0); opacity:0;} 40%{ opacity:1;} 100%{ transform:translateY(16px); opacity:0;} }
   @keyframes cdj-shine{ from{ background-position:-200% 0;} to{ background-position:200% 0;} }
   @keyframes cdj-cardfloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(-8px);} to{ opacity:1; transform:translateY(0);} }
   @keyframes cdj-logofloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-9px);} }
   @keyframes cdj-introzoom{ 0%{ transform:scale(.5); opacity:0;} 14%{ opacity:1;} 70%{ transform:scale(3.2); opacity:1;} 100%{ transform:scale(9); opacity:0;} }
   @keyframes cdj-introfade{ 0%,68%{ opacity:1;} 100%{ opacity:0; visibility:hidden;} }
@@ -90,7 +95,7 @@
     /* Agenda track tabs: tidy 2×2 grid */
     #track-tabs{ display:grid!important; grid-template-columns:1fr 1fr!important; gap:6px!important; width:100%!important; border-radius:22px!important; padding:6px!important; }
     #track-tabs button{ width:100%!important; padding:13px 8px!important; font-size:11.5px!important; letter-spacing:.3px!important; }
-    #dc-root nav{ top:35px!important; }
+    #dc-root nav{ top:0!important; }
     /* Trim side gutters */
     #top{ padding-top:140px!important; padding-left:16px!important; padding-right:16px!important; }
     #dc-root section{ padding-left:16px!important; padding-right:16px!important; padding-top:40px!important; padding-bottom:40px!important; margin-top:0!important; }

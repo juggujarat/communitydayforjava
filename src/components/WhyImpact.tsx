@@ -73,7 +73,7 @@ const STATS = [
 ]
 
 const MARQUEE_TXT =
-  'Community Day for Java  •  24 Oct 2026  •  Gujarat University, Ahmedabad  •  '
+  'Community Day for Java  •  24 Oct 2026  •  Ahmedabad  •  '
 const marqueeSpan: React.CSSProperties = {
   fontFamily: "'Space Grotesk',sans-serif", fontSize: 'clamp(20px,2.4vw,30px)', fontWeight: 400,
   letterSpacing: '1px', color: '#0E1667', textTransform: 'uppercase', paddingRight: '36px',

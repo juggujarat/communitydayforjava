@@ -1,11 +1,20 @@
-import { A } from '../lib/assets'
+// import { A } from '../lib/assets'
 import LogoCard, { type Logo } from './LogoCard'
 
+// Real logos kept empty for now — original entries preserved for reference:
+// const COMMUNITIES: Logo[] = [
+//   { img: A['60b3e840-c069-4b8e-8006-e230588c4d4c'], alt: 'GDG Gandhinagar', dur: 4.6, delay: '0s', padding: 24, height: 130 },
+//   { img: A['7b469ec3-dc51-46bc-8afc-a7e8068ba8a8'], alt: 'Docker Ahmedabad', dur: 4.8, delay: '-0.7s', padding: 8, height: 130 },
+//   { img: A['970e7f32-e3e8-468c-8e03-4719c18d45dc'], alt: 'CNCG Ahmedabad', dur: 4.5, delay: '-1.4s', padding: 8, height: 130 },
+//   { img: A['0f1b55fa-829c-4b5a-a287-9f64465ca86c'], alt: 'OSW Ahmedabad', dur: 4.7, delay: '-2.1s', padding: 8, height: 130 },
+// ]
+
+// Empty placeholder tiles (one row) until real community logos are supplied:
 const COMMUNITIES: Logo[] = [
-  { img: A['60b3e840-c069-4b8e-8006-e230588c4d4c'], alt: 'GDG Gandhinagar', dur: 4.6, delay: '0s', padding: 24, height: 130 },
-  { img: A['7b469ec3-dc51-46bc-8afc-a7e8068ba8a8'], alt: 'Docker Ahmedabad', dur: 4.8, delay: '-0.7s', padding: 8, height: 130 },
-  { img: A['970e7f32-e3e8-468c-8e03-4719c18d45dc'], alt: 'CNCG Ahmedabad', dur: 4.5, delay: '-1.4s', padding: 8, height: 130 },
-  { img: A['0f1b55fa-829c-4b5a-a287-9f64465ca86c'], alt: 'OSW Ahmedabad', dur: 4.7, delay: '-2.1s', padding: 8, height: 130 },
+  { dur: 4.6, delay: '0s', padding: 24, height: 130 },
+  { dur: 4.8, delay: '-0.7s', padding: 8, height: 130 },
+  { dur: 4.5, delay: '-1.4s', padding: 8, height: 130 },
+  { dur: 4.7, delay: '-2.1s', padding: 8, height: 130 },
 ]
 
 /** Community partners — tech communities across Gujarat (#community-partners). */

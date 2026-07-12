@@ -19,8 +19,10 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Nagendra Verma', role: 'Java FullStack Developer', org: 'Techxplore', img: A['09610378-4035-4348-aa57-10b677b7eb0f'], bg: '#7D00BC', pos: '50% 18%', socials: [li('Nagendra Verma', 'https://linkedin.com/in/nagendra-verma-8a60372b2/'), ig('Nagendra Verma', 'https://www.instagram.com/nagendrayounger')] },
   { name: 'Smit Joshi', role: 'Owner @ Homitra', org: 'Advenix Systems LLP', img: A['6fedc772-7fb3-4c46-996f-3fc8065fb6fc'], bg: '#0D5CDB', pos: '50% 10%', socials: [li('Smit Joshi', 'https://www.linkedin.com/in/smit-joshi814'), gh('Smit Joshi', 'https://github.com/smit-joshi814')] },
   { name: 'Malhar Gupte', org: 'ProductSquads', img: A['4bbd6e58-8d6f-4db9-8a4c-9827262260fd'], bg: '#02CF70', pos: '50% 8%', socials: [li('Malhar Gupte', 'https://www.linkedin.com/in/malhargupte/')] },
-  { name: 'Harshvardhan Parmar', role: "LFX'25 Mentee", org: 'Microcks', img: A['0b80d07f-cdc9-45ab-a226-7bfd34ce3991'], bg: '#FEC400', pos: '50% 14%', socials: [] },
-  { name: 'Vinay Rajput', role: 'Sr. Visual Designer', org: 'Apexure India', img: A['2edee5be-2908-4001-80aa-7e789fe6554f'], bg: '#7D00BC', pos: '50% 20%', socials: [] },
+  // was: socials: [] — LinkedIn icon added for alignment; replace '#' with the real profile URL
+  { name: 'Harshvardhan Parmar', role: "LFX'25 Mentee", org: 'Microcks', img: A['0b80d07f-cdc9-45ab-a226-7bfd34ce3991'], bg: '#FEC400', pos: '50% 14%', socials: [li('Harshvardhan Parmar', '#')] },
+  // was: socials: [] — LinkedIn icon added for alignment; replace '#' with the real profile URL
+  { name: 'Vinay Rajput', role: 'Sr. Visual Designer', org: 'Apexure India', img: A['2edee5be-2908-4001-80aa-7e789fe6554f'], bg: '#7D00BC', pos: '50% 20%', socials: [li('Vinay Rajput', '#')] },
 ]
 
 /** Volunteers & organisers (#volunteers). */
@@ -42,7 +44,11 @@ export default function Volunteers() {
               <div style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>{v.name}</div>
               {v.role && <div style={{ fontSize: '13px', color: '#9aa3d6', marginTop: '4px' }}>{v.role}</div>}
               <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#FEC400', marginTop: '5px' }}>{v.org}</div>
-              {v.socials.length > 0 && <SocialRow socials={v.socials} variant="dark" />}
+              {/* {v.socials.length > 0 && <SocialRow socials={v.socials} variant="dark" />} */}
+              {/* Only LinkedIn is shown for now — drop Instagram / GitHub icons: */}
+              {v.socials.filter((s) => s.type === 'linkedin').length > 0 && (
+                <SocialRow socials={v.socials.filter((s) => s.type === 'linkedin')} variant="dark" />
+              )}
             </div>
           ))}
         </div>

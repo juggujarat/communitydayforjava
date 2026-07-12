@@ -11,8 +11,9 @@ const ORGANIZERS: Organizer[] = [
 
 const socials = (name: string): Social[] => [
   { type: 'linkedin', href: '#', label: `${name} on LinkedIn` },
-  { type: 'x', href: '#', label: `${name} on X` },
-  { type: 'github', href: '#', label: `${name} on GitHub` },
+  // Only LinkedIn is shown for now — old icons kept for reference:
+  // { type: 'x', href: '#', label: `${name} on X` },
+  // { type: 'github', href: '#', label: `${name} on GitHub` },
 ]
 
 /** Core organizers (#organizers). */

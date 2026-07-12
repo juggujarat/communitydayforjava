@@ -1,11 +1,20 @@
-import { A } from '../lib/assets'
+// import { A } from '../lib/assets'
 import LogoCard, { type Logo } from './LogoCard'
 
+// Real logos kept empty for now — original entries preserved for reference:
+// const JUGS: Logo[] = [
+//   { img: A['cfaaebc5-44c2-4374-96ec-51cb85832280'], alt: 'Bangalore JUG', dur: 4.6, delay: '0s', padding: 20, height: 120 },
+//   { img: A['4273dfb1-4c44-47c8-8f24-53e344822376'], alt: 'Hyderabad JUG', dur: 4.8, delay: '-0.7s', padding: 20, height: 120 },
+//   { img: A['6c9e6e96-1d93-479a-b088-b1fc81ae0ae1'], alt: 'Kerala JUG', dur: 4.5, delay: '-1.4s', padding: 20, height: 120 },
+//   { img: A['802293d1-dcaf-410f-817a-c5347abd8ea3'], alt: 'Tamil JUG', dur: 4.7, delay: '-2.1s', padding: 20, height: 120 },
+// ]
+
+// Empty placeholder tiles (one row) until real JUG logos are supplied:
 const JUGS: Logo[] = [
-  { img: A['cfaaebc5-44c2-4374-96ec-51cb85832280'], alt: 'Bangalore JUG', dur: 4.6, delay: '0s', padding: 20, height: 120 },
-  { img: A['4273dfb1-4c44-47c8-8f24-53e344822376'], alt: 'Hyderabad JUG', dur: 4.8, delay: '-0.7s', padding: 20, height: 120 },
-  { img: A['6c9e6e96-1d93-479a-b088-b1fc81ae0ae1'], alt: 'Kerala JUG', dur: 4.5, delay: '-1.4s', padding: 20, height: 120 },
-  { img: A['802293d1-dcaf-410f-817a-c5347abd8ea3'], alt: 'Tamil JUG', dur: 4.7, delay: '-2.1s', padding: 20, height: 120 },
+  { dur: 4.6, delay: '0s', padding: 20, height: 120 },
+  { dur: 4.8, delay: '-0.7s', padding: 20, height: 120 },
+  { dur: 4.5, delay: '-1.4s', padding: 20, height: 120 },
+  { dur: 4.7, delay: '-2.1s', padding: 20, height: 120 },
 ]
 
 /** Partnering JUGs across India (#partners). */

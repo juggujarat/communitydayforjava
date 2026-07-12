@@ -32,12 +32,14 @@ export default function Committee() {
               <div style={{ aspectRatio: '1/1', position: 'relative', overflow: 'hidden', background: m.grad }}>
                 <img src={m.img} alt={m.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: m.pos }} />
               </div>
-              <div style={{ padding: '22px 18px 26px', textAlign: 'center' }}>
+              <div style={{ padding: '14px 18px 18px', textAlign: 'center' }}>
                 <div style={{ fontWeight: 800, fontSize: '19px', color: '#fff', lineHeight: 1.2, letterSpacing: '-.3px' }}>{m.name}</div>
                 <div style={{ fontSize: '13.5px', color: '#FEC400', fontWeight: 700, marginTop: '6px' }}>{m.role}</div>
                 <div style={{ fontSize: '12.5px', color: '#9aa3d6', marginTop: '4px' }}>{m.org}</div>
                 <div className="committee-bio" style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#aab2e0', marginTop: '12px', textWrap: 'pretty' as React.CSSProperties['textWrap'] }}>{m.bio}</div>
-                <SocialRow socials={m.socials} variant="dark" />
+                {/* <SocialRow socials={m.socials} variant="dark" /> */}
+                {/* Only LinkedIn is shown for now — drop X / website icons: */}
+                <SocialRow socials={m.socials.filter((s) => s.type === 'linkedin')} variant="dark" />
               </div>
             </div>
           ))}

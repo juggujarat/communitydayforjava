@@ -44,10 +44,12 @@ export default function Footer() {
             <p style={{ margin: 0, fontSize: '13.5px', lineHeight: 1.6, color: '#b9c0e8', maxWidth: '300px' }}>Gujarat's official Java User Group. One community, global reach, part of the worldwide JUG ecosystem.</p>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '72px', alignItems: 'flex-start' }}>
+            {/* EVENT block removed for now — kept for reference:
             <div>
               <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: '#FEC400', marginBottom: '16px' }}>EVENT</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', fontSize: '13.5px', color: '#c3c9ee' }}><span>24 Oct 2026 (tentative)</span><span>Gujarat University, Ahmedabad</span><span>Early-bird coming soon</span></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', fontSize: '13.5px', color: '#c3c9ee' }}><span>24 Oct 2026 (tentative)</span><span>Ahmedabad</span><span>Early-bird coming soon</span></div>
             </div>
+            */}
             <div>
               <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: '#FEC400', marginBottom: '16px' }}>EXPLORE</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', fontSize: '13.5px' }}>

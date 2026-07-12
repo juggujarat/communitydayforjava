@@ -11,12 +11,18 @@ custom domain in `CNAME` (`communitydayforjava.com`). Brand palette: navy `#131C
 red `#FF384B`, yellow `#FEC400`. Ticket registration is a `mailto:` link — there is no
 backend.
 
-## Current state: mid-conversion from a bundle to a real React app
+## Current state: converted from a bundle to a real React app
 
-The branch `feature/convert-in-react-deep-01` is actively converting the site from a
-single generated `index.html` bundle into a **Vite + React 18 + TypeScript** project. The
-conversion is **incremental** — `src/App.tsx` currently renders only `Nav` + `Hero`;
-the remaining sections (manifesto → footer) are being ported one at a time.
+The branch `feature/convert-in-react-deep-01` converted the site from a single generated
+`index.html` bundle into a **Vite + React 18 + TypeScript** project. The port is now
+essentially complete — `src/App.tsx` renders the **full** document in original order:
+`Nav → Hero → Manifesto → WhyImpact → Goodies → Speakers → Venue → Agenda → Committee →
+Organizers → Gallery → Sponsor → SponsorsWall → Partners → CommunityPartners → Volunteers
+→ Footer`, with `BrickDivider` separators between several sections. Remaining work is
+polish and the deploy workflow (see Deploy notes), not porting whole sections.
+
+The `legacy/original-bundle.html` bundle remains the source of truth: when a ported
+section looks off, re-check it against the bundle's JSX rather than inventing markup.
 
 - `legacy/original-bundle.html` — the original design-tool bundle (a React app authored in
   JSX and transpiled in-browser by Babel Standalone, with base64/gzip asset blobs). **This
@@ -44,7 +50,9 @@ before considering a change done.
 ## Architecture & porting conventions
 
 Source lives in `src/`: `main.tsx` (bootstrap) → `App.tsx` → `components/*` (one file per
-section), with shared helpers in `lib/` and `hooks/`.
+section, plus small shared pieces `BrickDivider` and `LogoCard`), with shared helpers in
+`lib/` and `hooks/`. (`src/data/` exists but is currently empty — content is inline in the
+components.)
 
 **Styling is almost entirely inline styles**, ported verbatim from the bundle's
 `React.createElement` calls. `src/styles/global.css` holds only resets, `@keyframes`
@@ -75,9 +83,16 @@ attributes**, not by wiring refs:
   `onMouseEnter={h.btnOn}` / `onMouseLeave={h.btnOff}`, etc.
 - `lib/decor.tsx` — generative/decorative pieces (floating `shape`s, `marqueeBand`s,
   per-section `*Shapes` layers, `SpeakerCards`, `Ticker`) and the extended `PALETTE`.
+- `lib/icons.tsx` — social/brand icons (`linkedin`/`x`/`github`/`instagram`/`website`) and
+  the round social-link chip used on people cards (committee, organizers, volunteers,
+  footer). `<path>` data and sizes match the bundle exactly.
+- `lib/links.ts` — the shared `mailto:` CTAs (`MAIL`, `TICKET_MAILTO`, `CFP_MAILTO`).
+  Registration/CFP are mailto links; reuse these constants rather than hardcoding.
 
 **Assets:** the bundle's UUID-keyed blobs are extracted to `public/assets/<uuid>.<ext>`
-and referenced by absolute path (`/assets/<uuid>.png`). `vite.config.ts` sets
+(mixed `.png`/`.jpg`/`.svg` extensions). Reference them through the `A` map in
+`lib/assets.ts` (`A['<uuid>']` → `/assets/<uuid>.<ext>`), which keeps the varying
+extension correct in one place — don't hardcode the path. `vite.config.ts` sets
 `assetsInlineLimit: 0` to keep them as files. Fonts that were embedded woff2 blobs are now
 a Google Fonts `@import` at the top of `global.css`.
 
@@ -87,4 +102,5 @@ a Google Fonts `@import` at the top of `global.css`.
   workflow yet** — nothing currently builds `dist/` or publishes it (and `CNAME` must end
   up inside the published `dist/`). Adding a GitHub Pages build+deploy action is
   outstanding work.
-- `index.html` references `/favicon.svg`, which does not yet exist in `public/`.
+- `dist/` is a local build artifact (from `npm run build`); it is not published anywhere
+  automatically.

@@ -5,17 +5,21 @@ import { h } from '../lib/handlers'
  * <image-slot> placeholders that ship empty; rendered here as empty logo tiles
  * with a faint placeholder label until real sponsor logos are supplied.
  */
-function Slot({ id, label, height, padding }: { id: string; label: string; height: number; padding: number }) {
+function Slot({ id, label, height, padding, img, alt }: { id: string; label: string; height: number; padding: number; img?: string; alt?: string }) {
   return (
     <div style={{ background: '#fff', borderRadius: '6px', height, display: 'flex', alignItems: 'center', justifyContent: 'center', padding, boxShadow: '0 10px 30px rgba(14,22,103,.07)' }}>
-      <div id={id} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1.5px dashed rgba(20,26,80,.2)', borderRadius: '8px', color: 'rgba(20,26,80,.4)' }}>
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-          <rect x="3" y="4" width="18" height="16" rx="2" />
-          <circle cx="8.5" cy="9.5" r="1.6" />
-          <path d="M4 18l5-5 4 4 3-3 4 4" />
-        </svg>
-        <span style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '.3px', textAlign: 'center' }}>{label}</span>
-      </div>
+      {img ? (
+        <img id={id} src={img} alt={alt ?? label} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+      ) : (
+        <div id={id} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1.5px dashed rgba(20,26,80,.2)', borderRadius: '8px', color: 'rgba(20,26,80,.4)' }}>
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <circle cx="8.5" cy="9.5" r="1.6" />
+            <path d="M4 18l5-5 4 4 3-3 4 4" />
+          </svg>
+          <span style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '.3px', textAlign: 'center' }}>{label}</span>
+        </div>
+      )}
     </div>
   )
 }
@@ -31,7 +35,7 @@ export default function SponsorsWall() {
           <div style={{ marginBottom: '40px' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#FEC400' }} />PLATINUM</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '16px' }}>
-              <Slot id="cdj-sp-1" label="Platinum logo" height={170} padding={28} />
+              <Slot id="cdj-sp-1" label="Platinum logo" height={170} padding={28} img="/assets/jetbrains-logo.svg" alt="JetBrains" />
               <Slot id="cdj-sp-2" label="Platinum logo" height={170} padding={28} />
             </div>
           </div>
