@@ -1,4 +1,3 @@
-/** Venue section (#venue): embedded Ahmedabad map + address card. */
 export default function Venue() {
   return (
     <section id="venue" style={{ position: 'relative', padding: '120px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
