@@ -1,5 +1,4 @@
 // import { h } from '../lib/handlers'
-import { A } from '../lib/assets'
 
 /** Venue section (#venue): hero image, embedded map, address card. */
 export default function Venue() {
