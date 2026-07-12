@@ -3,13 +3,6 @@ import { A } from '../lib/assets'
 import BrickDivider from './BrickDivider'
 import { TICKET_MAILTO } from '../lib/links'
 
-const EXPLORE = [
-  { href: '#why', label: 'Why attend' },
-  { href: '#numbers', label: 'By the numbers' },
-  { href: '#speakers', label: 'Speakers' },
-  { href: '#sponsor', label: 'Sponsor' },
-]
-
 const bigSpan: React.CSSProperties = {
   fontWeight: 800, fontSize: 'clamp(44px,13vw,200px)', lineHeight: 0.9, letterSpacing: '-4px',
   color: 'transparent', WebkitTextStroke: '2px rgba(255,255,255,.22)', paddingRight: '.4em',
@@ -28,36 +21,13 @@ export default function Footer() {
               <h2 style={{ margin: 0, fontWeight: 600, fontSize: 'clamp(30px,3.6vw,52px)', lineHeight: 1.04, letterSpacing: '-1.5px', color: '#fff' }}>Let's build the <span style={{ color: '#FEC400' }}>future of Java</span>, together.</h2>
             </div>
             <div style={{ position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
-              <a href={TICKET_MAILTO} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Register now</a>
+              <a href={TICKET_MAILTO} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Tickets Coming Soon</a>
               <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '15px 26px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
             </div>
           </div>
           <div style={{ position: 'relative', minHeight: '300px' }}>
             <img src={A['232c97e2-524f-4bdc-9971-6119b9012aef']} alt="Community Day for Java attendees" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(110deg,rgba(14,22,103,.55) 0%,rgba(14,22,103,0) 38%)' }} />
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '56px', padding: '72px 0 76px' }}>
-          <div style={{ maxWidth: '340px' }}>
-            <img id="footer-logo" src={A['cd2b3de0-e87e-45cf-8bd3-459baf76597f']} alt="Community Day for Java" style={{ height: '156px', width: 'auto', display: 'block', marginBottom: '22px' }} />
-            <p style={{ margin: 0, fontSize: '13.5px', lineHeight: 1.6, color: '#b9c0e8', maxWidth: '300px' }}>Gujarat's official Java User Group. One community, global reach, part of the worldwide JUG ecosystem.</p>
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '72px', alignItems: 'flex-start' }}>
-            {/* EVENT block removed for now — kept for reference:
-            <div>
-              <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: '#FEC400', marginBottom: '16px' }}>EVENT</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', fontSize: '13.5px', color: '#c3c9ee' }}><span>24 Oct 2026 (tentative)</span><span>Ahmedabad</span><span>Early-bird coming soon</span></div>
-            </div>
-            */}
-            <div>
-              <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: '#FEC400', marginBottom: '16px' }}>EXPLORE</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', fontSize: '13.5px' }}>
-                {EXPLORE.map((l) => (
-                  <a key={l.href} href={l.href} style={{ color: '#c3c9ee', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>{l.label}</a>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
 

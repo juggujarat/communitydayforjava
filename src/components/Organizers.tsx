@@ -29,15 +29,17 @@ export default function Organizers() {
         </div>
         <div id="organizers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px, 1fr))', gap: '24px' }}>
           {ORGANIZERS.map((o, i) => (
-            <div key={i} style={{ background: '#fff', border: '1px solid rgba(14,22,103,.08)', borderRadius: '26px', overflow: 'hidden', boxShadow: '0 16px 40px rgba(14,22,103,.12)' }}>
+            <div key={i} style={{ background: '#fff', border: '1px solid rgba(14,22,103,.08)', borderRadius: '26px', overflow: 'hidden', boxShadow: '0 16px 40px rgba(14,22,103,.12)', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ aspectRatio: '1/1', position: 'relative', overflow: 'hidden', background: o.grad }}>
                 <img src={o.img} alt={o.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 14%' }} />
               </div>
-              <div style={{ padding: '24px 24px 28px', textAlign: 'center' }}>
+              <div style={{ padding: '24px 24px 28px', textAlign: 'center', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '22px', color: '#0E1667' }}>{o.name}</div>
                 <div style={{ fontSize: '14px', color: '#FF384B', fontWeight: 700, marginTop: '6px' }}>{o.role}</div>
                 <div style={{ fontSize: '13px', color: '#6b73a8', marginTop: '4px' }}>{o.org}</div>
-                <SocialRow socials={socials(o.name)} variant="light" />
+                <div style={{ marginTop: 'auto' }}>
+                  <SocialRow socials={socials(o.name)} variant="light" />
+                </div>
               </div>
             </div>
           ))}
