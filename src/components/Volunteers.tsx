@@ -1,4 +1,3 @@
-import { h } from '../lib/handlers'
 import { A } from '../lib/assets'
 import { SocialRow, type Social } from '../lib/icons'
 
