@@ -1,7 +1,6 @@
 import { h } from '../lib/handlers'
 import { A } from '../lib/assets'
 import { SocialRow, type Social } from '../lib/icons'
-import { MAIL } from '../lib/links'
 
 interface Volunteer {
   name: string; role?: string; org: string; img: string; bg: string; pos: string; zoom?: boolean; socials: Social[]
@@ -17,8 +16,8 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Deep Shah', role: 'Java FullStack Developer', org: 'Techxplore', img: A['a06647e0-07b9-4a3d-9468-572ca9faea02'], bg: '#02CF70', pos: '50% 18%', socials: [li('Deep Shah', 'https://www.linkedin.com/in/deepshah-java-developer'), ig('Deep Shah', 'https://www.instagram.com/ishahdeep')] },
   { name: 'Jayesh Gupta', role: '5+ yrs experience', org: 'TCS', img: A['9bbc223f-9f21-49aa-af66-23ac8226e948'], bg: '#FEC400', pos: '50% 6%', zoom: true, socials: [li('Jayesh Gupta', 'https://in.linkedin.com/in/jayeshgupta91')] },
   { name: 'Nagendra Verma', role: 'Java FullStack Developer', org: 'Techxplore', img: A['09610378-4035-4348-aa57-10b677b7eb0f'], bg: '#7D00BC', pos: '50% 18%', socials: [li('Nagendra Verma', 'https://linkedin.com/in/nagendra-verma-8a60372b2/'), ig('Nagendra Verma', 'https://www.instagram.com/nagendrayounger')] },
-  { name: 'Smit Joshi', role: 'Owner @ Homitra', org: 'Advenix Systems LLP', img: A['6fedc772-7fb3-4c46-996f-3fc8065fb6fc'], bg: '#0D5CDB', pos: '50% 10%', socials: [li('Smit Joshi', 'https://www.linkedin.com/in/smit-joshi814'), gh('Smit Joshi', 'https://github.com/smit-joshi814')] },
-  { name: 'Malhar Gupte', org: 'ProductSquads', img: A['4bbd6e58-8d6f-4db9-8a4c-9827262260fd'], bg: '#02CF70', pos: '50% 8%', socials: [li('Malhar Gupte', 'https://www.linkedin.com/in/malhargupte/')] },
+  { name: 'Smit Joshi', role: 'ASE @ Advenix Systems LLP', org: 'Advenix Systems LLP', img: A['6fedc772-7fb3-4c46-996f-3fc8065fb6fc'], bg: '#0D5CDB', pos: '50% 10%', socials: [li('Smit Joshi', 'https://www.linkedin.com/in/smit-joshi814'), gh('Smit Joshi', 'https://github.com/smit-joshi814')] },
+  { name: 'Malhar Gupte', role: 'AI Data Engineer', org: 'ProductSquads', img: A['4bbd6e58-8d6f-4db9-8a4c-9827262260fd'], bg: '#02CF70', pos: '50% 8%', socials: [li('Malhar Gupte', 'https://www.linkedin.com/in/malhargupte/')] },
   // was: socials: [] — LinkedIn icon added for alignment; replace '#' with the real profile URL
   { name: 'Harshvardhan Parmar', role: "LFX'25 Mentee", org: 'Microcks', img: A['0b80d07f-cdc9-45ab-a226-7bfd34ce3991'], bg: '#FEC400', pos: '50% 14%', socials: [li('Harshvardhan Parmar', '#')] },
   // was: socials: [] — LinkedIn icon added for alignment; replace '#' with the real profile URL
@@ -37,8 +36,8 @@ export default function Volunteers() {
         </div>
         <div id="volunteers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px, 1fr))', gap: '34px 24px', maxWidth: '1080px', margin: '0 auto' }}>
           {VOLUNTEERS.map((v, i) => (
-            <div key={i} style={{ textAlign: 'center' }}>
-              <div style={{ aspectRatio: '1', margin: '0 auto 16px', borderRadius: '22px', overflow: 'hidden', background: v.bg, boxShadow: '0 16px 34px rgba(0,0,0,.34)' }}>
+            <div key={i} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <div style={{ aspectRatio: '1', margin: '0 auto 16px', width: '100%', borderRadius: '22px', overflow: 'hidden', background: v.bg, boxShadow: '0 16px 34px rgba(0,0,0,.34)' }}>
                 <img src={v.img} alt={v.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: v.pos, display: 'block', ...(v.zoom ? { transform: 'scale(1.45)', transformOrigin: 'center top' } : {}) }} />
               </div>
               <div style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>{v.name}</div>
@@ -47,13 +46,12 @@ export default function Volunteers() {
               {/* {v.socials.length > 0 && <SocialRow socials={v.socials} variant="dark" />} */}
               {/* Only LinkedIn is shown for now — drop Instagram / GitHub icons: */}
               {v.socials.filter((s) => s.type === 'linkedin').length > 0 && (
-                <SocialRow socials={v.socials.filter((s) => s.type === 'linkedin')} variant="dark" />
+                <div style={{ marginTop: 'auto' }}>
+                  <SocialRow socials={v.socials.filter((s) => s.type === 'linkedin')} variant="dark" />
+                </div>
               )}
             </div>
           ))}
-        </div>
-        <div data-reveal data-reveal-d="160" style={{ marginTop: '42px' }}>
-          <a href={MAIL} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '15px', padding: '15px 30px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Volunteer with us</a>
         </div>
       </div>
     </section>

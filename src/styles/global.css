@@ -49,6 +49,8 @@
   @media (max-width:600px){
     #manifesto h2{ font-size:32px!important; }
     #top{ padding-top:120px!important; }
+    /* Hero heading: fit "Java for the AI world" on one line -> 3 lines total */
+    #top h1{ font-size:25px!important; letter-spacing:-.5px!important; }
     /* swipeable sliders for people / card rows */
     #dc-root [style*="repeat(4, minmax(0px, 1fr)"],
     #dc-root [style*="repeat(5, minmax(0px, 1fr)"],

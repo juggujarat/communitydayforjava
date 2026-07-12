@@ -6,7 +6,7 @@ export default function Manifesto() {
     <section id="manifesto" style={{ position: 'relative', padding: '150px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <ManifestoShapes />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
-        <h2 data-reveal data-reveal-d="80" style={{ margin: 0, fontWeight: 500, lineHeight: 1.02, letterSpacing: '-2px', fontSize: '78.83px' }}>
+        <h2 data-reveal data-reveal-d="80" style={{ margin: 0, fontWeight: 500, lineHeight: 1.02, letterSpacing: '-2px', fontSize: '73.83px' }}>
           This is not just<br />another Java event.<br />
           <span style={{ display: 'inline-block', marginTop: '10px' }}>It's where the community <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#7D00BC' }}>evolves.</span></span>
         </h2>
