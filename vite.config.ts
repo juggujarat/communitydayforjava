@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 // so the app is served from the domain root — base stays '/'.
 export default defineConfig({
   plugins: [react()],
+  base: '/',
   build: {
     outDir: 'dist',
     assetsInlineLimit: 0,
