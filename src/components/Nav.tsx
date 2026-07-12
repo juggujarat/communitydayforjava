@@ -20,7 +20,7 @@ export default function Nav() {
             <a href="#partners" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Partners</a>
             <a href="#sponsor" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Sponsor</a>
           </div>
-          <a href={TICKET_MAILTO} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '13px', letterSpacing: '1px', padding: '11px 20px', borderRadius: '40px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(255,56,75,.34)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Ticket's Coming Soon</a>
+          <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '13px', letterSpacing: '1px', padding: '11px 20px', borderRadius: '40px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(255,56,75,.34)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Become Sponsor</a>
         </div>
       </nav>
 
