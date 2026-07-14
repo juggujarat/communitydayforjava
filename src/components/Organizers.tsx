@@ -1,16 +1,16 @@
 import { A } from '../lib/assets'
 import { SocialRow, type Social } from '../lib/icons'
 
-interface Organizer { name: string; role: string; org: string; img: string; grad: string }
+interface Organizer { name: string; role: string; org: string; img: string; grad: string; linkedin?: string }
 
 const ORGANIZERS: Organizer[] = [
-  { name: 'Dhaval Gajjar', role: 'System Architect', org: 'Staunchsys IT Services', img: A['6966fdb6-41ad-44ae-a9ac-c106a39f43c8'], grad: 'linear-gradient(160deg,#FF384B,#c42233)' },
-  { name: 'Vikas Rajput', role: 'Founder', org: 'TechXplore', img: A['c7e0ec15-621a-484b-994f-e4f1f100b8a5'], grad: 'linear-gradient(160deg,#0D5CDB,#0a47a8)' },
-  { name: 'Bharat Ranpariya', role: 'Engineering Manager', org: 'DataOrb', img: A['13a9f265-6945-4618-bbdc-b6a3b040e3c8'], grad: 'linear-gradient(160deg,#02CF70,#0a8f4f)' },
+  { name: 'Dhaval Gajjar', role: 'System Architect', org: 'Staunchsys IT Services', img: A['6966fdb6-41ad-44ae-a9ac-c106a39f43c8'], grad: 'linear-gradient(160deg,#FF384B,#c42233)', linkedin: 'https://www.linkedin.com/in/dhavalgajjarin/' },
+  { name: 'Vikas Rajput', role: 'Founder', org: 'TechXplore', img: A['c7e0ec15-621a-484b-994f-e4f1f100b8a5'], grad: 'linear-gradient(160deg,#0D5CDB,#0a47a8)', linkedin: 'https://linkedin.com/in/vikasrajputin' },
+  { name: 'Bharat Ranpariya', role: 'Engineering Manager', org: 'DataOrb', img: A['13a9f265-6945-4618-bbdc-b6a3b040e3c8'], grad: 'linear-gradient(160deg,#02CF70,#0a8f4f)', linkedin: 'https://www.linkedin.com/in/bharat-ranpariya/' },
 ]
 
-const socials = (name: string): Social[] => [
-  { type: 'linkedin', href: '#', label: `${name} on LinkedIn` },
+const socials = (o: Organizer): Social[] => [
+  { type: 'linkedin', href: o.linkedin ?? '#', label: `${o.name} on LinkedIn` },
   // Only LinkedIn is shown for now — old icons kept for reference:
   // { type: 'x', href: '#', label: `${name} on X` },
   // { type: 'github', href: '#', label: `${name} on GitHub` },
@@ -38,7 +38,7 @@ export default function Organizers() {
                 <div style={{ fontSize: '14px', color: '#FF384B', fontWeight: 700, marginTop: '6px' }}>{o.role}</div>
                 <div style={{ fontSize: '13px', color: '#6b73a8', marginTop: '4px' }}>{o.org}</div>
                 <div style={{ marginTop: 'auto' }}>
-                  <SocialRow socials={socials(o.name)} variant="light" />
+                  <SocialRow socials={socials(o)} variant="light" />
                 </div>
               </div>
             </div>

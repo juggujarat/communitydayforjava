@@ -1,3 +1,7 @@
+import coffee from '../assets/icons/coffe.svg'
+import cloud from '../assets/icons/cloud.svg'
+import hammer from '../assets/icons/hammer.svg'
+
 // import { h } from '../lib/handlers'
 
 // const BB = '1px solid rgba(14,22,103,.08)'
@@ -37,7 +41,7 @@
 export default function Agenda() {
   const tracks = [
     {
-      icon: '☕',
+      icon: coffee,
       label: 'Core Java',
       accent: '#FF384B',
       bg: 'rgba(255,56,75,.08)',
@@ -45,7 +49,7 @@ export default function Agenda() {
       desc: 'Deep dives into the Java language, JVM internals, performance tuning, and the latest platform features.',
     },
     {
-      icon: '☁️',
+      icon: cloud,
       label: 'Enterprise & Cloud',
       accent: '#0D5CDB',
       bg: 'rgba(13,92,219,.08)',
@@ -53,7 +57,7 @@ export default function Agenda() {
       desc: 'Microservices, Spring, cloud-native architectures, Kubernetes, and production-grade Java at scale.',
     },
     {
-      icon: '🛠️',
+      icon: hammer,
       label: 'Workshops',
       accent: '#02CF70',
       bg: 'rgba(2,207,112,.08)',
@@ -101,13 +105,18 @@ export default function Agenda() {
                 ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 32px rgba(14,22,103,.07)'
               }}
             >
-              {/* Icon bubble */}
+              {/* Icon bubble — SVG masked so it takes the track accent colour */}
               <div style={{
                 width: '56px', height: '56px', borderRadius: '16px',
                 background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '28px',
               }}>
-                {t.icon}
+                <span aria-hidden="true" style={{
+                  width: '30px', height: '30px', display: 'block', background: t.accent,
+                  WebkitMaskImage: `url(${t.icon})`, maskImage: `url(${t.icon})`,
+                  WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'center', maskPosition: 'center',
+                  WebkitMaskSize: 'contain', maskSize: 'contain',
+                }} />
               </div>
 
               {/* Track badge */}

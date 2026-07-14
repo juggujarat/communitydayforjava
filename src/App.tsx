@@ -38,7 +38,7 @@ export default function App() {
         <Nav />
         <Hero />
         <Manifesto />
-        <BrickDivider src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
+        <BrickDivider id="why-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <WhyImpact />
         <Goodies />
         <Speakers />

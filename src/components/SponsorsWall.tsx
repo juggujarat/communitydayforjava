@@ -54,20 +54,7 @@ export default function SponsorsWall() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 1fr))', gap: '16px' }}>
               <Slot id="cdj-sp-6" label="Venue logo" height={140} padding={24} />
               <Slot id="cdj-sp-7" label="Venue logo" height={140} padding={24} />
-            </div>
-          </div>
-          <div style={{ marginTop: '40px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#02CF70', color: '#0E1667', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>OTHER</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 1fr))', gap: '16px' }}>
-              <Slot id="cdj-sp-8" label="Sponsor logo" height={120} padding={20} />
-              <Slot id="cdj-sp-9" label="Sponsor logo" height={120} padding={20} />
-              <Slot id="cdj-sp-10" label="Sponsor logo" height={120} padding={20} />
-            </div>
-          </div>
-          <div style={{ marginTop: '40px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#7D00BC', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>VENUE SUPPORTER</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 1fr))', gap: '16px' }}>
-              <Slot id="cdj-sp-11" label="Venue supporter logo" height={120} padding={20} />
+              <Slot id="cdj-sp-11" label="Venue logo" height={140} padding={24} />
             </div>
           </div>
           <div style={{ marginTop: '40px' }}>
@@ -79,7 +66,7 @@ export default function SponsorsWall() {
             </div>
           </div>
           <div style={{ marginTop: '40px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>OTHER SPONSOR</div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>OTHER</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 1fr))', gap: '16px' }}>
               <Slot id="cdj-sp-16" label="Other sponsor logo" height={120} padding={20} />
               <Slot id="cdj-sp-17" label="Other sponsor logo" height={120} padding={20} />

@@ -62,11 +62,11 @@ type ShapeKind = 'circle' | 'diamond' | 'tri' | 'tl' | 'semi' | 'ring' | 'sq'
 interface ShapeOpts {
   size: number; color: string; kind: ShapeKind
   top?: string; left?: string; right?: string; bottom?: string
-  anim?: string; dur?: number; delay?: number; rot?: number; op?: number; key: string; blur?: number
+  anim?: string; dur?: number; delay?: number; rot?: number; op?: number; key: string; blur?: number; mark?: string
 }
 
 export function shape(opts: ShapeOpts) {
-  const { size, color, kind, top, left, right, bottom, anim, dur, delay, rot, op, key, blur } = opts
+  const { size, color, kind, top, left, right, bottom, anim, dur, delay, rot, op, key, blur, mark } = opts
   const s: React.CSSProperties = {
     position: 'absolute', width: size, height: size, top, left, right, bottom, opacity: op == null ? 1 : op,
     animation: anim ? `${anim} ${dur || 9}s ease-in-out infinite` : undefined, animationDelay: (delay || 0) + 's',
@@ -78,7 +78,7 @@ export function shape(opts: ShapeOpts) {
   else if (kind === 'tl') s.clipPath = 'polygon(0 0,100% 0,0 100%)'
   else if (kind === 'semi') s.borderRadius = '100% 100% 0 0'
   else if (kind === 'ring') { s.background = 'transparent'; s.border = `${Math.max(4, size / 9)}px solid ${color}`; s.borderRadius = '50%' }
-  return <div key={key} style={s} />
+  return <div key={key} data-shape={mark} style={s} />
 }
 
 const shapeLayer = (children: React.ReactNode) => (
@@ -95,11 +95,11 @@ export const HeroShapes = () => shapeLayer(<>
 </>)
 
 export const ManifestoShapes = () => shapeLayer(<>
-  {shape({ key: 'm1', size: 46, color: '#FF384B', kind: 'diamond', top: '14%', left: '9%', anim: 'cdj-float1', dur: 9, op: .9 })}
-  {shape({ key: 'm2', size: 34, color: '#0D5CDB', kind: 'circle', top: '20%', right: '12%', anim: 'cdj-float2', dur: 8, op: .85 })}
-  {shape({ key: 'm3', size: 54, color: '#FEC400', kind: 'tri', bottom: '14%', right: '16%', anim: 'cdj-float1', dur: 11, op: .9 })}
-  {shape({ key: 'm4', size: 30, color: '#02CF70', kind: 'circle', bottom: '22%', left: '14%', anim: 'cdj-float2', dur: 7, op: .9 })}
-  {shape({ key: 'm5', size: 60, color: '#7D00BC', kind: 'ring', top: '50%', left: '5%', anim: 'cdj-float1', dur: 10, op: .5 })}
+  {shape({ key: 'm1', mark: 'm1', size: 46, color: '#FF384B', kind: 'diamond', top: '14%', left: '9%', anim: 'cdj-float1', dur: 9, op: .9 })}
+  {shape({ key: 'm2', mark: 'm2', size: 34, color: '#0D5CDB', kind: 'circle', top: '20%', right: '12%', anim: 'cdj-float2', dur: 8, op: .85 })}
+  {shape({ key: 'm3', mark: 'm3', size: 54, color: '#FEC400', kind: 'tri', bottom: '14%', right: '16%', anim: 'cdj-float1', dur: 11, op: .9 })}
+  {shape({ key: 'm4', mark: 'm4', size: 30, color: '#02CF70', kind: 'circle', bottom: '22%', left: '14%', anim: 'cdj-float2', dur: 7, op: .9 })}
+  {shape({ key: 'm5', mark: 'm5', size: 60, color: '#7D00BC', kind: 'ring', top: '50%', left: '5%', anim: 'cdj-float1', dur: 10, op: .5 })}
 </>)
 
 export const GalleryShapes = () => shapeLayer(<>
