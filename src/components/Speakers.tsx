@@ -1,5 +1,7 @@
 import { h } from '../lib/handlers'
 import { SpeakerCards } from '../lib/decor'
+import { Icon } from '../lib/icons'
+import { SOCIALS } from '../lib/socials'
 
 /** Speakers section (#speakers) — three track columns of placeholder cards + CFP CTA. */
 export default function Speakers() {
@@ -13,9 +15,16 @@ export default function Speakers() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '46px' }}>
           <SpeakerCards />
         </div>
-        <div data-reveal data-reveal-d="120" style={{ marginTop: '48px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '18px' }}>
-          <div style={{ fontSize: '16px', color: '#c9d0ef', fontWeight: 600 }}>Want to take the stage?</div>
-          <a style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '15px', padding: '16px 30px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Coming Soon</a>
+        <div data-reveal data-reveal-d="120" style={{ marginTop: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '22px' }}>
+          <a style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 700, fontSize: '17px', padding: '16px 40px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Call for Papers- Opening Soon!</a>
+          <div style={{ display: 'flex', gap: '14px' }}>
+            {SOCIALS.map((s, i) => (
+              <a key={i} href={s.href} target="_blank" rel="noopener" aria-label={s.label} style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1.5px solid rgba(255,255,255,.5)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', textDecoration: 'none', transition: 'background .25s ease, border-color .25s ease' }} onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,.12)'; e.currentTarget.style.borderColor = '#fff' }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.5)' }}>
+                <Icon type={s.type} />
+              </a>
+            ))}
+          </div>
+          <div style={{ fontSize: '16px', color: '#a8b0e0', fontWeight: 500 }}>Follow our social handles for CFP updates.</div>
         </div>
       </div>
     </section>

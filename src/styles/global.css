@@ -32,6 +32,13 @@
   #layered-text:hover [data-lt]{ transform:translateY(-60px); }
   @keyframes cdj-kickglow{ 0%,100%{ opacity:.68; text-shadow:0 0 0 currentColor; } 50%{ opacity:1; text-shadow:0 0 16px currentColor; } }
   #dc-root [style*="letter-spacing: 5px"]{ animation:cdj-kickglow 2.8s ease-in-out infinite; }
+  /* Mobile menu: show the hamburger where the inline nav links hide (<=880px) */
+  @media (max-width:880px){
+    #cdj-burger{ display:inline-flex!important; }
+    /* Compact "Become Sponsor" CTA so it stays on one line next to the burger */
+    #cdj-nav > div{ gap:12px!important; }
+    #cdj-nav [data-cta="1"]{ font-size:11px!important; letter-spacing:.5px!important; padding:9px 15px!important; white-space:nowrap!important; box-shadow:0 4px 14px rgba(255,56,75,.32)!important; }
+  }
   @media (max-width:768px){
     #dc-root nav{ padding-left:16px!important; padding-right:16px!important; }
     #dc-root nav img{ height:46px!important; }
@@ -49,8 +56,8 @@
   @media (max-width:600px){
     #manifesto h2{ font-size:32px!important; }
     #top{ padding-top:120px!important; }
-    /* Hero heading: fit "Java for the AI world" on one line -> 3 lines total */
-    #top h1{ font-size:25px!important; letter-spacing:-.5px!important; }
+    /* Hero heading: fit "Gujarat's Biggest" on one line -> 3 lines total */
+    #top h1{ font-size:26px!important; letter-spacing:-.5px!important; }
     /* swipeable sliders for people / card rows */
     #dc-root [style*="repeat(4, minmax(0px, 1fr)"],
     #dc-root [style*="repeat(5, minmax(0px, 1fr)"],
@@ -100,21 +107,58 @@
     #dc-root nav{ top:0!important; }
     /* Trim side gutters */
     #top{ padding-top:140px!important; padding-left:16px!important; padding-right:16px!important; }
-    #dc-root section{ padding-left:16px!important; padding-right:16px!important; padding-top:40px!important; padding-bottom:40px!important; margin-top:0!important; }
-    #top h1{ font-size:40px!important; }
+    #dc-root section{ padding-left:16px!important; padding-right:16px!important; padding-top:36px!important; padding-bottom:36px!important; margin-top:0!important; }
+    /* Uniform, tighter heading -> content gap across all sections on mobile */
+    #dc-root [style*="margin-bottom: 44px"],
+    #dc-root [style*="margin-bottom: 48px"],
+    #dc-root [style*="margin-bottom: 50px"],
+    #dc-root [style*="margin-bottom: 52px"],
+    #dc-root [style*="margin-bottom: 54px"],
+    #dc-root [style*="margin-bottom: 56px"],
+    #dc-root [style*="margin-bottom: 60px"],
+    #dc-root [style*="margin-bottom: 64px"]{ margin-bottom:28px!important; }
     #dc-root [data-cta]{ width:100%!important; justify-content:center!important; box-sizing:border-box; }
-    /* Hero CTAs: both full width, stacked */
-    #hero-ctas{ flex-direction:column!important; width:100%!important; }
-    #hero-ctas > a{ width:100%!important; justify-content:center!important; box-sizing:border-box!important; }
+    /* Hero CTAs (Tickets Coming Soon / Become a sponsor) + follow block: hidden on mobile */
+    #hero-ctas{ display:none!important; }
+    #hero-follow{ display:none!important; }
+    /* Hero stats line: allow it to wrap on mobile so it isn't cut off */
+    #hero-stats{ white-space:normal!important; }
+    /* Trim the navy spacer below the hero marquee (110px -> 55px, halved) */
+    #top [style*="height: 110px"]{ height:55px!important; }
+    /* Close the 1px sub-pixel seam under the brick divider above #why:
+       scale the pattern to 48px (container stays 44px) so it crops the seam */
+    #why-divider{ background-size:auto 48px!important; }
+    /* Yellow marquee: tighten the word/letter spacing on mobile */
+    #why [style*="cdj-marquee 28s"] span{ letter-spacing:0!important; word-spacing:-5px!important; }
+    /* Marquee strip: semi-gold instead of bright yellow on mobile */
+    #why [style*="rotate(-3deg)"]{ background:#D4AF37!important; }
+    /* By the numbers cards (mobile): 3px frame around the photo, shorter photo,
+       photo fills its box so every image + card stays the same size */
+    #numbers-grid [data-rot]{ padding:3px!important; }
+    #numbers-grid [data-rot] > div:first-child{ height:180px!important; margin-bottom:8px!important; }
+    #numbers-grid [data-rot] img{ object-fit:cover!important; }
+    /* Manifesto: keep the floating shapes but tuck them into the clear top/bottom
+       edges on mobile so none sit behind the text */
+    #manifesto [data-shape="m1"]{ top:1.5%!important; left:3%!important; }
+    #manifesto [data-shape="m2"]{ top:1.5%!important; right:3%!important; }
+    #manifesto [data-shape="m3"]{ bottom:1.5%!important; right:4%!important; }
+    #manifesto [data-shape="m4"]{ bottom:2%!important; left:4%!important; }
+    #manifesto [data-shape="m5"]{ top:auto!important; bottom:1.5%!important; left:38%!important; }
     #dc-root span[style*="cdj-float1"], #dc-root span[style*="cdj-float2"]{ display:none!important; }
     #top [style*="cdj-marquee 38s"]{ width:100vw!important; margin-left:calc(50% - 50vw)!important; }
-    #cdj-sticky-cta{ display:block!important; }
-    body{ padding-bottom:74px!important; }
-    #dc-root footer{ padding-left:22px!important; padding-right:22px!important; }
+    /* Sticky "Register now" bar removed on mobile */
+    #cdj-sticky-cta{ display:none!important; }
+    #dc-root footer{ padding-left:22px!important; padding-right:22px!important; padding-top:40px!important; }
     #footer-logo{ height:auto!important; width:auto!important; max-width:200px!important; }
     #footer-pattern{ height:84px!important; background-size:auto 84px!important; display:block!important; }
-    /* CFP committee: 2-up on mobile */
+    /* Footer: hide the "Become a sponsor" button on mobile */
+    #dc-root footer a[href="#sponsor"]{ display:none!important; }
+    /* CFP committee (mobile): keep 2 cards per row, but left-align the text +
+       icon and force the name onto a single line */
     #committee-grid{ grid-template-columns:repeat(2,1fr)!important; gap:14px!important; }
+    #committee [style*="padding: 14px 18px 18px"]{ text-align:left!important; }
+    #committee [style*="padding: 14px 18px 18px"] > div:first-child{ white-space:nowrap!important; overflow:hidden!important; text-overflow:ellipsis!important; font-size:13px!important; }
+    #committee [style*="display: flex"][style*="justify-content: center"]{ justify-content:flex-start!important; }
   }
   @media (max-width:600px){
     /* People grids: tidy 2-up, no horizontal slider */
@@ -125,6 +169,9 @@
       grid-template-columns:repeat(2,1fr)!important; grid-auto-columns:auto!important;
       gap:14px!important; overflow:visible!important; scroll-snap-type:none!important; padding-bottom:0!important;
     }
+    /* Core organizers (mobile): keep the name on a single line in the 2-up cards */
+    #organizers-grid [style*="padding: 24px 24px 28px"]{ padding-left:14px!important; padding-right:14px!important; }
+    #organizers-grid [style*="padding: 24px 24px 28px"] > div:first-child{ white-space:nowrap!important; overflow:hidden!important; text-overflow:ellipsis!important; font-size:13px!important; }
     /* Speakers reveal: show all cards per track (2-up), no slider */
     #dc-root #speakers [style*="repeat(4, minmax(0px, 1fr)"]{
       display:grid!important; grid-auto-flow:row!important;
@@ -138,6 +185,8 @@
     #dc-root #schedule-table td{ padding:9px 5px!important; letter-spacing:0!important; font-size:10px!important; word-break:break-word; }
     #dc-root #schedule-table th:first-child,
     #dc-root #schedule-table td:first-child{ width:48px!important; }
+    /* By the numbers: trim the big gap above the heading (130px -> 40px) */
+    #dc-root #numbers{ margin-top:40px!important; }
     /* By the numbers: 2x2, images 40% smaller */
     #dc-root #numbers-grid{ display:grid!important; grid-template-columns:repeat(2,1fr)!important; gap:8px!important; align-items:start!important; }
     #dc-root #numbers-grid > div{ padding:4px!important; margin-left:0!important; width:100%!important; }
@@ -146,7 +195,7 @@
     /* Goodies: lone last card spans full width */
     #dc-root #goodies-grid > div:last-child:nth-child(odd){ grid-column:1 / -1!important; }
     /* Three parallel tracks: vertical stacked cards */
-    #dc-root #moments-head{ padding-top:40px!important; padding-bottom:0!important; }
+    #dc-root #moments-head{ padding-top:40px!important; padding-bottom:18px!important; }
     #dc-root #gallery{ padding-top:0!important; padding-bottom:20px!important; }
     #dc-root #schedule-wrap{ box-shadow:none!important; overflow:visible!important; }
     #dc-root #schedule-table{ font-size:13px!important; background:transparent!important; }
