@@ -3,9 +3,6 @@ import { h } from '../lib/handlers'
 import { SocialLink } from '../lib/icons'
 import { SOCIALS } from '../lib/socials'
 
-const TICKET_MAILTO =
-  'mailto:juggujarat@gmail.com?subject=Community%20Day%20for%20Java%20%E2%80%94%20Ticket%20registration'
-
 /** Links + social handles shown inside the mobile menu panel. */
 const MENU_LINKS = [
   { href: '#why', label: 'Why Attend' },
@@ -64,7 +61,7 @@ export default function Nav() {
       )}
 
       <div id="cdj-sticky-cta" style={{ display: 'none', position: 'fixed', left: '0', right: '0', bottom: '0', zIndex: '300', padding: '10px 14px', background: 'rgba(13,19,70,.94)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-        <a href={TICKET_MAILTO} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '14px', borderRadius: '46px', textDecoration: 'none' }}>Register now →</a>
+        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '14px', borderRadius: '46px', textDecoration: 'none', cursor: 'default' }}>Register now →</span>
       </div>
     </>
   )
