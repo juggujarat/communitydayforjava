@@ -50,7 +50,7 @@ const GOODIES = [
 
 export default function Goodies() {
   return (
-    <section id="goodies" style={{ position: 'relative', padding: '130px 40px 65px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="goodies" style={{ position: 'relative', padding: '78px 40px 44px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '9%', right: '7%', width: '50px', height: '50px', background: '#FF384B', clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.9 }} />
       <span style={{ position: 'absolute', bottom: '13%', left: '6%', width: '34px', height: '34px', borderRadius: '50%', background: '#0D5CDB', animation: 'cdj-float2 8s ease-in-out infinite', opacity: 0.85 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1320px', margin: '0 auto' }}>

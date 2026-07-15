@@ -27,7 +27,7 @@ const VOLUNTEERS: Volunteer[] = [
 /** Volunteers & organisers (#volunteers). */
 export default function Volunteers() {
   return (
-    <section id="volunteers" style={{ position: 'relative', padding: '110px 40px', background: 'radial-gradient(120% 100% at 80% 0%,#1a2670,#0E1667 72%)', overflow: 'hidden' }}>
+    <section id="volunteers" style={{ position: 'relative', padding: '72px 40px', background: 'radial-gradient(120% 100% at 80% 0%,#1a2670,#0E1667 72%)', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '14%', right: '8%', width: '30px', height: '30px', borderRadius: '50%', background: '#02CF70', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.7 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '48px' }}>

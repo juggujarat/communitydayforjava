@@ -1,6 +1,6 @@
 export default function Venue() {
   return (
-    <section id="venue" style={{ position: 'relative', padding: '120px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="venue" style={{ position: 'relative', padding: '74px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '11%', left: '6%', width: '34px', height: '34px', borderRadius: '50%', background: '#0D5CDB', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.8 }} />
       <span style={{ position: 'absolute', bottom: '14%', right: '7%', width: '30px', height: '30px', background: '#7D00BC', clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)', animation: 'cdj-float2 8s ease-in-out infinite', opacity: 0.8 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1140px', margin: '0 auto' }}>

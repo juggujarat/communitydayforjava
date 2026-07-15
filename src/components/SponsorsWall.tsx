@@ -28,7 +28,7 @@ function Slot({ id, label, height, padding, img, alt, href }: { id: string; labe
 
 export default function SponsorsWall() {
   return (
-    <section id="sponsors-wall" style={{ position: 'relative', padding: '110px 40px 55px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="sponsors-wall" style={{ position: 'relative', padding: '72px 40px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1260px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ textAlign: 'center', marginBottom: '50px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Our <span style={{ color: '#0D5CDB' }}>Esteemed</span> <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>Sponsors</span></h2>
