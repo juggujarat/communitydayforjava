@@ -22,7 +22,6 @@ export default function Footer() {
             </div>
             <div style={{ position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)', cursor: 'default' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Tickets Coming Soon</span>
-              <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '15px 26px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
             </div>
             <div style={{ position: 'relative' }}>
               <FollowSocials caption="Registration opens soon — follow us for ticket updates." align="start" />

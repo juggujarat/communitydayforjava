@@ -67,7 +67,7 @@ export default function Agenda() {
   ]
 
   return (
-    <section id="agenda" style={{ position: 'relative', padding: '100px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="agenda" style={{ position: 'relative', padding: '66px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto' }}>
 
         {/* Heading */}

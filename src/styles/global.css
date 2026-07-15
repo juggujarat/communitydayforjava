@@ -153,8 +153,6 @@
     #dc-root footer{ padding-left:22px!important; padding-right:22px!important; padding-top:40px!important; }
     #footer-logo{ height:auto!important; width:auto!important; max-width:200px!important; }
     #footer-pattern{ height:84px!important; background-size:auto 84px!important; display:block!important; }
-    /* Footer: hide the "Become a sponsor" button on mobile */
-    #dc-root footer a[href="#sponsor"]{ display:none!important; }
     /* CFP committee (mobile): keep 2 cards per row, but left-align the text +
        icon and force the name onto a single line */
     #committee-grid{ grid-template-columns:repeat(2,1fr)!important; gap:14px!important; }

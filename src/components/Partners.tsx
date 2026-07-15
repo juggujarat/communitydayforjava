@@ -20,7 +20,7 @@ const JUGS: Logo[] = [
 /** Partnering JUGs across India (#partners). */
 export default function Partners() {
   return (
-    <section id="partners" style={{ position: 'relative', padding: '55px 40px 110px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="partners" style={{ position: 'relative', padding: '40px 40px 72px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', bottom: '16%', right: '8%', width: '30px', height: '30px', background: '#7D00BC', clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)', animation: 'cdj-float2 9s ease-in-out infinite', opacity: 0.8 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '44px' }}>

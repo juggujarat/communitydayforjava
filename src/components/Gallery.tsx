@@ -19,7 +19,7 @@ const SHOTS: Shot[] = [
 export default function Gallery() {
   return (
     <>
-      <section id="moments-head" style={{ position: 'relative', background: '#0E1667', padding: '60px 40px 0', textAlign: 'center' }}>
+      <section id="moments-head" style={{ position: 'relative', background: '#0E1667', padding: '44px 40px 0', textAlign: 'center' }}>
         <div data-reveal>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,58px)', color: '#fff', letterSpacing: '-1.5px', lineHeight: 1 }}>Moments from <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FEC400' }}>2025</span></h2>
         </div>
