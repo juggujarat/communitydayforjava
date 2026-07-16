@@ -13,7 +13,6 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Manifesto from './components/Manifesto'
 import WhyImpact from './components/WhyImpact'
-import Goodies from './components/Goodies'
 import Speakers from './components/Speakers'
 import Venue from './components/Venue'
 import Agenda from './components/Agenda'
@@ -40,7 +39,6 @@ export default function App() {
         <Manifesto />
         <BrickDivider id="why-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <WhyImpact />
-        <Goodies />
         <Speakers />
         <Venue />
         <BrickDivider src={A['e0f3170a-da96-4958-b4c8-964bccaa271d']} />

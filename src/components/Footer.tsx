@@ -1,8 +1,8 @@
 import { h } from '../lib/handlers'
 import { A } from '../lib/assets'
 import BrickDivider from './BrickDivider'
-import { TICKET_MAILTO } from '../lib/links'
 import FollowSocials from './FollowSocials'
+import { TICKETS_COMING_SOON, TICKETS_UPDATE_CAPTION } from '../lib/links'
 
 const bigSpan: React.CSSProperties = {
   fontWeight: 800, fontSize: 'clamp(44px,13vw,200px)', lineHeight: 0.9, letterSpacing: '-4px',
@@ -22,11 +22,11 @@ export default function Footer() {
               <h2 style={{ margin: 0, fontWeight: 600, fontSize: 'clamp(30px,3.6vw,52px)', lineHeight: 1.04, letterSpacing: '-1.5px', color: '#fff' }}>Let's build the <span style={{ color: '#FEC400' }}>future of Java</span>, together.</h2>
             </div>
             <div style={{ position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
-              <a href={TICKET_MAILTO} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Tickets Coming Soon</a>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', cursor: 'default', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1">{TICKETS_COMING_SOON}</span>
               <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '15px 26px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
             </div>
             <div style={{ position: 'relative' }}>
-              <FollowSocials caption="Registration opens soon — follow us for ticket updates." align="start" />
+              <FollowSocials caption={TICKETS_UPDATE_CAPTION} align="start" />
             </div>
           </div>
           <div style={{ position: 'relative', minHeight: '300px' }}>

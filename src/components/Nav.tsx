@@ -2,18 +2,15 @@ import { useState } from 'react'
 import { h } from '../lib/handlers'
 import { SocialLink } from '../lib/icons'
 import { SOCIALS } from '../lib/socials'
-
-const TICKET_MAILTO =
-  'mailto:juggujarat@gmail.com?subject=Community%20Day%20for%20Java%20%E2%80%94%20Ticket%20registration'
+import { TICKETS_COMING_SOON } from '../lib/links'
 
 /** Links + social handles shown inside the mobile menu panel. */
 const MENU_LINKS = [
-  { href: '#why', label: 'Why Attend' },
   { href: '#speakers', label: 'Speakers' },
   { href: '#venue', label: 'Venue' },
-  { href: '#agenda', label: 'Agenda' },
-  { href: '#sponsor', label: 'Sponsor' },
-  { href: '#partners', label: 'Partners' },
+  { href: '#agenda', label: 'Tracks' },
+  { href: '#sponsors-wall', label: 'Sponsor' },
+  { href: '#organizers', label: 'Organizers' },
 ]
 
 /** Announcement bar + fixed nav + mobile sticky CTA + mobile menu. */
@@ -29,12 +26,11 @@ export default function Nav() {
         </a>
         <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
           <div id="cdj-nav-links" style={{ display: 'none', alignItems: 'center', gap: '28px' }}>
-            <a href="#why" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Why</a>
             <a href="#speakers" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Speakers</a>
             <a href="#venue" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Venue</a>
-            <a href="#agenda" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Agenda</a>
-            <a href="#sponsor" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Sponsor</a>
-            <a href="#partners" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Partners</a>
+            <a href="#agenda" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Tracks</a>
+            <a href="#sponsors-wall" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Sponsor</a>
+            <a href="#organizers" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Organizers</a>
           </div>
           <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '13px', letterSpacing: '1px', padding: '11px 20px', borderRadius: '40px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(255,56,75,.34)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Become Sponsor</a>
           <button id="cdj-burger" type="button" aria-label="Open menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} style={{ display: 'none', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', padding: '6px', margin: 0, lineHeight: 0 }}>
@@ -64,7 +60,7 @@ export default function Nav() {
       )}
 
       <div id="cdj-sticky-cta" style={{ display: 'none', position: 'fixed', left: '0', right: '0', bottom: '0', zIndex: '300', padding: '10px 14px', background: 'rgba(13,19,70,.94)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-        <a href={TICKET_MAILTO} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '14px', borderRadius: '46px', textDecoration: 'none' }}>Register now →</a>
+        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '14px', borderRadius: '46px', cursor: 'default' }}>{TICKETS_COMING_SOON}</span>
       </div>
     </>
   )
