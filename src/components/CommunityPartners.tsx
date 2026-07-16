@@ -20,7 +20,7 @@ const COMMUNITIES: Logo[] = [
 /** Community partners — tech communities across Gujarat (#community-partners). */
 export default function CommunityPartners() {
   return (
-    <section id="community-partners" style={{ position: 'relative', padding: '110px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="community-partners" style={{ position: 'relative', padding: '72px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '14%', left: '7%', width: '28px', height: '28px', borderRadius: '50%', background: '#02CF70', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.8 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '44px' }}>

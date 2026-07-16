@@ -16,7 +16,7 @@ const WHATSAPP =
 /** Sponsorship opportunities (#sponsor): embedded Google Slides deck. */
 export default function Sponsor() {
   return (
-    <section id="sponsor" style={{ position: 'relative', padding: '130px 40px', background: '#0A0E3A', overflow: 'hidden' }}>
+    <section id="sponsor" style={{ position: 'relative', padding: '78px 40px', background: '#0A0E3A', overflow: 'hidden' }}>
       <SponsorShapes />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto' }}>
         <div data-reveal style={{ textAlign: 'center', marginBottom: '56px' }}>

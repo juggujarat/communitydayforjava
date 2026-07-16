@@ -124,6 +124,8 @@
     #why [style*="cdj-marquee 28s"] span{ letter-spacing:0!important; word-spacing:-5px!important; }
     /* Marquee strip: semi-gold instead of bright yellow on mobile */
     #why [style*="rotate(-3deg)"]{ background:#D4AF37!important; }
+    /* Impact cards: single full-width column so the 380px min doesn't overflow */
+    #why [style*="minmax(380px"]{ grid-template-columns:1fr!important; }
     /* By the numbers cards (mobile): 3px frame around the photo, shorter photo,
        photo fills its box so every image + card stays the same size */
     #numbers-grid [data-rot]{ padding:3px!important; }
@@ -143,8 +145,6 @@
     #dc-root footer{ padding-left:22px!important; padding-right:22px!important; padding-top:40px!important; }
     #footer-logo{ height:auto!important; width:auto!important; max-width:200px!important; }
     #footer-pattern{ height:84px!important; background-size:auto 84px!important; display:block!important; }
-    /* Footer: hide the "Become a sponsor" button on mobile */
-    #dc-root footer a[href="#sponsor"]{ display:none!important; }
     /* CFP committee (mobile): keep 2 cards per row, but left-align the text +
        icon and force the name onto a single line */
     #committee-grid{ grid-template-columns:repeat(2,1fr)!important; gap:14px!important; }

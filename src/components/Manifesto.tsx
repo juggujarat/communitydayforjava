@@ -11,7 +11,7 @@ const PROOFS = [
 /** Manifesto / single-claim "why Java, why now" statement section (#manifesto). */
 export default function Manifesto() {
   return (
-    <section id="manifesto" style={{ position: 'relative', padding: '150px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="manifesto" style={{ position: 'relative', padding: '80px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <ManifestoShapes />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
         <h2 data-reveal data-reveal-d="60" style={{ margin: 0, fontWeight: 500, lineHeight: 1.05, letterSpacing: '-2px', fontSize: 'clamp(34px,5.6vw,64px)' }}>

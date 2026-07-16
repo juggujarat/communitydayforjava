@@ -73,7 +73,7 @@ const marqueeSpan: React.CSSProperties = {
 /** Why-attend impact grid + rotating marquee + By-the-numbers stat cards (#why). */
 export default function WhyImpact() {
   return (
-    <section id="why" style={{ position: 'relative', padding: '130px 40px', background: '#0E1667', overflow: 'hidden' }}>
+    <section id="why" style={{ position: 'relative', padding: '78px 40px', background: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1140px', margin: '0 auto' }}>
         <div data-reveal style={{ textAlign: 'center', maxWidth: '660px', margin: '0 auto 56px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>An action-packed day of learning, networking &amp; <span style={{ color: '#02CF70' }}>code.</span></h2>

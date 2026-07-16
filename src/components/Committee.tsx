@@ -19,7 +19,7 @@ const MEMBERS: Member[] = [
 /** CFP review committee (#committee). */
 export default function Committee() {
   return (
-    <section id="committee" style={{ position: 'relative', padding: '120px 40px', background: 'radial-gradient(120% 100% at 20% 0%,#1a2670,#0E1667 72%)', overflow: 'hidden' }}>
+    <section id="committee" style={{ position: 'relative', padding: '74px 40px', background: 'radial-gradient(120% 100% at 20% 0%,#1a2670,#0E1667 72%)', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '13%', right: '8%', width: '30px', height: '30px', borderRadius: '50%', background: '#0D5CDB', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.7 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1180px', margin: '0 auto' }}>
         <div data-reveal style={{ textAlign: 'center', marginBottom: '50px' }}>
