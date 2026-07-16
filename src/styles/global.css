@@ -87,14 +87,6 @@
     /* logo + sponsor grids just stack */
     #dc-root [style*="minmax(170px, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
     #dc-root [style*="minmax(320px, 1fr)"]{ grid-template-columns:1fr!important; }
-    /* Goodies: normal grid on mobile (no slider) */
-    #goodies-grid{ display:grid!important; grid-auto-flow:row!important; grid-template-columns:repeat(2,1fr)!important; grid-auto-columns:auto!important; overflow:visible!important; scroll-snap-type:none!important; padding-bottom:0!important; }
-    /* Gallery: static 2-col photo grid on mobile (no scroll-zoom) */
-    #gallery{ height:auto!important; }
-    #gallery [data-zoomstage]{ position:static!important; height:auto!important; display:grid!important; grid-template-columns:repeat(2,1fr)!important; gap:10px!important; padding:4px 16px 8px!important; overflow:visible!important; }
-    #gallery [data-zoomimg]{ position:static!important; inset:auto!important; transform:none!important; display:block!important; z-index:auto!important; }
-    #gallery [data-zoomimg] > div{ position:static!important; top:auto!important; left:auto!important; width:100%!important; height:auto!important; aspect-ratio:4/3; border-width:0!important; }
-    #gallery [data-zoomimg] img{ object-fit:cover!important; cursor:zoom-in; }
   }
   @media (max-width:600px){
     /* Green stripe: keep on a single line */
@@ -163,8 +155,7 @@
   @media (max-width:600px){
     /* People grids: tidy 2-up, no horizontal slider */
     #dc-root #organizers-grid,
-    #dc-root #volunteers-grid,
-    #dc-root #goodies-grid{
+    #dc-root #volunteers-grid{
       display:grid!important; grid-auto-flow:row!important;
       grid-template-columns:repeat(2,1fr)!important; grid-auto-columns:auto!important;
       gap:14px!important; overflow:visible!important; scroll-snap-type:none!important; padding-bottom:0!important;
@@ -172,12 +163,6 @@
     /* Core organizers (mobile): keep the name on a single line in the 2-up cards */
     #organizers-grid [style*="padding: 24px 24px 28px"]{ padding-left:14px!important; padding-right:14px!important; }
     #organizers-grid [style*="padding: 24px 24px 28px"] > div:first-child{ white-space:nowrap!important; overflow:hidden!important; text-overflow:ellipsis!important; font-size:13px!important; }
-    /* Speakers reveal: show all cards per track (2-up), no slider */
-    #dc-root #speakers [style*="repeat(4, minmax(0px, 1fr)"]{
-      display:grid!important; grid-auto-flow:row!important;
-      grid-template-columns:repeat(2,1fr)!important; grid-auto-columns:auto!important;
-      gap:12px!important; overflow:visible!important; scroll-snap-type:none!important; padding-bottom:0!important;
-    }
     /* Agenda schedule: fully visible, no horizontal scroll */
     #dc-root #schedule-wrap{ overflow:visible!important; overflow-x:visible!important; }
     #dc-root #schedule-table{ min-width:0!important; width:100%!important; table-layout:fixed!important; font-size:10px!important; }
@@ -192,8 +177,6 @@
     #dc-root #numbers-grid > div{ padding:4px!important; margin-left:0!important; width:100%!important; }
     #dc-root #numbers-grid > div > div{ width:100%!important; }
     #dc-root #numbers-grid > div > div > div:first-child{ height:180px!important; }
-    /* Goodies: lone last card spans full width */
-    #dc-root #goodies-grid > div:last-child:nth-child(odd){ grid-column:1 / -1!important; }
     /* Three parallel tracks: vertical stacked cards */
     #dc-root #moments-head{ padding-top:40px!important; padding-bottom:18px!important; }
     #dc-root #gallery{ padding-top:0!important; padding-bottom:20px!important; }

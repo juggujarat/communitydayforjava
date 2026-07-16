@@ -118,53 +118,8 @@ export const NotifyShapes = () => shapeLayer(<>
   {shape({ key: 'n3', size: 26, color: '#02CF70', kind: 'circle', top: '60%', left: '18%', anim: 'cdj-float1', dur: 7, op: .9 })}
 </>)
 
-// Speakers section: three track columns, each with 4 placeholder cards ("to be revealed").
-export function SpeakerCards() {
-  const tracks = [
-    { name: 'Core Java', a: '#FF384B', desc: "A deep dive into modern Java language features, the JVM, performance and what's next." },
-    { name: 'Enterprise & Cloud', a: '#0D5CDB', desc: 'Building resilient, cloud-native enterprise systems with Java, Spring and modern deployment and scaling practices.' },
-    { name: 'Workshops', a: '#02CF70', desc: 'A hands-on, code-first lab session with practical takeaways you can apply the very next day.' },
-  ]
-  const icon = () => (
-    <svg width={42} height={42} viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-      <circle cx={12} cy={8} r={4} />
-      <path d="M12 13.4c-4.2 0-7.6 3.1-7.6 7 0 .3.3.6.6.6h14c.3 0 .6-.3.6-.6 0-3.9-3.4-7-7.6-7z" />
-    </svg>
-  )
-  const card = (t: typeof tracks[0], key: string) => (
-    <div key={key} style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.09)' }}>
-      <div style={{ position: 'relative', height: 150, background: `linear-gradient(150deg, ${t.a}, ${t.a}99)`, overflow: 'hidden', display: 'grid', placeItems: 'center' }}>
-        <div style={{ position: 'absolute', top: -18, right: -18, width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,.16)' }} />
-        <div style={{ position: 'absolute', bottom: -16, left: -16, width: 70, height: 70, background: 'rgba(0,0,0,.12)', clipPath: 'polygon(0 0,100% 100%,0 100%)' }} />
-        <div style={{ width: 74, height: 74, borderRadius: '50%', border: '3px dashed rgba(255,255,255,.7)', display: 'grid', placeItems: 'center' }}>{icon()}</div>
-      </div>
-      <div style={{ padding: '18px 20px' }}>
-        <div style={{ fontWeight: 800, fontSize: 17, color: '#fff' }}>To be revealed</div>
-        <div style={{ fontSize: 16, color: '#fff', fontWeight: 500, marginTop: 6 }}>Talk title coming soon</div>
-        <div style={{ fontSize: 16, color: '#a8b0e0', marginTop: 10, lineHeight: 1.5 }}>{t.desc}</div>
-      </div>
-    </div>
-  )
-  return (
-    <>
-      {tracks.map((t, ti) => (
-        <div key={'trk' + ti} data-reveal data-reveal-d={String(ti * 60)}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
-            <span style={{ width: 13, height: 13, borderRadius: 4, background: t.a, flex: 'none' }} />
-            <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700, color: '#fff', letterSpacing: '.5px' }}>{t.name}</h3>
-            <span style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.12)' }} />
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0px, 1fr))', gap: 18 }}>
-            {[0, 1, 2, 3].map((i) => card(t, 'c' + ti + '_' + i))}
-          </div>
-        </div>
-      ))}
-    </>
-  )
-}
-
 export function Ticker() {
-  const items = ['ONE DAY', '600+ INNOVATORS', 'THE FUTURE OF JAVA', '3 PARALLEL TRACKS', '11 SESSIONS', '12+ SPEAKERS', 'HANDS-ON LABS', 'AHMEDABAD 2026']
+  const items = ['ONE DAY', '600+ INNOVATORS', 'THE FUTURE OF JAVA', '3 PARALLEL TRACKS', '20+ SPEAKERS', 'HANDS-ON LABS', 'AHMEDABAD 2026']
   const seq: React.ReactNode[] = []
   items.concat(items).forEach((t, i) => {
     seq.push(<span key={'ti' + i} style={{ fontWeight: 900, fontSize: 18, letterSpacing: '-.5px', textTransform: 'uppercase' }}>{t}</span>)

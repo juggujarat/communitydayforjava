@@ -24,14 +24,14 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Dhanani Tanvir', role: 'Backend Developer', org: 'IBM', img: '/assets/Dhanani Tanvir.png', bg: '#02CF70', pos: '50% 22%', scale: 1.9, origin: 'center center', socials: [li('Dhanani Tanvir', 'https://www.linkedin.com/in/tanvirdhanani')] },
 ]
 
-/** Volunteers & organisers (#volunteers). */
+/** Our Volunteers (#volunteers). */
 export default function Volunteers() {
   return (
     <section id="volunteers" style={{ position: 'relative', padding: '72px 40px', background: 'radial-gradient(120% 100% at 80% 0%,#1a2670,#0E1667 72%)', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '14%', right: '8%', width: '30px', height: '30px', borderRadius: '50%', background: '#02CF70', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.7 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '48px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Volunteers &amp; <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FEC400' }}>organisers</span></h2>
+          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Our <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FEC400' }}>Volunteers</span></h2>
           <p style={{ margin: '16px auto 0', maxWidth: '520px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>Community Day for Java runs on the energy of volunteers who make the day happen.</p>
         </div>
         <div id="volunteers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px, 1fr))', gap: '34px 24px', maxWidth: '1080px', margin: '0 auto' }}>

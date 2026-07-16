@@ -1,5 +1,6 @@
 import { h } from '../lib/handlers'
 import FollowSocials from './FollowSocials'
+import { TICKETS_COMING_SOON, TICKETS_UPDATE_CAPTION } from '../lib/links'
 
 const MARQUEE = [
   { src: '/assets/a9f77f1d-2ab1-4ba1-bfe1-83eb58901df7.jpg', alt: 'CDJ 2025 audience' },
@@ -25,13 +26,13 @@ export default function Hero() {
           <strong id="hero-stats" style={{ color: '#fff', whiteSpace: 'nowrap' }}>600+ Java Developers • 20+ Expert Speakers • 3 Parallel Tracks</strong><br />Built by the community, for the community.
         </p>
 
-        <div id="hero-ctas" data-reveal data-reveal-d="220" style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'center' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '13px 28px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)', cursor: 'default' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Tickets Coming Soon</span>
-          <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: '700', fontSize: '15px', padding: '13px 28px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
+        <div id="hero-ctas" data-reveal data-reveal-d="220" style={{ marginTop: '36px', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'center' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', cursor: 'default', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1">{TICKETS_COMING_SOON}</span>
+          <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: '700', fontSize: '15px', padding: '16px 30px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
         </div>
 
-        <div id="hero-follow" data-reveal data-reveal-d="250" style={{ marginTop: '16px' }}>
-          <FollowSocials caption="Registration opens soon — follow us for ticket updates." />
+        <div id="hero-follow" data-reveal data-reveal-d="250" style={{ marginTop: '26px' }}>
+          <FollowSocials caption={TICKETS_UPDATE_CAPTION} />
         </div>
 
         <div data-reveal data-reveal-d="260" style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>

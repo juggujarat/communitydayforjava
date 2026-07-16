@@ -81,24 +81,6 @@ export function useDCEffects() {
         const prog = 1 - Math.min(1, Math.max(0, (r.top + r.height) / (vh + r.height)))
         img.style.transform = `scale(${(1.04 + prog * 0.16).toFixed(3)})`
       })
-      const zsec = document.getElementById('gallery')
-      if (zsec && window.innerWidth > 768) {
-        const zr = zsec.getBoundingClientRect()
-        const total = zsec.offsetHeight - vh
-        const p = total > 0 ? Math.min(1, Math.max(0, -zr.top / total)) : 0
-        const stage = zsec.querySelector('[data-zoomstage]') as HTMLElement | null
-        if (stage) {
-          if (p <= 0) { stage.style.position = 'absolute'; stage.style.top = '0'; stage.style.bottom = 'auto' }
-          else if (p >= 1) { stage.style.position = 'absolute'; stage.style.top = 'auto'; stage.style.bottom = '0' }
-          else { stage.style.position = 'fixed'; stage.style.top = '0'; stage.style.bottom = 'auto'; stage.style.left = '0'; stage.style.width = '100%' }
-        }
-        zsec.querySelectorAll<HTMLElement>('[data-zoomimg]').forEach((el) => {
-          const f = parseFloat(el.dataset.zoomimg || '4') || 4
-          el.style.transform = `scale(${(1 + (f - 1) * p).toFixed(3)})`
-        })
-        const cap = zsec.querySelector('[data-zoomcap]') as HTMLElement | null
-        if (cap) cap.style.opacity = String(Math.max(0, 1 - p * 3.2))
-      }
     }
 
     const revealAll = () => {
@@ -148,7 +130,6 @@ export function useDCEffects() {
       const gal = document.getElementById('gallery')
       if (gal) {
         gal.addEventListener('click', (e) => {
-          if (window.innerWidth > 768) return
           const t = (e.target as HTMLElement).closest('img') as HTMLImageElement | null
           if (!t) return
           img.src = t.src; ov.style.display = 'flex'; document.body.style.overflow = 'hidden'
