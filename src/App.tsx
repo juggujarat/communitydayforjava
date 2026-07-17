@@ -12,17 +12,17 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Manifesto from './components/Manifesto'
-import WhyImpact from './components/WhyImpact'
-import Speakers from './components/Speakers'
 import Venue from './components/Venue'
 import Agenda from './components/Agenda'
-import Committee from './components/Committee'
-import Organizers from './components/Organizers'
+import WhyImpact from './components/WhyImpact'
 import Gallery from './components/Gallery'
-import Sponsor from './components/Sponsor'
+import Speakers from './components/Speakers'
 import SponsorsWall from './components/SponsorsWall'
+import Sponsor from './components/Sponsor'
 import Partners from './components/Partners'
 import CommunityPartners from './components/CommunityPartners'
+import Organizers from './components/Organizers'
+import Committee from './components/Committee'
 import Volunteers from './components/Volunteers'
 import Footer from './components/Footer'
 import BrickDivider from './components/BrickDivider'
@@ -37,22 +37,25 @@ export default function App() {
         <Nav />
         <Hero />
         <Manifesto />
+        <BrickDivider id="venue-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
+        <Venue />
+        <Agenda />
         <BrickDivider id="why-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <WhyImpact />
-        <Speakers />
-        <Venue />
-        <BrickDivider src={A['e0f3170a-da96-4958-b4c8-964bccaa271d']} />
-        <Agenda />
-        <Committee />
-        <Organizers />
         <Gallery />
-        <Sponsor />
-        <BrickDivider src={A['8cb11cf6-f516-467b-8a0f-27f4125d339f']} />
+        <BrickDivider id="speakers-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
+        <Speakers />
         <SponsorsWall />
+        <BrickDivider id="sponsor-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
+        <Sponsor />
         <Partners />
         <CommunityPartners />
-        <BrickDivider src={A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']} />
+        <BrickDivider src={A['8cb11cf6-f516-467b-8a0f-27f4125d339f']} />
+        <Organizers />
+        <Committee />
+        <BrickDivider id="volunteers-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <Volunteers />
+        <BrickDivider src={A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']} />
         <Footer />
       </div>
     </div>

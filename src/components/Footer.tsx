@@ -5,10 +5,10 @@ import FollowSocials from './FollowSocials'
 import { TICKETS_COMING_SOON, TICKETS_UPDATE_CAPTION } from '../lib/links'
 
 const bigSpan: React.CSSProperties = {
-  fontWeight: 800, fontSize: 'clamp(44px,13vw,200px)', lineHeight: 0.9, letterSpacing: '-4px',
+  fontWeight: 800, fontSize: 'clamp(22px,3.2vw,52px)', lineHeight: 0.9, letterSpacing: '-1px',
   color: 'transparent', WebkitTextStroke: '2px rgba(255,255,255,.22)', paddingRight: '.4em',
 }
-const MARQUEE = 'Join the Biggest Java Community Event in Gujarat! · '
+const MARQUEE = 'Join the Biggest Java Community Conference in Gujarat! · '
 
 export default function Footer() {
   return (
@@ -36,8 +36,11 @@ export default function Footer() {
         </div>
 
         <div style={{ padding: '20px 0 28px', borderTop: '1px solid rgba(255,255,255,.08)', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: '12px', color: '#8890c8' }}>© 2026 Gujarat JUG · Community Day for Java</div>
-          <div style={{ fontSize: '12px', color: '#8890c8' }}>Built by the community, for the community.</div>
+          <div style={{ fontSize: '12px', color: '#8890c8' }}>© 2026 Community Day for Java</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <img src="/assets/48ee4d89-31eb-41e2-925d-db02be348059.svg" alt="Java User Group Gujarat" style={{ height: '22px', width: 'auto', display: 'block' }} />
+            <span style={{ fontSize: '12px', color: '#8890c8' }}>Organized by <a href="https://www.gujaratjug.org" target="_blank" rel="noopener noreferrer" style={{ color: '#8890c8', fontWeight: 700 }}>Java User Group Gujarat</a></span>
+          </div>
         </div>
       </div>
 
@@ -47,7 +50,7 @@ export default function Footer() {
           <span style={bigSpan}>{MARQUEE}</span>
         </div>
       </div>
-      <BrickDivider id="footer-pattern" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} height={120} fullBleed />
+      <BrickDivider id="footer-pattern" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} height={40} fullBleed />
     </footer>
   )
 }

@@ -26,6 +26,11 @@ export default function Hero() {
           <strong id="hero-stats" style={{ color: '#fff', whiteSpace: 'nowrap' }}>600+ Java Developers • 20+ Expert Speakers • 3 Parallel Tracks</strong><br />Built by the community, for the community.
         </p>
 
+        <div data-reveal data-reveal-d="190" style={{ marginTop: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 18px', borderRadius: '30px', background: 'rgba(254,196,0,.12)', border: '1px solid rgba(254,196,0,.3)' }}>
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FEC400', display: 'inline-block', animation: 'cdj-pulse 2s ease-in-out infinite' }} />
+          <span style={{ fontSize: '13px', fontWeight: 600, color: '#FEC400', letterSpacing: '.2px' }}>Venue & Date to be announced soon</span>
+        </div>
+
         <div id="hero-ctas" data-reveal data-reveal-d="220" style={{ marginTop: '36px', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'center' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', cursor: 'default', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1">{TICKETS_COMING_SOON}</span>
           <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: '700', fontSize: '15px', padding: '16px 30px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
