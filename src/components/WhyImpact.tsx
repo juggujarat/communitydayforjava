@@ -70,37 +70,11 @@ const marqueeSpan: React.CSSProperties = {
   letterSpacing: '1px', color: '#0E1667', textTransform: 'uppercase', paddingRight: '36px',
 }
 
-/** Why-attend impact grid + rotating marquee + By-the-numbers stat cards (#why). */
+/** By-the-numbers stat cards + rotating marquee + Why-attend impact grid (#why). */
 export default function WhyImpact() {
   return (
     <section id="why" style={{ position: 'relative', padding: '78px 40px', background: '#0E1667', overflow: 'hidden' }}>
-      <div style={{ position: 'relative', zIndex: 3, maxWidth: '1140px', margin: '0 auto' }}>
-        <div data-reveal style={{ textAlign: 'center', maxWidth: '660px', margin: '0 auto 56px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>An action-packed day of learning, networking &amp; <span style={{ color: '#02CF70' }}>code.</span></h2>
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px' }}>
-          {IMPACT.map((c, i) => (
-            <div key={i} data-reveal data-reveal-d={String(c.d)} style={{ flex: '1 1 340px', maxWidth: '360px', minWidth: '280px', display: 'flex', gap: '20px', alignItems: 'flex-start', padding: '28px 30px', borderRadius: '20px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)' }} onMouseEnter={h.cardOn} onMouseLeave={h.cardOff}>
-              <div style={{ flex: 'none', width: '48px', height: '48px', borderRadius: '14px', background: c.bg, display: 'grid', placeItems: 'center', color: c.color }}>{c.icon}</div>
-              <div>
-                <h3 style={{ margin: '0 0 6px', fontSize: '19px', fontWeight: 500 }}>{c.title}</h3>
-                <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.55, color: '#a8b0e0' }}>{c.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div style={{ position: 'relative', zIndex: 5, margin: '64px 0 24px' }}>
-        <div style={{ transform: 'rotate(-3deg)', background: '#FEC400', padding: '15px 0', width: '120%', marginLeft: '-10%', overflow: 'hidden' }}>
-          <div style={{ display: 'inline-flex', whiteSpace: 'nowrap', animation: 'cdj-marquee 28s linear infinite', willChange: 'transform' }}>
-            <span style={marqueeSpan}>{MARQUEE_TXT}</span>
-            <span style={marqueeSpan}>{MARQUEE_TXT}</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="numbers" data-reveal style={{ textAlign: 'center', margin: '130px 0 46px' }}>
+      <div id="numbers" data-reveal style={{ textAlign: 'center', margin: '0 0 46px' }}>
         <h2 style={{ margin: 0, fontWeight: 600, fontSize: 'clamp(30px,4.4vw,52px)', lineHeight: 1, letterSpacing: '-1.5px', color: '#fff' }}>By the <span style={{ color: '#FEC400' }}>numbers</span></h2>
       </div>
       <div id="numbers-grid" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
@@ -115,6 +89,32 @@ export default function WhyImpact() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 5, margin: '64px 0 24px' }}>
+        <div style={{ transform: 'rotate(-3deg)', background: '#FEC400', padding: '15px 0', width: '120%', marginLeft: '-10%', overflow: 'hidden' }}>
+          <div style={{ display: 'inline-flex', whiteSpace: 'nowrap', animation: 'cdj-marquee 28s linear infinite', willChange: 'transform' }}>
+            <span style={marqueeSpan}>{MARQUEE_TXT}</span>
+            <span style={marqueeSpan}>{MARQUEE_TXT}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 3, maxWidth: '1140px', margin: '56px auto 0' }}>
+        <div data-reveal style={{ textAlign: 'center', maxWidth: '660px', margin: '0 auto 56px' }}>
+          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>An action-packed day of learning, networking &amp; <span style={{ color: '#02CF70' }}>code.</span></h2>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px' }}>
+          {IMPACT.map((c, i) => (
+            <div key={i} data-reveal data-reveal-d={String(c.d)} style={{ flex: '1 1 340px', maxWidth: '360px', minWidth: '280px', display: 'flex', gap: '20px', alignItems: 'flex-start', padding: '28px 30px', borderRadius: '20px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)' }} onMouseEnter={h.cardOn} onMouseLeave={h.cardOff}>
+              <div style={{ flex: 'none', width: '48px', height: '48px', borderRadius: '14px', background: c.bg, display: 'grid', placeItems: 'center', color: c.color }}>{c.icon}</div>
+              <div>
+                <h3 style={{ margin: '0 0 6px', fontSize: '19px', fontWeight: 500 }}>{c.title}</h3>
+                <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.55, color: '#a8b0e0' }}>{c.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

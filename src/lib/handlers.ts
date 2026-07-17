@@ -67,7 +67,7 @@ export const h = {
   galOff: (e: ME) => {
     const c = el(e).firstElementChild as HTMLElement | null
     if (c) c.style.transform = 'none'
-    el(e).style.borderColor = 'rgba(255,255,255,.08)'
+    el(e).style.borderColor = 'rgba(14,22,103,.08)'
   },
   mqPause: (e: ME) => { el(e).style.animationPlayState = 'paused' },
   mqPlay: (e: ME) => { el(e).style.animationPlayState = 'running' },

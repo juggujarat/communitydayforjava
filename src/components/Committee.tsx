@@ -19,28 +19,27 @@ const MEMBERS: Member[] = [
 /** CFP review committee (#committee). */
 export default function Committee() {
   return (
-    <section id="committee" style={{ position: 'relative', padding: '74px 40px', background: 'radial-gradient(120% 100% at 20% 0%,#1a2670,#0E1667 72%)', overflow: 'hidden' }}>
+    <section id="committee" style={{ position: 'relative', padding: '74px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '13%', right: '8%', width: '30px', height: '30px', borderRadius: '50%', background: '#0D5CDB', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.7 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1180px', margin: '0 auto' }}>
         <div data-reveal style={{ textAlign: 'center', marginBottom: '50px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>CFP review <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FEC400' }}>committee</span></h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '820px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>Experienced engineers and community leaders curating the 2026 talk lineup.</p>
+          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>CFP review <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>committee</span></h2>
+          <p style={{ margin: '16px auto 0', maxWidth: '820px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>Experienced engineers and community leaders curating the 2026 talk lineup.</p>
         </div>
         <div id="committee-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '22px' }}>
           {MEMBERS.map((m, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.05)', border: '1.5px solid rgba(254,196,0,.4)', borderRadius: '26px', overflow: 'hidden', boxShadow: '0 26px 60px rgba(0,0,0,.45)', display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <div key={i} style={{ background: '#fff', border: '1px solid rgba(14,22,103,.08)', borderRadius: '26px', overflow: 'hidden', boxShadow: '0 16px 40px rgba(14,22,103,.12)', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ aspectRatio: '1/1', position: 'relative', overflow: 'hidden', background: m.grad }}>
                 <img src={m.img} alt={m.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: m.pos }} />
               </div>
               <div style={{ padding: '14px 18px 18px', textAlign: 'center', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <div style={{ fontWeight: 800, fontSize: '19px', color: '#fff', lineHeight: 1.2, letterSpacing: '-.3px' }}>{m.name}</div>
-                <div style={{ fontSize: '13.5px', color: '#FEC400', fontWeight: 700, marginTop: '6px' }}>{m.role}</div>
-                <div style={{ fontSize: '12.5px', color: '#9aa3d6', marginTop: '4px' }}>{m.org}</div>
-                <div className="committee-bio" style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#aab2e0', marginTop: '12px', textWrap: 'pretty' as React.CSSProperties['textWrap'] }}>{m.bio}</div>
-                {/* <SocialRow socials={m.socials} variant="dark" /> */}
+                <div style={{ fontWeight: 800, fontSize: '19px', color: '#0E1667', lineHeight: 1.2, letterSpacing: '-.3px' }}>{m.name}</div>
+                <div style={{ fontSize: '13.5px', color: '#0D5CDB', fontWeight: 700, marginTop: '6px' }}>{m.role}</div>
+                <div style={{ fontSize: '12.5px', color: '#6b73a8', marginTop: '4px' }}>{m.org}</div>
+                <div className="committee-bio" style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#42498a', marginTop: '12px', textWrap: 'pretty' as React.CSSProperties['textWrap'] }}>{m.bio}</div>
                 {/* Only LinkedIn is shown for now — drop X / website icons: */}
                 <div style={{ marginTop: 'auto' }}>
-                  <SocialRow socials={m.socials.filter((s) => s.type === 'linkedin')} variant="dark" />
+                  <SocialRow socials={m.socials.filter((s) => s.type === 'linkedin')} variant="light" />
                 </div>
               </div>
             </div>

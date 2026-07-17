@@ -19,13 +19,13 @@ const socials = (o: Organizer): Social[] => [
 /** Core organizers (#organizers). */
 export default function Organizers() {
   return (
-    <section id="organizers" style={{ position: 'relative', padding: '72px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="organizers" style={{ position: 'relative', padding: '72px 40px', background: '#0E1667', color: '#fff', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '12%', left: '7%', width: '34px', height: '34px', borderRadius: '50%', background: '#FEC400', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.8 }} />
       <span style={{ position: 'absolute', bottom: '14%', right: '8%', width: '30px', height: '30px', background: '#FF384B', clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)', animation: 'cdj-float2 8s ease-in-out infinite', opacity: 0.8 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '50px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Core <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FF384B' }}>organizers</span></h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '720px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>The people steering Community Day for Java from the front.</p>
+          <p style={{ margin: '16px auto 0', maxWidth: '720px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>The people steering Community Day for Java from the front.</p>
         </div>
         <div id="organizers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px, 1fr))', gap: '24px' }}>
           {ORGANIZERS.map((o, i) => (

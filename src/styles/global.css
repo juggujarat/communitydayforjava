@@ -4,6 +4,8 @@
 /* ---- App styles (ported verbatim from the original bundle's app <style> block) ---- */
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
+  /* Offset anchor-link scrolling so section tops don't land under the fixed nav */
+  #dc-root section, #dc-root header{ scroll-margin-top:110px; }
   body{ margin:0; background:#131C56; color:#fff; font-family:'Roboto',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   ::selection{ background:#FEC400; color:#0E1667; }
   h1,h2,h3{ text-transform:uppercase; }
@@ -117,9 +119,11 @@
     #hero-stats{ white-space:normal!important; }
     /* Trim the navy spacer below the hero marquee (110px -> 55px, halved) */
     #top [style*="height: 110px"]{ height:55px!important; }
-    /* Close the 1px sub-pixel seam under the brick divider above #why:
-       scale the pattern to 48px (container stays 44px) so it crops the seam */
-    #why-divider{ background-size:auto 48px!important; }
+    /* Close the 1px sub-pixel seam under the brick divider above #why (and the
+       matching ones above #venue, #speakers, #sponsor and #volunteers, same
+       asset): scale the pattern to 48px (container stays 44px) so it crops
+       the seam */
+    #why-divider, #venue-divider, #speakers-divider, #sponsor-divider, #volunteers-divider{ background-size:auto 48px!important; }
     /* Yellow marquee: tighten the word/letter spacing on mobile */
     #why [style*="cdj-marquee 28s"] span{ letter-spacing:0!important; word-spacing:-5px!important; }
     /* Marquee strip: semi-gold instead of bright yellow on mobile */
@@ -144,7 +148,7 @@
     #cdj-sticky-cta{ display:none!important; }
     #dc-root footer{ padding-left:22px!important; padding-right:22px!important; padding-top:40px!important; }
     #footer-logo{ height:auto!important; width:auto!important; max-width:200px!important; }
-    #footer-pattern{ height:84px!important; background-size:auto 84px!important; display:block!important; }
+    #footer-pattern{ height:40px!important; background-size:auto 40px!important; display:block!important; }
     /* CFP committee (mobile): keep 2 cards per row, but left-align the text +
        icon and force the name onto a single line */
     #committee-grid{ grid-template-columns:repeat(2,1fr)!important; gap:14px!important; }
