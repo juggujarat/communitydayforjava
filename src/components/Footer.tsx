@@ -5,8 +5,8 @@ import FollowSocials from './FollowSocials'
 import { TICKETS_COMING_SOON, TICKETS_UPDATE_CAPTION } from '../lib/links'
 
 const bigSpan: React.CSSProperties = {
-  fontWeight: 800, fontSize: 'clamp(22px,3.2vw,52px)', lineHeight: 0.9, letterSpacing: '-1px',
-  color: 'transparent', WebkitTextStroke: '2px rgba(255,255,255,.22)', paddingRight: '.4em',
+  fontFamily: "'Bungee',cursive", fontWeight: 400, textTransform: 'uppercase', fontSize: 'clamp(22px,3.2vw,52px)', lineHeight: 0.9, letterSpacing: '.5px',
+  color: 'transparent', WebkitTextStroke: '2px rgba(255,255,255,.3)', paddingRight: '.5em',
 }
 const MARQUEE = 'Join the Biggest Java Community Conference in Gujarat! · '
 
@@ -30,7 +30,7 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ position: 'relative', minHeight: '300px' }}>
-            <img src={A['232c97e2-524f-4bdc-9971-6119b9012aef']} alt="Community Day for Java attendees" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <img src="/assets/footer-team-photo.webp" alt="Community Day for Java attendees" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(110deg,rgba(14,22,103,.55) 0%,rgba(14,22,103,0) 38%)' }} />
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div style={{ position: 'relative', zIndex: 1, marginTop: '10px', overflow: 'hidden', width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
+      <div id="footer-marquee" style={{ position: 'relative', zIndex: 1, marginTop: '10px', overflow: 'hidden', width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
         <div style={{ display: 'inline-flex', whiteSpace: 'nowrap', animation: 'cdj-marquee 24s linear infinite', willChange: 'transform', userSelect: 'none' }}>
           <span style={bigSpan}>{MARQUEE}</span>
           <span style={bigSpan}>{MARQUEE}</span>

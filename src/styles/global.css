@@ -1,5 +1,5 @@
 /* Google Fonts — replaces the design tool's embedded woff2 blobs */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,800&family=Roboto:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,800&family=Roboto:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 /* ---- App styles (ported verbatim from the original bundle's app <style> block) ---- */
   *{ box-sizing:border-box; }
@@ -137,17 +137,36 @@
     #numbers-grid [data-rot] img{ object-fit:cover!important; }
     /* Manifesto: keep the floating shapes but tuck them into the clear top/bottom
        edges on mobile so none sit behind the text */
-    #manifesto [data-shape="m1"]{ top:1.5%!important; left:3%!important; }
-    #manifesto [data-shape="m2"]{ top:1.5%!important; right:3%!important; }
-    #manifesto [data-shape="m3"]{ bottom:1.5%!important; right:4%!important; }
-    #manifesto [data-shape="m4"]{ bottom:2%!important; left:4%!important; }
-    #manifesto [data-shape="m5"]{ top:auto!important; bottom:1.5%!important; left:38%!important; }
+    /* m1/m2 sit right where the heading starts on short mobile viewports and
+       overlap its first/last letters no matter how far into the corner they're
+       tucked (their own size is taller than the clearance above the heading) —
+       just hide them; they're purely decorative. */
+    #manifesto [data-shape="m1"], #manifesto [data-shape="m2"]{ display:none!important; }
+    /* m3/m4/m5: shrink + tuck further into the corners so they no longer
+       overlap the follow-socials row / caption text below the CTA */
+    #manifesto [data-shape="m3"]{ bottom:1.5%!important; right:3%!important; width:26px!important; height:26px!important; }
+    #manifesto [data-shape="m4"]{ bottom:2%!important; left:3%!important; width:16px!important; height:16px!important; }
+    #manifesto [data-shape="m5"]{ top:auto!important; bottom:4%!important; left:5%!important; width:32px!important; height:32px!important; border-width:4px!important; }
+    /* Proof cards (Enterprise AI shipped / AI running natively / Cloud-native):
+       these are short text blurbs, not photo cards — stack full-width instead
+       of the horizontal swipe-slider so nothing is cropped at the edge. */
+    #manifesto-proofs{ grid-template-columns:1fr!important; grid-auto-flow:row!important; grid-auto-columns:auto!important; overflow-x:visible!important; scroll-snap-type:none!important; padding-bottom:0!important; gap:24px!important; }
     #dc-root span[style*="cdj-float1"], #dc-root span[style*="cdj-float2"]{ display:none!important; }
     #top [style*="cdj-marquee 38s"]{ width:100vw!important; margin-left:calc(50% - 50vw)!important; }
+    /* Java watermark: reposition for mobile only (desktop untouched) so it
+       sits in the empty column to the left of "Gujarat's Biggest / Java
+       Community", just below the nav — size unchanged from desktop */
+    #hero-java-mark{ top:25%!important; left:20%!important; }
     /* Sticky "Register now" bar removed on mobile */
     #cdj-sticky-cta{ display:none!important; }
     #dc-root footer{ padding-left:22px!important; padding-right:22px!important; padding-top:40px!important; }
+    /* Footer marquee: the outline-only "ghost text" effect (transparent fill +
+       thin 22%-opacity stroke) only reads at large desktop sizes — at mobile
+       font sizes it's illegible, so give it a solid, muted fill instead */
+    #footer-marquee span{ color:rgba(255,255,255,.4)!important; -webkit-text-stroke:0!important; }
     #footer-logo{ height:auto!important; width:auto!important; max-width:200px!important; }
+    /* "Organized by" JUG badge: too dominant next to the small caption on mobile */
+    #hero-jug-logo{ height:34px!important; }
     #footer-pattern{ height:40px!important; background-size:auto 40px!important; display:block!important; }
     /* CFP committee (mobile): keep 2 cards per row, but left-align the text +
        icon and force the name onto a single line */
@@ -174,6 +193,15 @@
     #dc-root #schedule-table td{ padding:9px 5px!important; letter-spacing:0!important; font-size:10px!important; word-break:break-word; }
     #dc-root #schedule-table th:first-child,
     #dc-root #schedule-table td:first-child{ width:48px!important; }
+    /* Agenda track cards: same info as desktop but at 1/3 the padding + icon
+       size, so a card doesn't take most of the viewport height on mobile */
+    #agenda-tracks > div{ padding:22px 20px!important; gap:12px!important; }
+    #agenda-tracks > div > div:first-child{ width:44px!important; height:44px!important; border-radius:12px!important; }
+    #agenda-tracks > div > div:first-child > span{ width:22px!important; height:22px!important; }
+    /* Gallery: uniform 2-up grid instead of the masonry "big" tile towering
+       over the rest — consistent card sizes on small screens */
+    #gallery-grid{ grid-template-columns:repeat(2,1fr)!important; grid-auto-rows:150px!important; }
+    #gallery-grid [data-gallery-big]{ grid-column:span 1!important; grid-row:span 1!important; }
     /* By the numbers: trim the big gap above the heading (130px -> 40px) */
     #dc-root #numbers{ margin-top:40px!important; }
     /* By the numbers: 2x2, images 40% smaller */

@@ -119,20 +119,48 @@ export function useDCEffects() {
       img.style.cssText = 'max-width:100%; max-height:100%; border-radius:10px; box-shadow:0 24px 70px rgba(0,0,0,.55); object-fit:contain; display:block;'
       const close = document.createElement('button')
       close.type = 'button'; close.setAttribute('aria-label', 'Close'); close.innerHTML = '&times;'
-      close.style.cssText = 'position:absolute; top:16px; right:16px; width:44px; height:44px; border:none; border-radius:50%; background:rgba(255,255,255,.16); color:#fff; font-size:26px; line-height:1; cursor:pointer; display:grid; place-items:center;'
-      ov.appendChild(img); ov.appendChild(close)
+      close.style.cssText = 'position:absolute; top:16px; right:16px; width:44px; height:44px; border:none; border-radius:50%; background:rgba(255,255,255,.16); color:#fff; font-size:26px; line-height:1; cursor:pointer; display:grid; place-items:center; z-index:1;'
+
+      const navBtn = (label: string, dir: -1 | 1) => {
+        const b = document.createElement('button')
+        b.type = 'button'; b.setAttribute('aria-label', label); b.textContent = dir < 0 ? '‹' : '›'
+        b.style.cssText = `position:absolute; top:50%; ${dir < 0 ? 'left:16px' : 'right:16px'}; transform:translateY(-50%); width:48px; height:48px; border:none; border-radius:50%; background:rgba(255,255,255,.16); color:#fff; font-size:30px; line-height:1; cursor:pointer; display:grid; place-items:center; z-index:1;`
+        return b
+      }
+      const prevBtn = navBtn('Previous image', -1)
+      const nextBtn = navBtn('Next image', 1)
+
+      ov.appendChild(img); ov.appendChild(close); ov.appendChild(prevBtn); ov.appendChild(nextBtn)
       document.body.appendChild(ov)
+
+      let shots: HTMLImageElement[] = []
+      let idx = 0
+      const show = (i: number) => {
+        if (!shots.length) return
+        idx = (i + shots.length) % shots.length
+        img.src = shots[idx].src
+        img.alt = shots[idx].alt
+      }
       const hide = () => { ov.style.display = 'none'; document.body.style.overflow = '' }
       ov.addEventListener('click', hide)
       close.addEventListener('click', (e) => { e.stopPropagation(); hide() })
       img.addEventListener('click', (e) => e.stopPropagation())
-      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide() })
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); show(idx - 1) })
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); show(idx + 1) })
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { hide(); return }
+        if (ov.style.display !== 'flex') return
+        if (e.key === 'ArrowLeft') show(idx - 1)
+        else if (e.key === 'ArrowRight') show(idx + 1)
+      })
       const gal = document.getElementById('gallery')
       if (gal) {
         gal.addEventListener('click', (e) => {
           const t = (e.target as HTMLElement).closest('img') as HTMLImageElement | null
           if (!t) return
-          img.src = t.src; ov.style.display = 'flex'; document.body.style.overflow = 'hidden'
+          shots = Array.from(gal.querySelectorAll('img'))
+          show(shots.indexOf(t))
+          ov.style.display = 'flex'; document.body.style.overflow = 'hidden'
         })
       }
       return ov

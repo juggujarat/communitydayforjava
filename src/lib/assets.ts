@@ -45,7 +45,7 @@ export const A: Record<string, string> = {
   'c614fc18-de56-438e-b150-05e54a8665f7': '/assets/c614fc18-de56-438e-b150-05e54a8665f7.jpg',
   'c7e0ec15-621a-484b-994f-e4f1f100b8a5': '/assets/c7e0ec15-621a-484b-994f-e4f1f100b8a5.png',
   'cd2b3de0-e87e-45cf-8bd3-459baf76597f': '/assets/cd2b3de0-e87e-45cf-8bd3-459baf76597f.svg',
-  'ce7ffe15-ed83-408b-9f70-3a5607b3e20d': '/assets/ce7ffe15-ed83-408b-9f70-3a5607b3e20d.jpg',
+  'ce7ffe15-ed83-408b-9f70-3a5607b3e20d': '/assets/numbers-unforgettable-day.jpg',
   'cf0e32f2-6d8f-410d-9781-bbdb674a8308': '/assets/cf0e32f2-6d8f-410d-9781-bbdb674a8308.jpg',
   'cfaaebc5-44c2-4374-96ec-51cb85832280': '/assets/cfaaebc5-44c2-4374-96ec-51cb85832280.png',
   'cfc2a2ad-73c9-480e-aedf-76b94d67894f': '/assets/cfc2a2ad-73c9-480e-aedf-76b94d67894f.jpg',
