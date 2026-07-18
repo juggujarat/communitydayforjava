@@ -21,17 +21,17 @@ const VOLUNTEERS: Volunteer[] = [
   // was: socials: [] — LinkedIn icon added for alignment; replace '#' with the real profile URL
   { name: 'Vinay Rajput', role: 'Sr. Visual Designer', org: 'Apexure India', img: A['2edee5be-2908-4001-80aa-7e789fe6554f'], bg: '#7D00BC', pos: '50% 20%', socials: [li('Vinay Rajput', '#')] },
   { name: 'Divyesh Prajapati', role: 'Java Technical Lead', org: 'Tata Consultancy Services', img: '/assets/Divyesh Prajapati.png', bg: '#0D5CDB', pos: '50% 0%', scale: 1.8, origin: 'center top', socials: [li('Divyesh Prajapati', 'https://www.linkedin.com/in/divyeshprajapati1010/')] },
-  { name: 'Dhanani Tanvir', role: 'Backend Developer', org: 'IBM', img: '/assets/Dhanani Tanvir.png', bg: '#02CF70', pos: '50% 22%', scale: 1.9, origin: 'center center', socials: [li('Dhanani Tanvir', 'https://www.linkedin.com/in/tanvirdhanani')] },
+  { name: 'Tanvir Dhanani', role: 'Backend Developer', org: 'IBM', img: '/assets/Dhanani Tanvir.png', bg: '#02CF70', pos: '50% 22%', scale: 1.9, origin: 'center center', socials: [li('Dhanani Tanvir', 'https://www.linkedin.com/in/tanvirdhanani')] },
 ]
 
-/** The Volunteers (#volunteers). */
+/** Volunteers & organisers (#volunteers). */
 export default function Volunteers() {
   return (
     <section id="volunteers" style={{ position: 'relative', padding: '72px 40px', background: 'radial-gradient(120% 100% at 80% 0%,#1a2670,#0E1667 72%)', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '14%', right: '8%', width: '30px', height: '30px', borderRadius: '50%', background: '#02CF70', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.7 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '48px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>The <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FEC400' }}>Volunteers</span></h2>
+          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Volunteers &amp; <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FEC400' }}>organisers</span></h2>
           <p style={{ margin: '16px auto 0', maxWidth: '520px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>Community Day for Java runs on the energy of volunteers who make the day happen.</p>
         </div>
         <div id="volunteers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px, 1fr))', gap: '34px 24px', maxWidth: '1080px', margin: '0 auto' }}>
