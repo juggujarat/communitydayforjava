@@ -19,12 +19,12 @@ export default function Manifesto() {
         </h2>
 
         <p data-reveal data-reveal-d="140" style={{ margin: '28px auto 0', maxWidth: '620px', fontSize: 'clamp(16px,1.8vw,20px)', lineHeight: 1.55, color: '#0E1667', fontWeight: 600 }}>
-          <span style={{ color: '#6b73a8', fontWeight: 500 }}>While everyone's debating Java vs. AI</span> — Java developers are already building it. You just haven't seen it yet.
+          <span style={{ color: '#6b73a8', fontWeight: 500 }}>While everyone's debating Java vs. AI</span><br />Java developers are already building it.
         </p>
 
         <div data-reveal data-reveal-d="240" style={{ margin: 'clamp(56px,8vw,80px) auto 0' }}>
           <div style={{ height: '1px', background: 'rgba(14,22,103,.12)', marginBottom: 'clamp(28px,4vw,40px)' }} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '32px', textAlign: 'left' }}>
+          <div id="manifesto-proofs" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '32px', textAlign: 'left' }}>
             {PROOFS.map((p) => (
               <div key={p.title}>
                 <h3 style={{ margin: '0 0 8px', fontSize: '15px', fontWeight: 700, letterSpacing: '.3px', color: '#0E1667' }}>{p.title}</h3>

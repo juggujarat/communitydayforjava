@@ -7,10 +7,10 @@ import { h } from '../lib/handlers'
  */
 function Slot({ id, label, height, padding, img, alt, href }: { id: string; label: string; height: number; padding: number; img?: string; alt?: string; href?: string }) {
   return (
-    <div style={{ background: '#fff', borderRadius: '6px', height, display: 'flex', alignItems: 'center', justifyContent: 'center', padding, boxShadow: '0 10px 30px rgba(14,22,103,.07)' }}>
+    <div style={{ position: 'relative', background: '#fff', borderRadius: '6px', height, display: 'flex', alignItems: 'center', justifyContent: 'center', padding, boxShadow: '0 10px 30px rgba(14,22,103,.07)' }}>
       {img ? (
         href ? (
-          <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt ?? label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+          <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${alt ?? label} (opens in a new tab)`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
             <img id={id} src={img} alt={alt ?? label} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
           </a>
         ) : (
@@ -21,6 +21,13 @@ function Slot({ id, label, height, padding, img, alt, href }: { id: string; labe
           <span style={{ fontSize: '22px', fontWeight: 800, fontStyle: 'italic', letterSpacing: '.3px', color: '#9AA0B5' }}>Coming</span>
           <span style={{ fontSize: '22px', fontWeight: 800, fontStyle: 'italic', letterSpacing: '.3px', color: '#9AA0B5' }}>Soon</span>
         </div>
+      )}
+      {href && (
+        <span aria-hidden="true" style={{ position: 'absolute', top: 8, right: 8, width: 32, height: 32, borderRadius: '50%', background: 'rgba(14,22,103,.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a628f" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 17 17 7M9 7h8v8" />
+          </svg>
+        </span>
       )}
     </div>
   )
@@ -47,30 +54,6 @@ export default function SponsorsWall() {
               <Slot id="cdj-sp-3" label="Gold logo" height={140} padding={24} />
               <Slot id="cdj-sp-4" label="Gold logo" height={140} padding={24} />
               <Slot id="cdj-sp-5" label="Gold logo" height={140} padding={24} />
-            </div>
-          </div>
-          <div style={{ marginTop: '40px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#0D5CDB', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>VENUE</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 1fr))', gap: '16px' }}>
-              <Slot id="cdj-sp-6" label="Venue logo" height={140} padding={24} />
-              <Slot id="cdj-sp-7" label="Venue logo" height={140} padding={24} />
-              <Slot id="cdj-sp-11" label="Venue logo" height={140} padding={24} />
-            </div>
-          </div>
-          <div style={{ marginTop: '40px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>COMMUNITY SUPPORT</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 1fr))', gap: '16px' }}>
-              <Slot id="cdj-sp-13" label="Community support logo" height={120} padding={20} />
-              <Slot id="cdj-sp-14" label="Community support logo" height={120} padding={20} />
-              <Slot id="cdj-sp-15" label="Community support logo" height={120} padding={20} />
-            </div>
-          </div>
-          <div style={{ marginTop: '40px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>OTHER</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 1fr))', gap: '16px' }}>
-              <Slot id="cdj-sp-16" label="Other sponsor logo" height={120} padding={20} />
-              <Slot id="cdj-sp-17" label="Other sponsor logo" height={120} padding={20} />
-              <Slot id="cdj-sp-18" label="Other sponsor logo" height={120} padding={20} />
             </div>
           </div>
         </div>

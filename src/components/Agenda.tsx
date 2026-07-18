@@ -81,7 +81,7 @@ export default function Agenda() {
         </div>
 
         {/* Track cards */}
-        <div data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+        <div id="agenda-tracks" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
           {tracks.map((t) => (
             <div
               key={t.label}
