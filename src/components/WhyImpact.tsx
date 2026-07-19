@@ -94,8 +94,10 @@ export default function WhyImpact() {
       <div style={{ position: 'relative', zIndex: 5, margin: '64px 0 24px' }}>
         <div style={{ transform: 'rotate(-3deg)', background: '#FEC400', padding: '15px 0', width: '120%', marginLeft: '-10%', overflow: 'hidden' }}>
           <div style={{ display: 'inline-flex', whiteSpace: 'nowrap', animation: 'cdj-marquee 28s linear infinite', willChange: 'transform' }}>
-            <span style={marqueeSpan}>{MARQUEE_TXT}</span>
-            <span style={marqueeSpan}>{MARQUEE_TXT}</span>
+            {/* 12 copies (6 per half) so each half exceeds the viewport width — prevents the blank gap as the -50% loop wraps */}
+            {Array.from({ length: 12 }).map((_, i) => (
+              <span key={i} style={marqueeSpan}>{MARQUEE_TXT}</span>
+            ))}
           </div>
         </div>
       </div>

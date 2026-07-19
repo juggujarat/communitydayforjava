@@ -13,7 +13,7 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Daman Singh Rajput', role: 'Java FullStack Developer', org: 'Techxplore', img: A['8431f54c-7088-4c9e-8d84-5cf02d90f8ad'], bg: '#FF384B', pos: '50% 18%', socials: [li('Daman Singh Rajput', 'https://in.linkedin.com/in/daman-singh-rajput-2a1ba4237')] },
   { name: 'Paree Patel', role: 'Student', org: 'Parul University', img: A['6bd3fda0-0d8a-48a9-9026-a0e45769304c'], bg: '#0D5CDB', pos: '50% 8%', zoom: true, socials: [li('Paree Patel', 'https://www.linkedin.com/in/paree-patel-b1707a329')] },
   { name: 'Deep Shah', role: 'Java FullStack Developer', org: 'Techxplore', img: '/assets/deep-shah.webp', bg: '#02CF70', pos: '50% 12%', socials: [li('Deep Shah', 'https://www.linkedin.com/in/deepshah-java-developer'), ig('Deep Shah', 'https://www.instagram.com/ishahdeep')] },
-  { name: 'Jayesh Gupta', role: 'Software Engineer', org: 'TCS', img: A['9bbc223f-9f21-49aa-af66-23ac8226e948'], bg: '#FEC400', pos: '50% 6%', zoom: true, socials: [li('Jayesh Gupta', 'https://in.linkedin.com/in/jayeshgupta91')] },
+  { name: 'Jayesh Gupta', role: 'Software Engineer', org: 'Tata Consultancy Services  ', img: A['9bbc223f-9f21-49aa-af66-23ac8226e948'], bg: '#FEC400', pos: '50% 6%', zoom: true, socials: [li('Jayesh Gupta', 'https://in.linkedin.com/in/jayeshgupta91')] },
   { name: 'Nagendra Verma', role: 'Java FullStack Developer', org: 'Techxplore', img: A['09610378-4035-4348-aa57-10b677b7eb0f'], bg: '#7D00BC', pos: '50% 18%', socials: [li('Nagendra Verma', 'https://linkedin.com/in/nagendra-verma-8a60372b2/'), ig('Nagendra Verma', 'https://www.instagram.com/nagendrayounger')] },
   { name: 'Smit Joshi', role: 'ASE @ Advenix Systems LLP', org: 'Advenix Systems LLP', img: A['6fedc772-7fb3-4c46-996f-3fc8065fb6fc'], bg: '#0D5CDB', pos: '50% 10%', socials: [li('Smit Joshi', 'https://www.linkedin.com/in/smit-joshi814'), gh('Smit Joshi', 'https://github.com/smit-joshi814')] },
   { name: 'Malhar Gupte', role: 'AI Data Engineer', org: 'ProductSquads', img: A['4bbd6e58-8d6f-4db9-8a4c-9827262260fd'], bg: '#02CF70', pos: '50% 8%', socials: [li('Malhar Gupte', 'https://www.linkedin.com/in/malhargupte/')] },
@@ -22,6 +22,7 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Vinay Rajput', role: 'Sr. Visual Designer', org: 'Apexure India', img: A['2edee5be-2908-4001-80aa-7e789fe6554f'], bg: '#7D00BC', pos: '50% 20%', socials: [li('Vinay Rajput', '#')] },
   { name: 'Divyesh Prajapati', role: 'Java Technical Lead', org: 'Tata Consultancy Services', img: '/assets/divyesh-prajapati.webp', bg: '#0D5CDB', pos: '50% 0%', scale: 1.8, origin: 'center top', socials: [li('Divyesh Prajapati', 'https://www.linkedin.com/in/divyeshprajapati1010/')] },
   { name: 'Tanvir Dhanani', role: 'Backend Developer', org: 'IBM', img: '/assets/dhanani-tanvir.webp', bg: '#02CF70', pos: '50% 22%', scale: 1.9, origin: 'center center', socials: [li('Dhanani Tanvir', 'https://www.linkedin.com/in/tanvirdhanani')] },
+  { name: 'Harshit Gajjar', role: 'Content Creator', org: 'Freelancer', img: '/assets/harshit-gajjar.webp', bg: '#FEC400', pos: '50% 50%', socials: [li('Harshit Gajjar', 'https://www.linkedin.com/in/harshit-gajjar-79b51a296/')] },
 ]
 
 /** Volunteers & organisers (#volunteers). */

@@ -30,7 +30,7 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ position: 'relative', minHeight: '300px' }}>
-            <img src="/assets/footer-team-photo.webp" alt="Community Day for Java attendees" loading="lazy" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <img src="/assets/footer-cheering.webp" alt="Community Day for Java volunteers cheering" loading="lazy" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(110deg,rgba(14,22,103,.55) 0%,rgba(14,22,103,0) 38%)' }} />
           </div>
         </div>
