@@ -110,8 +110,8 @@ export default function Nav() {
               </button>
               {pastOpen && (
                 <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '12px' }}>
+                  {/* Defer close: in React 18 a synchronous close() unmounts the <a> before the browser opens the target="_blank" link, losing the navigation. */}
                   {PAST_EDITIONS.map((p) => (
-                    {/* Defer close: in React 18 a synchronous close() unmounts this <a> before the browser opens the target="_blank" link, so the navigation is lost. */}
                     <a key={p.year} href={p.href} target="_blank" rel="noopener noreferrer" onClick={() => setTimeout(close, 0)} style={{ padding: '7px 0', fontSize: '16px', fontWeight: 600, color: '#42498a', textDecoration: 'none' }}>{p.year}</a>
                   ))}
                 </div>
