@@ -5,10 +5,10 @@ import { TICKETS_COMING_SOON, TICKETS_UPDATE_CAPTION } from '../lib/links'
 const MARQUEE = [
   { src: '/assets/hero-marquee-venkat.webp', alt: 'CDJ 2025 speaker Venkat' },
   { src: '/assets/hero-marquee-vaibhav.webp', alt: 'CDJ 2025 speaker Vaibhav' },
-  { src: '/assets/hero-marquee-auditorium.webp', alt: 'CDJ 2025 auditorium' },
+  { src: '/assets/hero-marquee-clapping.webp', alt: 'CDJ 2025 audience clapping' },
   { src: '/assets/hero-marquee-banner.webp', alt: 'CDJ 2025 banner' },
-  { src: '/assets/hero-marquee-badges.webp', alt: 'CDJ 2025 attendee badges' },
-  { src: '/assets/hero-marquee-checkin.webp', alt: 'CDJ 2025 check-in desk' },
+  { src: '/assets/hero-marquee-idpasses.webp', alt: 'CDJ 2025 attendee ID passes' },
+  { src: '/assets/hero-marquee-sponsordeck.webp', alt: 'CDJ 2025 sponsor deck' },
   { src: '/assets/hero-marquee-banner2.webp', alt: 'CDJ 2025 banner' },
 ]
 
@@ -26,11 +26,10 @@ export default function Hero() {
         <h1 data-reveal data-reveal-d="60" style={{ margin: '0 auto', maxWidth: 'none', fontWeight: '600', lineHeight: '1.05', letterSpacing: '-1.5px', color: '#fff', fontSize: 'clamp(28px,4.6vw,56px)', textTransform: 'uppercase' }}>Gujarat's BIGGEST<br /><span style={{ color: '#FEC400' }}>Java</span> Community <span style={{ color: '#FEC400' }}>Conference</span></h1>
 
         <p data-reveal data-reveal-d="160" style={{ margin: '14px auto 0', maxWidth: '720px', fontSize: 'clamp(15px,1.6vw,19px)', fontWeight: '500', lineHeight: '1.55', color: '#c9d0ef' }}>
-          <strong id="hero-stats" style={{ color: '#fff', whiteSpace: 'nowrap' }}>600+ Java Developers • 20+ Expert Speakers • 3 Parallel Tracks</strong><br />Built by the community, for the community.
+          <strong id="hero-stats" style={{ color: '#fff', whiteSpace: 'nowrap' }}>600+ Java Developers • 20+ Expert Speakers • 3 Parallel Tracks</strong>
         </p>
 
         <div data-reveal data-reveal-d="190" style={{ marginTop: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 18px', borderRadius: '30px', background: 'rgba(254,196,0,.12)', border: '1px solid rgba(254,196,0,.3)' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FEC400', display: 'inline-block', animation: 'cdj-pulse 2s ease-in-out infinite' }} />
           <span style={{ fontSize: '13px', fontWeight: 600, color: '#FEC400', letterSpacing: '.2px' }}>Venue & Date to be announced soon</span>
         </div>
 

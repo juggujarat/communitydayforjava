@@ -135,7 +135,6 @@ export default function Agenda() {
 
               {/* Coming soon pill */}
               <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: t.accent, display: 'inline-block', animation: 'cdj-pulse 2s ease-in-out infinite' }} />
                 <span style={{ fontSize: '13px', fontWeight: 600, color: t.accent }}>Sessions announced soon</span>
               </div>
             </div>
