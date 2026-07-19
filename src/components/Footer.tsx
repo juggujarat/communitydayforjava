@@ -30,7 +30,7 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ position: 'relative', minHeight: '300px' }}>
-            <img src="/assets/footer-team-photo.webp" alt="Community Day for Java attendees" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <img src="/assets/footer-team-photo.webp" alt="Community Day for Java attendees" loading="lazy" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(110deg,rgba(14,22,103,.55) 0%,rgba(14,22,103,0) 38%)' }} />
           </div>
         </div>
@@ -38,7 +38,7 @@ export default function Footer() {
         <div style={{ padding: '20px 0 28px', borderTop: '1px solid rgba(255,255,255,.08)', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontSize: '12px', color: '#8890c8' }}>© 2026 Community Day for Java</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src="/assets/48ee4d89-31eb-41e2-925d-db02be348059.svg" alt="Java User Group Gujarat" style={{ height: '22px', width: 'auto', display: 'block' }} />
+            <img src="/assets/48ee4d89-31eb-41e2-925d-db02be348059.svg" alt="Java User Group Gujarat" style={{ height: '32px', width: 'auto', display: 'block' }} />
             <span style={{ fontSize: '12px', color: '#8890c8' }}>Organized by <a href="https://www.gujaratjug.org" target="_blank" rel="noopener noreferrer" style={{ color: '#8890c8', fontWeight: 700 }}>Java User Group Gujarat</a></span>
           </div>
         </div>

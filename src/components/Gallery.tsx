@@ -44,7 +44,7 @@ export default function Gallery() {
               onMouseLeave={h.galOff}
               style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px', background: '#fff', border: '1px solid rgba(14,22,103,.08)', boxShadow: '0 12px 30px rgba(14,22,103,.1)', cursor: 'zoom-in', ...(s.big ? { gridColumn: 'span 2', gridRow: 'span 2' } : {}) }}
             >
-              <img src={s.img} alt={s.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .5s cubic-bezier(.2,.7,.2,1)' }} />
+              <img src={s.img} alt={s.alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .5s cubic-bezier(.2,.7,.2,1)' }} />
             </div>
           ))}
         </div>

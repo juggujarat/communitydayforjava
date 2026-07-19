@@ -64,7 +64,7 @@ const STATS = [
 ]
 
 const MARQUEE_TXT =
-  'Community Day for Java  •  24 Oct 2026  •  Ahmedabad  •  '
+  'Community Day for Java  •  Ahmedabad  •  '
 const marqueeSpan: React.CSSProperties = {
   fontFamily: "'Space Grotesk',sans-serif", fontSize: 'clamp(20px,2.4vw,30px)', fontWeight: 400,
   letterSpacing: '1px', color: '#0E1667', textTransform: 'uppercase', paddingRight: '36px',
@@ -82,7 +82,7 @@ export default function WhyImpact() {
           <div key={i} data-reveal data-reveal-d={String(s.d)} style={{ padding: '6px', marginLeft: i === 0 ? undefined : '-20px' }}>
             <div data-rot={String(s.rot)} onMouseEnter={h.statOn} onMouseLeave={h.statOff} style={{ flex: 'none', width: '312px', background: s.bg, border: s.border, borderRadius: '7px', padding: '14px', boxShadow: '0 26px 52px rgba(0,0,0,.55)', transform: `rotate(${s.rot}deg)`, transition: 'transform .35s cubic-bezier(.2,.7,.2,1)' }}>
               <div style={{ borderRadius: '3px', overflow: 'hidden', height: '300px', marginBottom: '18px' }}>
-                <img src={s.img} alt={s.alt} style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'grayscale(1) contrast(1.05)', display: 'block' }} />
+                <img src={s.img} alt={s.alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'grayscale(1) contrast(1.05)', display: 'block' }} />
               </div>
               <div style={{ fontWeight: 800, fontSize: 'clamp(50px,4.6vw,70px)', lineHeight: 0.88, color: s.numColor }}>{s.num}</div>
               <div style={{ marginTop: '11px', fontWeight: 700, fontSize: '14.5px', letterSpacing: '1.5px', color: s.labelColor }}>{s.label}</div>
