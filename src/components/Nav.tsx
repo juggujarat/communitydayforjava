@@ -32,13 +32,16 @@ export default function Nav() {
   const close = () => setMenuOpen(false)
 
   useEffect(() => {
-    if (!pastOpen) return
+    // Only guards the DESKTOP dropdown (wrapped in pastRef). Skip when the mobile menu is open —
+    // that dropdown isn't inside pastRef, so this mousedown handler would unmount the 2025 link
+    // before its click fires, closing the dropdown without opening the link.
+    if (!pastOpen || menuOpen) return
     const onClickOutside = (e: MouseEvent) => {
       if (pastRef.current && !pastRef.current.contains(e.target as Node)) setPastOpen(false)
     }
     document.addEventListener('mousedown', onClickOutside)
     return () => document.removeEventListener('mousedown', onClickOutside)
-  }, [pastOpen])
+  }, [pastOpen, menuOpen])
 
   return (
     <>
