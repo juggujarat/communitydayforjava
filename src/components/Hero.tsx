@@ -3,13 +3,13 @@ import FollowSocials from './FollowSocials'
 import { TICKETS_COMING_SOON, TICKETS_UPDATE_CAPTION } from '../lib/links'
 
 const MARQUEE = [
-  { src: '/assets/hero-marquee-speaker.webp', alt: 'CDJ 2025 speaker' },
-  { src: '/assets/hero-marquee-audience.webp', alt: 'CDJ 2025 audience' },
+  { src: '/assets/hero-marquee-venkat.webp', alt: 'CDJ 2025 speaker Venkat' },
+  { src: '/assets/hero-marquee-vaibhav.webp', alt: 'CDJ 2025 speaker Vaibhav' },
   { src: '/assets/hero-marquee-auditorium.webp', alt: 'CDJ 2025 auditorium' },
-  { src: '/assets/hero-marquee-signage.webp', alt: 'CDJ 2025 signage' },
+  { src: '/assets/hero-marquee-banner.webp', alt: 'CDJ 2025 banner' },
   { src: '/assets/hero-marquee-badges.webp', alt: 'CDJ 2025 attendee badges' },
   { src: '/assets/hero-marquee-checkin.webp', alt: 'CDJ 2025 check-in desk' },
-  { src: '/assets/hero-marquee-scribble.webp', alt: 'CDJ 2025 signature wall' },
+  { src: '/assets/hero-marquee-banner2.webp', alt: 'CDJ 2025 banner' },
 ]
 
 const tile: React.CSSProperties = {
