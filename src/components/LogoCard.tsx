@@ -7,10 +7,10 @@ export default function LogoCard({ img, alt, dur, delay, padding, height, label 
       {img ? (
         href ? (
           <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt ?? label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <img src={img} alt={alt} style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
+            <img src={img} alt={alt} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
           </a>
         ) : (
-          <img src={img} alt={alt} style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
+          <img src={img} alt={alt} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
         )
       ) : (
         // Empty placeholder shown until a real logo is supplied.

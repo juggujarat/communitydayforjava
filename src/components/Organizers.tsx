@@ -31,7 +31,7 @@ export default function Organizers() {
           {ORGANIZERS.map((o, i) => (
             <div key={i} style={{ background: '#fff', border: '1px solid rgba(14,22,103,.08)', borderRadius: '26px', overflow: 'hidden', boxShadow: '0 16px 40px rgba(14,22,103,.12)', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ aspectRatio: '1/1', position: 'relative', overflow: 'hidden', background: o.grad }}>
-                <img src={o.img} alt={o.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 14%' }} />
+                <img src={o.img} alt={o.name} loading="lazy" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 14%' }} />
               </div>
               <div style={{ padding: '24px 24px 28px', textAlign: 'center', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '22px', color: '#0E1667' }}>{o.name}</div>

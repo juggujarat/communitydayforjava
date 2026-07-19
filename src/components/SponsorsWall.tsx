@@ -11,10 +11,10 @@ function Slot({ id, label, height, padding, img, alt, href }: { id: string; labe
       {img ? (
         href ? (
           <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${alt ?? label} (opens in a new tab)`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <img id={id} src={img} alt={alt ?? label} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+            <img id={id} src={img} alt={alt ?? label} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
           </a>
         ) : (
-          <img id={id} src={img} alt={alt ?? label} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+          <img id={id} src={img} alt={alt ?? label} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
         )
       ) : (
         <div id={id} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', lineHeight: 1.05, border: '1.5px dashed rgba(20,26,80,.2)', borderRadius: '8px' }}>

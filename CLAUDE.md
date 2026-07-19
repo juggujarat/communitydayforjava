@@ -19,17 +19,13 @@ essentially complete — `src/App.tsx` renders the **full** document in original
 `Nav → Hero → Manifesto → WhyImpact → Goodies → Speakers → Venue → Agenda → Committee →
 Organizers → Gallery → Sponsor → SponsorsWall → Partners → CommunityPartners → Volunteers
 → Footer`, with `BrickDivider` separators between several sections. Remaining work is
-polish and the deploy workflow (see Deploy notes), not porting whole sections.
+polish, not porting whole sections.
 
-The `legacy/original-bundle.html` bundle remains the source of truth: when a ported
-section looks off, re-check it against the bundle's JSX rather than inventing markup.
+The original design-tool bundle (`legacy/original-bundle.html`, a React app authored in
+JSX and transpiled in-browser by Babel Standalone) was removed once the port was
+verified complete — it's no longer available as a reference. If a ported section looks
+off, work from the live design/content requirements directly rather than inventing markup.
 
-- `legacy/original-bundle.html` — the original design-tool bundle (a React app authored in
-  JSX and transpiled in-browser by Babel Standalone, with base64/gzip asset blobs). **This
-  is the source of truth for content and design.** Reconstruct each section from its JSX
-  rather than inventing markup. It exceeds `Read`'s limits — inspect with `Grep`/`awk` and
-  line offsets; case-scrambled keyword hits (e.g. `JuG`, `cfP`) are base64 noise, not
-  content, while consistent-case matches are real template text.
 - `index.html` (root) is now the **Vite entry point** (a `#root` div + `<script
   type="module" src="/src/main.tsx">`), not the bundle.
 
@@ -98,9 +94,9 @@ a Google Fonts `@import` at the top of `global.css`.
 
 ## Deploy notes / known gaps
 
-- `CNAME` and `base: '/'` (root domain) are already correct, **but there is no CI/deploy
-  workflow yet** — nothing currently builds `dist/` or publishes it (and `CNAME` must end
-  up inside the published `dist/`). Adding a GitHub Pages build+deploy action is
-  outstanding work.
-- `dist/` is a local build artifact (from `npm run build`); it is not published anywhere
-  automatically.
+- `.github/workflows/deploy.yml` builds and publishes `dist/` to GitHub Pages on every
+  push to `main` (checkout → `npm ci` → `npm run build` → upload/deploy the Pages
+  artifact). `CNAME` lives in `public/CNAME`, so Vite copies it into `dist/CNAME`
+  automatically as part of the build — no manual step needed there.
+- `dist/` is a local build artifact (from `npm run build`); outside of the CI workflow
+  above, it is not published anywhere automatically.

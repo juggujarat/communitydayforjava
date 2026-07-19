@@ -26,6 +26,7 @@ import Committee from './components/Committee'
 import Volunteers from './components/Volunteers'
 import Footer from './components/Footer'
 import BrickDivider from './components/BrickDivider'
+import ScrollButtons from './components/ScrollButtons'
 import { useDCEffects } from './hooks/useDCEffects'
 import { A } from './lib/assets'
 
@@ -58,6 +59,7 @@ export default function App() {
         <BrickDivider src={A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']} />
         <Footer />
       </div>
+      <ScrollButtons />
     </div>
   )
 }
