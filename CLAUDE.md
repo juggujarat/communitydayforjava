@@ -82,8 +82,9 @@ attributes**, not by wiring refs:
 - `lib/icons.tsx` — social/brand icons (`linkedin`/`x`/`github`/`instagram`/`website`) and
   the round social-link chip used on people cards (committee, organizers, volunteers,
   footer). `<path>` data and sizes match the bundle exactly.
-- `lib/links.ts` — the shared `mailto:` CTAs (`MAIL`, `TICKET_MAILTO`, `CFP_MAILTO`).
-  Registration/CFP are mailto links; reuse these constants rather than hardcoding.
+- `lib/links.ts` — the shared `mailto:` CTAs (`MAIL`, `TICKET_MAILTO`) plus
+  `CFP_SESSIONIZE` (CFP submissions go through Sessionize, not email). Reuse these
+  constants rather than hardcoding.
 
 **Assets:** the bundle's UUID-keyed blobs are extracted to `public/assets/<uuid>.<ext>`
 (mixed `.png`/`.jpg`/`.svg` extensions). Reference them through the `A` map in

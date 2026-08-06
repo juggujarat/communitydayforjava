@@ -1,5 +1,5 @@
 import { h } from '../lib/handlers'
-import { CFP_MAILTO, CFP_SESSIONIZE } from '../lib/links'
+import { CFP_SESSIONIZE } from '../lib/links'
 
 const STEP_SPECS = [
   {
@@ -165,9 +165,6 @@ export default function CFP() {
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                 <a href={CFP_SESSIONIZE} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FEC400', color: '#0E1667', fontWeight: 800, fontSize: '14px', padding: '15px 24px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 16px 40px rgba(254,196,0,.32)' }} onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>
                   Submit on Sessionize
-                </a>
-                <a href={CFP_MAILTO} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '15px 22px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.28)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>
-                  Email the organizers
                 </a>
               </div>
 
