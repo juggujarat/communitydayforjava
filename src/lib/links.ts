@@ -4,6 +4,7 @@ export const TICKET_MAILTO =
   'mailto:juggujarat@gmail.com?subject=Community%20Day%20for%20Java%20%E2%80%94%20Ticket%20registration'
 export const CFP_MAILTO =
   'mailto:juggujarat@gmail.com?subject=Community%20Day%20for%20Java%20%E2%80%94%20CFP%20Submission'
+export const CFP_SESSIONIZE = 'https://sessionize.com/community-day-for-java-2026/'
 
 /** Canonical copy for the "Tickets Coming Soon" CTA + its follow-socials caption — keep wording identical everywhere it appears. */
 export const TICKETS_COMING_SOON = 'Tickets Coming Soon'

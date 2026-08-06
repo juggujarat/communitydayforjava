@@ -7,6 +7,7 @@ import { TICKETS_COMING_SOON } from '../lib/links'
 /** Links + social handles shown inside the mobile menu panel. */
 const MENU_LINKS = [
   { href: '#manifesto', label: 'Agenda' },
+  { href: '/cfp/', label: 'CFP' },
   { href: '#venue', label: 'Venue' },
   { href: '#speakers', label: 'Speakers' },
   { href: '#sponsors-wall', label: 'Sponsor' },
@@ -52,6 +53,7 @@ export default function Nav() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
           <div id="cdj-nav-links" style={{ display: 'none', alignItems: 'center', gap: '28px' }}>
             <a href="#manifesto" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Agenda</a>
+            <a href="/cfp/" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>CFP</a>
             <a href="#venue" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Venue</a>
             <a href="#speakers" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Speakers</a>
             <a href="#sponsors-wall" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Sponsor</a>
