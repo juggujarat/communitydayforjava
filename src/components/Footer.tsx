@@ -10,7 +10,8 @@ const bigSpan: React.CSSProperties = {
 }
 const MARQUEE = 'Join the Biggest Java Community Conference in Gujarat! · '
 
-export default function Footer() {
+/** `showSponsorCta` is off on the standalone CFP page, which has no `#sponsor` section to link to. */
+export default function Footer({ showSponsorCta = true }: { showSponsorCta?: boolean }) {
   return (
     <footer style={{ position: 'relative', background: '#070B34', padding: '100px 40px 0', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1200px', margin: '0 auto' }}>
@@ -23,7 +24,9 @@ export default function Footer() {
             </div>
             <div style={{ position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', cursor: 'default', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1">{TICKETS_COMING_SOON}</span>
-              <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '15px 26px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
+              {showSponsorCta && (
+                <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '15px 26px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
+              )}
             </div>
             <div style={{ position: 'relative' }}>
               <FollowSocials caption={TICKETS_UPDATE_CAPTION} align="start" />
