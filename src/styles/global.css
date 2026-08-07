@@ -41,15 +41,23 @@
     #cdj-nav > div{ gap:12px!important; }
     #cdj-nav [data-cta="1"]{ font-size:11px!important; letter-spacing:.5px!important; padding:9px 15px!important; white-space:nowrap!important; box-shadow:0 4px 14px rgba(255,56,75,.32)!important; }
   }
+  /* CFP tracks run 4-across on wide screens; step down before the cards get too narrow */
+  @media (max-width:1100px){
+    #cfp-tracks{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+    /* #dc-root prefix so these outrank the generic [style*=...] grid rules below */
+    #dc-root #cfp-facts{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+  }
   @media (max-width:768px){
     #dc-root nav{ padding-left:16px!important; padding-right:16px!important; }
     #dc-root nav img{ height:46px!important; }
-    #cfp-topbar{ padding:12px 16px!important; flex-wrap:wrap!important; align-items:flex-start!important; }
-    #cfp-topbar > div{ width:100%; justify-content:flex-start!important; flex-wrap:wrap!important; }
+    /* Nav logo shrinks to 46px here, so the CFP page's spacer for the fixed nav shrinks too */
+    #cfp-page{ padding-top:86px!important; }
     #dc-root section{ padding-left:18px!important; padding-right:18px!important; }
     #dc-root footer{ padding-left:18px!important; padding-right:18px!important; }
     #cfp-layout{ grid-template-columns:1fr!important; }
     #cfp-tracks{ grid-template-columns:1fr!important; }
+    #dc-root #cfp-facts{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+    #cfp-steps-grid{ grid-template-columns:1fr!important; }
     #cfp-formats{ grid-template-columns:1fr!important; }
     #cfp-value-grid{ grid-template-columns:1fr!important; }
     #cfp-info-grid{ grid-template-columns:1fr!important; }
@@ -93,6 +101,12 @@
     #dc-root [style*="minmax(180px, 1fr)"] > *,
     #dc-root [style*="minmax(220px, 1fr)"] > *,
     #dc-root [style*="minmax(260px, 1fr)"] > *{ scroll-snap-align:start; }
+    /* CFP date/location chips stack on phones — they must never become a swipe strip */
+    #dc-root #cfp-facts{
+      grid-template-columns:1fr!important;
+      grid-auto-flow:row!important;
+      overflow-x:visible!important;
+    }
     /* logo + sponsor grids just stack */
     #dc-root [style*="minmax(170px, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
     #dc-root [style*="minmax(320px, 1fr)"]{ grid-template-columns:1fr!important; }
