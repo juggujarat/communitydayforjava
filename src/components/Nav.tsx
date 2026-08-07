@@ -25,8 +25,14 @@ const chevron = (open: boolean) => (
   </svg>
 )
 
-/** Announcement bar + fixed nav + mobile sticky CTA + mobile menu. */
-export default function Nav() {
+/**
+ * Announcement bar + fixed nav + mobile sticky CTA + mobile menu.
+ *
+ * `hashPrefix` is prepended to the in-page anchors so the same nav can be reused on
+ * standalone pages (e.g. `/cfp/` passes `"/"`, turning `#venue` into `/#venue`).
+ */
+export default function Nav({ hashPrefix = '' }: { hashPrefix?: string }) {
+  const to = (href: string) => (href.startsWith('#') ? `${hashPrefix}${href}` : href)
   const [menuOpen, setMenuOpen] = useState(false)
   const [pastOpen, setPastOpen] = useState(false)
   const pastRef = useRef<HTMLDivElement>(null)
@@ -47,17 +53,14 @@ export default function Nav() {
   return (
     <>
       <nav id="cdj-nav" style={{ position: 'fixed', top: '0', left: '0', right: '0', zIndex: '100', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 40px', transition: 'background .35s ease, padding .35s ease, box-shadow .35s ease', background: 'transparent' }}>
-        <a href="#top" style={{ display: 'flex', alignItems: 'center', gap: '13px', textDecoration: 'none' }}>
+        <a href={to('#top')} style={{ display: 'flex', alignItems: 'center', gap: '13px', textDecoration: 'none' }}>
           <img src="/assets/cd2b3de0-e87e-45cf-8bd3-459baf76597f.svg" alt="Community Day for Java" style={{ height: '74px', width: 'auto', display: 'block' }} />
         </a>
         <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
           <div id="cdj-nav-links" style={{ display: 'none', alignItems: 'center', gap: '28px' }}>
-            <a href="#manifesto" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Agenda</a>
-            <a href="/cfp/" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>CFP</a>
-            <a href="#venue" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Venue</a>
-            <a href="#speakers" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Speakers</a>
-            <a href="#sponsors-wall" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Sponsor</a>
-            <a href="#organizers" style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>Team</a>
+            {MENU_LINKS.map(l => (
+              <a key={l.href} href={to(l.href)} style={{ fontSize: '13px', fontWeight: '600', letterSpacing: '.3px', color: '#cdd3f0', textDecoration: 'none' }} onMouseEnter={h.linkOn} onMouseLeave={h.linkOff}>{l.label}</a>
+            ))}
             <div ref={pastRef} style={{ position: 'relative' }}>
               <button
                 type="button"
@@ -88,7 +91,7 @@ export default function Nav() {
               )}
             </div>
           </div>
-          <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '13px', letterSpacing: '1px', padding: '11px 20px', borderRadius: '40px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(255,56,75,.34)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Become Sponsor</a>
+          <a href="/cfp/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '13px', letterSpacing: '1px', padding: '11px 20px', borderRadius: '40px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(255,56,75,.34)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Submit CFP</a>
           <button id="cdj-burger" type="button" aria-label="Open menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} style={{ display: 'none', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', padding: '6px', margin: 0, lineHeight: 0 }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M3 6h18" /><path d="M3 12h18" /><path d="M3 18h18" /></svg>
           </button>
@@ -103,7 +106,7 @@ export default function Nav() {
             </button>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {MENU_LINKS.map(l => (
-                <a key={l.href} href={l.href} onClick={close} style={{ padding: '9px 0', fontSize: '19px', fontWeight: 700, color: '#0E1667', textDecoration: 'none', letterSpacing: '-.2px' }}>{l.label}</a>
+                <a key={l.href} href={to(l.href)} onClick={close} style={{ padding: '9px 0', fontSize: '19px', fontWeight: 700, color: '#0E1667', textDecoration: 'none', letterSpacing: '-.2px' }}>{l.label}</a>
               ))}
               <button
                 type="button"
