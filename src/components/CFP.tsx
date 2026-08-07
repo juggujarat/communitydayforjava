@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { h } from '../lib/handlers'
+import { CFPShapes } from '../lib/decor'
 import { CFP_SESSIONIZE } from '../lib/links'
 
 /**
@@ -180,8 +181,7 @@ function Bullet({ children, color }: { children: ReactNode; color: string }) {
 export default function CFP() {
   return (
     <section id="cfp" style={{ position: 'relative', padding: '84px 40px', background: 'linear-gradient(180deg,#F4F1E8 0%,#fff8ee 100%)', color: '#0E1667', overflow: 'hidden' }}>
-      <span style={{ position: 'absolute', top: '10%', left: '7%', width: '72px', height: '72px', borderRadius: '50%', background: 'rgba(13,92,219,.12)' }} />
-      <span style={{ position: 'absolute', bottom: '10%', right: '6%', width: '26px', height: '26px', background: '#FF384B', clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)', opacity: 0.8, animation: 'cdj-float2 9s ease-in-out infinite' }} />
+      <CFPShapes />
 
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1180px', margin: '0 auto' }}>
         <div data-reveal style={{ marginBottom: '30px', maxWidth: '900px' }}>

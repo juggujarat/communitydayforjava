@@ -57,6 +57,8 @@
     #cfp-layout{ grid-template-columns:1fr!important; }
     #cfp-tracks{ grid-template-columns:1fr!important; }
     #dc-root #cfp-facts{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+    /* No gutters left on phones — the floating shapes would sit under the text */
+    #cfp-shapes{ display:none!important; }
     #cfp-steps-grid{ grid-template-columns:1fr!important; }
     #cfp-formats{ grid-template-columns:1fr!important; }
     #cfp-value-grid{ grid-template-columns:1fr!important; }
