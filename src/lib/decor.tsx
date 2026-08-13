@@ -112,6 +112,25 @@ export const SponsorShapes = () => shapeLayer(
   shape({ key: 's2', size: 40, color: '#FEC400', kind: 'diamond', bottom: '16%', left: '8%', anim: 'cdj-float1', dur: 9, op: .7 }),
 )
 
+/**
+ * Floating shapes for the CFP page. The content column is capped at 1180px, so these
+ * live in the left/right gutters and in the empty band beside the heading — never behind
+ * a paragraph. Carries an id so global.css can hide the whole layer on phones, where the
+ * content runs edge to edge and there is no free space left.
+ */
+export const CFPShapes = () => (
+  <div id="cfp-shapes" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
+    {shape({ key: 'cf1', size: 104, color: '#FEC400', kind: 'ring', top: '2%', left: '2%', anim: 'cdj-float1', dur: 11, op: .45 })}
+    {shape({ key: 'cf2', size: 46, color: '#FF384B', kind: 'diamond', top: '4%', right: '4%', anim: 'cdj-float2', dur: 9, op: .75 })}
+    {shape({ key: 'cf3', size: 26, color: '#0D5CDB', kind: 'circle', top: '13%', right: '2%', anim: 'cdj-float1', dur: 8, delay: .6, op: .8 })}
+    {shape({ key: 'cf4', size: 66, color: '#7D00BC', kind: 'ring', top: '34%', left: '1.5%', anim: 'cdj-float2', dur: 10, op: .4 })}
+    {shape({ key: 'cf5', size: 30, color: '#02CF70', kind: 'circle', top: '52%', right: '2.5%', anim: 'cdj-float1', dur: 7, delay: 1, op: .7 })}
+    {shape({ key: 'cf6', size: 54, color: '#0D5CDB', kind: 'tri', top: '70%', left: '2%', anim: 'cdj-float2', dur: 12, op: .35 })}
+    {shape({ key: 'cf7', size: 38, color: '#FEC400', kind: 'diamond', bottom: '6%', right: '3%', anim: 'cdj-float1', dur: 9, delay: .4, op: .6 })}
+    {shape({ key: 'cf8', size: 200, color: '#0D5CDB', kind: 'circle', bottom: '-4%', left: '-4%', op: .1, blur: 40 })}
+  </div>
+)
+
 export const NotifyShapes = () => shapeLayer(<>
   {shape({ key: 'n1', size: 80, color: '#FEC400', kind: 'ring', top: '18%', left: '12%', anim: 'cdj-float1', dur: 10, op: .5 })}
   {shape({ key: 'n2', size: 44, color: '#FF384B', kind: 'diamond', bottom: '22%', right: '14%', anim: 'cdj-float2', dur: 8, op: .8 })}
