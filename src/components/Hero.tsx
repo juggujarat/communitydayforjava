@@ -1,6 +1,7 @@
 import { h } from '../lib/handlers'
 import FollowSocials from './FollowSocials'
-import { TICKETS_COMING_SOON, TICKETS_UPDATE_CAPTION } from '../lib/links'
+import { TICKETS_UPDATE_CAPTION } from '../lib/links'
+import TicketsCta from './TicketsCta'
 
 const MARQUEE = [
   { src: '/assets/hero-marquee-venkat.webp', alt: 'CDJ 2025 speaker Venkat' },
@@ -34,7 +35,7 @@ export default function Hero() {
         </div>
 
         <div id="hero-ctas" data-reveal data-reveal-d="220" style={{ marginTop: '36px', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'center' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', cursor: 'default', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1">{TICKETS_COMING_SOON}</span>
+          <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} />
           <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: '700', fontSize: '15px', padding: '16px 30px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
         </div>
 
