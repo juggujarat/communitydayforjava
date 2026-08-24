@@ -253,3 +253,29 @@
     /* Break / full-width cells stay centered bands */
     #dc-root #schedule-table td:not([data-label]){ text-align:center!important; font-weight:700!important; border-radius:8px!important; margin:2px 0!important; }
   }
+
+  /* ---- /badge/ — the badge builder ---- */
+  @media (max-width:980px){
+    /* Stack the columns: the form fills in first, then the badge it produces sits
+       below it — sticky positioning is pointless once nothing sits beside it. */
+    #badge-grid{ grid-template-columns:1fr!important; }
+    #badge-preview{ position:static!important; }
+  }
+  @media (max-width:768px){
+    /* Nav logo shrinks to 46px here, so the spacer for the fixed nav shrinks with it */
+    #badge-page{ padding-top:86px!important; }
+    /* No gutters left on phones — the floating shapes would sit under the text */
+    #badge-shapes{ display:none!important; }
+    /* "How it works" runs 3-across under the grid; one per row on phones */
+    #dc-root #badge-steps{ grid-template-columns:1fr!important; gap:12px!important; }
+    /* The headline is set nowrap; below 768px the clamp's 30px floor would push it
+       past the screen, so scale it off the viewport instead to keep it on one line */
+    #dc-root #badge-headline{ font-size:min(30px,5vw)!important; letter-spacing:-1px!important; }
+  }
+  @media (max-width:600px){
+    /* Download / Copy stack; the role chips drop to two per row */
+    #badge-actions{ grid-template-columns:1fr!important; }
+    #badge-roles{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+    /* Keep the three share buttons on one row by tightening them instead of wrapping */
+    #badge-share button{ padding:12px 6px!important; font-size:12px!important; gap:6px!important; }
+  }

@@ -1,0 +1,496 @@
+/**
+ * Canvas renderer + export helpers for the attendee badge page (/badge/).
+ *
+ * The badge is drawn with plain Canvas 2D rather than an HTML-to-image library so the
+ * page stays dependency-free (the site has no runtime deps beyond React) and so the
+ * exported PNG is pixel-identical everywhere. Everything is laid out in badge
+ * coordinates (1080x1350, a 4:5 portrait that posts well on LinkedIn/Instagram/X); the
+ * <canvas> is displayed scaled down via CSS.
+ */
+import { A } from './assets'
+
+export const BADGE_W = 1080
+export const BADGE_H = 1350
+
+/** Circular photo frame, in badge coordinates. The page overlays a drag target on it. */
+export const PHOTO = { cx: 540, cy: 566, r: 196 }
+
+/**
+ * The venue is the tentative one already published on /cfp/ — keep in sync with the
+ * FACTS block in src/components/CFP.tsx when it is locked. The date is deliberately
+ * not on the badge while it is still tentative.
+ */
+export const BADGE_EVENT_PLACE = 'Ahmedabad, India'
+export const BADGE_EVENT_YEAR = '2026'
+export const BADGE_TAGLINE = "Gujarat's Biggest Java Community Conference"
+
+export interface BadgeRole {
+  id: string
+  /** Shown on the role picker in the form. */
+  label: string
+  /** Stamped on the badge chip (rendered uppercase). */
+  chip: string
+  /** Opening clause of the social share text. */
+  share: string
+  /** Picker chip colour on the light page. */
+  accent: string
+  /**
+   * Chip/glow colour on the navy badge. The brand blue and purple are barely
+   * brighter than the background there, so every role carries a lifted variant
+   * that reads as luminous the way the yellow does.
+   */
+  ink: string
+}
+
+/** Accents come from the extended brand PALETTE in lib/decor. */
+export const BADGE_ROLES: BadgeRole[] = [
+  { id: 'attendee', label: 'Attendee', chip: "I'm attending", share: "I'm attending", accent: '#FEC400', ink: '#FEC400' },
+  { id: 'speaker', label: 'Speaker', chip: 'Speaker', share: "I'm speaking at", accent: '#FF384B', ink: '#FF7183' },
+  { id: 'enthusiast', label: 'Java Enthusiast', chip: 'Java Enthusiast', share: "I'm counting down to", accent: '#02CF70', ink: '#2BE58E' },
+  { id: 'sponsor', label: 'Sponsor', chip: 'Sponsor', share: "We're sponsoring", accent: '#FEC400', ink: '#FEC400' },
+  { id: 'organizer', label: 'Organizer', chip: 'Organizer', share: "I'm helping organise", accent: '#7D00BC', ink: '#C88BFF' },
+  { id: 'crew', label: 'Crew', chip: 'Crew', share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
+]
+
+export interface BadgeState {
+  name: string
+  /** Free-text role/job title, e.g. "Java Developer". Optional. */
+  title: string
+  company: string
+  role: BadgeRole
+  photo: HTMLImageElement | null
+  /** 1 = photo just covers the circle; up to 3x for a tighter crop. */
+  zoom: number
+  /** Pan, in badge coordinates, relative to a centred photo. */
+  offset: { x: number; y: number }
+}
+
+export interface BadgeArt {
+  logo: HTMLImageElement
+  watermark: HTMLImageElement
+  brick: HTMLImageElement
+}
+
+export function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.decoding = 'async'
+    img.onload = () => resolve(img)
+    img.onerror = () => reject(new Error(`Could not load ${src}`))
+    img.src = src
+  })
+}
+
+/** All three are same-origin, so drawing them never taints the canvas. */
+export async function loadBadgeArt(): Promise<BadgeArt> {
+  const [logo, watermark, brick] = await Promise.all([
+    loadImage(A['cd2b3de0-e87e-45cf-8bd3-459baf76597f']),
+    loadImage('/assets/java-sticker.png'),
+    loadImage(A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']),
+  ])
+  return { logo, watermark, brick }
+}
+
+/**
+ * Canvas text silently falls back to a system font if the webfont has not arrived yet,
+ * so wait for the faces the badge actually uses before the first paint.
+ */
+const FONT_SPECS = [
+  "700 98px 'Space Grotesk'",
+  "700 44px 'Space Grotesk'",
+  '700 32px Roboto',
+  '600 22px Roboto',
+  '500 36px Roboto',
+  '700 24px Roboto',
+]
+
+export async function loadBadgeFonts(): Promise<void> {
+  if (!document.fonts) return
+  try {
+    await Promise.all(FONT_SPECS.map((spec) => document.fonts.load(spec)))
+    await document.fonts.ready
+  } catch {
+    /* fall back to whatever the browser resolves — the badge still renders */
+  }
+}
+
+// ---- drawing helpers ----
+
+type Ctx = CanvasRenderingContext2D
+
+/** `#RRGGBB` + alpha -> `rgba(...)`. */
+function hexA(hex: string, a: number) {
+  const n = parseInt(hex.slice(1), 16)
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`
+}
+
+function roundRectPath(ctx: Ctx, x: number, y: number, w: number, h: number, r: number) {
+  ctx.beginPath()
+  ctx.moveTo(x + r, y)
+  ctx.arcTo(x + w, y, x + w, y + h, r)
+  ctx.arcTo(x + w, y + h, x, y + h, r)
+  ctx.arcTo(x, y + h, x, y, r)
+  ctx.arcTo(x, y, x + w, y, r)
+  ctx.closePath()
+}
+
+/**
+ * Letter-spaced text, drawn glyph by glyph. `ctx.letterSpacing` would be shorter but is
+ * missing on older Safari, and the exported PNG has to look the same everywhere.
+ */
+function trackedWidth(ctx: Ctx, text: string, tracking: number) {
+  const chars = Array.from(text)
+  if (!chars.length) return 0
+  let w = -tracking
+  for (const ch of chars) w += ctx.measureText(ch).width + tracking
+  return w
+}
+
+function fillTracked(ctx: Ctx, text: string, x: number, baseline: number, tracking: number) {
+  const align = ctx.textAlign
+  ctx.textAlign = 'left'
+  let cx = x
+  for (const ch of Array.from(text)) {
+    ctx.fillText(ch, cx, baseline)
+    cx += ctx.measureText(ch).width + tracking
+  }
+  ctx.textAlign = align
+}
+
+function fillTrackedCentered(ctx: Ctx, text: string, centerX: number, baseline: number, tracking: number) {
+  fillTracked(ctx, text, centerX - trackedWidth(ctx, text, tracking) / 2, baseline, tracking)
+}
+
+/** Truncate with an ellipsis so a very long single word never bleeds off the badge. */
+function clipText(ctx: Ctx, text: string, maxWidth: number) {
+  if (ctx.measureText(text).width <= maxWidth) return text
+  let out = text
+  while (out.length > 1 && ctx.measureText(out + '…').width > maxWidth) out = out.slice(0, -1)
+  return out + '…'
+}
+
+function greedyWrap(ctx: Ctx, text: string, maxWidth: number) {
+  const lines: string[] = []
+  let line = ''
+  for (const word of text.split(/\s+/).filter(Boolean)) {
+    const next = line ? `${line} ${word}` : word
+    if (line && ctx.measureText(next).width > maxWidth) {
+      lines.push(line)
+      line = word
+    } else {
+      line = next
+    }
+  }
+  if (line) lines.push(line)
+  return lines
+}
+
+const NAME_SIZES = [98, 90, 82, 74, 66, 58, 50]
+
+/** Largest size at which the name fits in at most two lines. */
+function fitName(ctx: Ctx, name: string, maxWidth: number) {
+  for (const size of NAME_SIZES) {
+    ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
+    const lines = greedyWrap(ctx, name, maxWidth)
+    if (lines.length <= 2 && lines.every((l) => ctx.measureText(l).width <= maxWidth)) {
+      return { size, lines }
+    }
+  }
+  const size = NAME_SIZES[NAME_SIZES.length - 1]
+  ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
+  const lines = greedyWrap(ctx, name, maxWidth).slice(0, 2).map((l) => clipText(ctx, l, maxWidth))
+  return { size, lines: lines.length ? lines : [''] }
+}
+
+// ---- photo geometry ----
+
+export interface PhotoFrame {
+  dx: number
+  dy: number
+  dw: number
+  dh: number
+  maxX: number
+  maxY: number
+}
+
+/**
+ * Where the uploaded photo lands inside the circle. The pan is clamped so the photo
+ * always covers the frame — no navy gaps at the edges, whatever the zoom.
+ */
+export function photoFrame(photo: HTMLImageElement, zoom: number, offset: { x: number; y: number }): PhotoFrame {
+  const d = PHOTO.r * 2
+  const cover = Math.max(d / photo.naturalWidth, d / photo.naturalHeight)
+  const dw = photo.naturalWidth * cover * zoom
+  const dh = photo.naturalHeight * cover * zoom
+  const maxX = Math.max(0, (dw - d) / 2)
+  const maxY = Math.max(0, (dh - d) / 2)
+  const x = Math.min(maxX, Math.max(-maxX, offset.x))
+  const y = Math.min(maxY, Math.max(-maxY, offset.y))
+  return { dx: PHOTO.cx - dw / 2 + x, dy: PHOTO.cy - dh / 2 + y, dw, dh, maxX, maxY }
+}
+
+export function clampOffset(photo: HTMLImageElement, zoom: number, offset: { x: number; y: number }) {
+  const { maxX, maxY } = photoFrame(photo, zoom, offset)
+  return {
+    x: Math.min(maxX, Math.max(-maxX, offset.x)),
+    y: Math.min(maxY, Math.max(-maxY, offset.y)),
+  }
+}
+
+// ---- the badge itself ----
+
+function drawDecor(ctx: Ctx) {
+  // Same floating-shape vocabulary as the rest of the site, flattened into the artwork.
+  ctx.save()
+  ctx.globalAlpha = 0.42
+  ctx.strokeStyle = '#FEC400'
+  ctx.lineWidth = 12
+  ctx.beginPath()
+  ctx.arc(126, 322, 74, 0, Math.PI * 2)
+  ctx.stroke()
+
+  ctx.globalAlpha = 0.65
+  ctx.fillStyle = '#FF384B'
+  ctx.beginPath()
+  ctx.moveTo(946, 300)
+  ctx.lineTo(978, 332)
+  ctx.lineTo(946, 364)
+  ctx.lineTo(914, 332)
+  ctx.closePath()
+  ctx.fill()
+
+  ctx.globalAlpha = 0.55
+  ctx.fillStyle = '#02CF70'
+  ctx.beginPath()
+  ctx.arc(112, 1004, 19, 0, Math.PI * 2)
+  ctx.fill()
+
+  ctx.globalAlpha = 0.3
+  ctx.fillStyle = '#0D5CDB'
+  ctx.beginPath()
+  ctx.moveTo(962, 944)
+  ctx.lineTo(1000, 1010)
+  ctx.lineTo(924, 1010)
+  ctx.closePath()
+  ctx.fill()
+
+  ctx.globalAlpha = 0.55
+  ctx.strokeStyle = '#7D00BC'
+  ctx.lineWidth = 9
+  ctx.beginPath()
+  ctx.arc(986, 620, 44, 0, Math.PI * 2)
+  ctx.stroke()
+  ctx.restore()
+}
+
+/** Lucide `cloud-upload`, on a 24x24 grid. */
+const CLOUD_UPLOAD = [
+  'M12 13v8',
+  'M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242',
+  'm8 17 4-4 4 4',
+]
+
+/**
+ * Empty state: a white drop-zone disc with the cloud mark and the instruction, so
+ * the circle reads as "put a photo here" at a glance. The HTML overlay on the
+ * preview only adds the cursor, hover ring and click target.
+ */
+function drawPhotoPlaceholder(ctx: Ctx) {
+  ctx.save()
+  const size = 140
+  ctx.translate(PHOTO.cx - size / 2, PHOTO.cy - size / 2 - 38)
+  ctx.scale(size / 24, size / 24)
+  ctx.strokeStyle = '#0D5CDB'
+  ctx.lineWidth = 1.7
+  ctx.lineCap = 'round'
+  ctx.lineJoin = 'round'
+  CLOUD_UPLOAD.forEach((d) => ctx.stroke(new Path2D(d)))
+  ctx.restore()
+
+  ctx.save()
+  ctx.font = '700 24px Roboto, sans-serif'
+  ctx.fillStyle = '#131C56'
+  ctx.fillText('Upload Your Photo Here', PHOTO.cx, PHOTO.cy + 100)
+  ctx.restore()
+}
+
+export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
+  const { role } = state
+  ctx.save()
+  ctx.clearRect(0, 0, BADGE_W, BADGE_H)
+  ctx.textBaseline = 'alphabetic'
+  ctx.textAlign = 'center'
+
+  // Background — the hero's radial navy.
+  const bg = ctx.createRadialGradient(BADGE_W / 2, 54, 0, BADGE_W / 2, 54, 1180)
+  bg.addColorStop(0, '#20307a')
+  bg.addColorStop(0.5, '#131C56')
+  bg.addColorStop(1, '#0E1667')
+  ctx.fillStyle = bg
+  ctx.fillRect(0, 0, BADGE_W, BADGE_H)
+
+  // Accent glow behind the portrait, tinted by the selected role.
+  const glow = ctx.createRadialGradient(PHOTO.cx, PHOTO.cy, 0, PHOTO.cx, PHOTO.cy, 540)
+  glow.addColorStop(0, hexA(role.ink, 0.2))
+  glow.addColorStop(1, hexA(role.ink, 0))
+  ctx.fillStyle = glow
+  ctx.fillRect(0, 0, BADGE_W, BADGE_H)
+
+  if (art) {
+    const w = 660
+    const h = (w * art.watermark.naturalHeight) / art.watermark.naturalWidth
+    ctx.globalAlpha = 0.06
+    ctx.drawImage(art.watermark, BADGE_W / 2 - w / 2, PHOTO.cy - h / 2 + 60, w, h)
+    ctx.globalAlpha = 1
+  }
+
+  drawDecor(ctx)
+
+  if (art) {
+    const h = 128
+    const w = (h * art.logo.naturalWidth) / art.logo.naturalHeight
+    ctx.drawImage(art.logo, BADGE_W / 2 - w / 2, 74, w, h)
+  }
+
+  // Role chip
+  const chip = role.chip.toUpperCase()
+  ctx.font = '700 30px Roboto, sans-serif'
+  const chipW = trackedWidth(ctx, chip, 4) + 76
+  const chipH = 66
+  roundRectPath(ctx, BADGE_W / 2 - chipW / 2, 252 - chipH / 2, chipW, chipH, chipH / 2)
+  ctx.fillStyle = hexA(role.ink, 0.16)
+  ctx.fill()
+  ctx.lineWidth = 2
+  ctx.strokeStyle = hexA(role.ink, 0.55)
+  ctx.stroke()
+  // Halo behind the letters so the chip glows on the navy instead of sitting flat.
+  ctx.shadowColor = hexA(role.ink, 0.6)
+  ctx.shadowBlur = 20
+  ctx.fillStyle = role.ink
+  fillTrackedCentered(ctx, chip, BADGE_W / 2, 263, 4)
+  ctx.shadowBlur = 0
+  ctx.shadowColor = 'transparent'
+
+  // Portrait
+  ctx.beginPath()
+  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r + 18, 0, Math.PI * 2)
+  ctx.fillStyle = 'rgba(255,255,255,.07)'
+  ctx.fill()
+
+  ctx.save()
+  ctx.beginPath()
+  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r, 0, Math.PI * 2)
+  ctx.clip()
+  // White while empty so the circle reads as a drop zone; navy once a photo lands.
+  ctx.fillStyle = state.photo ? '#111b52' : '#ffffff'
+  ctx.fill()
+  if (state.photo) {
+    const f = photoFrame(state.photo, state.zoom, state.offset)
+    ctx.drawImage(state.photo, f.dx, f.dy, f.dw, f.dh)
+  } else {
+    drawPhotoPlaceholder(ctx)
+  }
+  ctx.restore()
+
+  ctx.beginPath()
+  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r + 8, 0, Math.PI * 2)
+  ctx.lineWidth = 10
+  ctx.strokeStyle = role.ink
+  ctx.stroke()
+
+  // ---- text block, vertically centred between the portrait and the footer ----
+  const maxTextW = 820
+  const hasName = state.name.trim().length > 0
+  const { size, lines } = fitName(ctx, (state.name.trim() || 'Your Name').toUpperCase(), maxTextW)
+  const nameLH = Math.round(size * 1.02)
+  // Role and company share the line under the name — the block has no room for two,
+  // and they read as one credential anyway.
+  const sub = [state.title.trim(), state.company.trim()].filter(Boolean).join('  ·  ')
+
+  const BLOCK_TOP = 792
+  const BLOCK_BOTTOM = 1218
+  const blockH = lines.length * nameLH + (sub ? 58 : 0) + 14 + 44 + 22 + 44 + 42
+  let y = BLOCK_TOP + Math.max(0, (BLOCK_BOTTOM - BLOCK_TOP - blockH) / 2)
+
+  ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
+  ctx.fillStyle = hasName ? '#ffffff' : 'rgba(255,255,255,.32)'
+  lines.forEach((line, i) => ctx.fillText(line, BADGE_W / 2, y + size * 0.78 + i * nameLH))
+  y += lines.length * nameLH
+
+  if (sub) {
+    ctx.font = '500 36px Roboto, sans-serif'
+    ctx.fillStyle = '#c9d0ef'
+    ctx.fillText(clipText(ctx, sub, maxTextW), BADGE_W / 2, y + 36)
+    y += 58
+  }
+
+  // The year sits inside the divider rule: the seam between the person (name) and
+  // the event (place, tagline) is where the eye already stops, so the badge states
+  // which edition it is without another band competing with the logo or the face.
+  y += 14
+  ctx.font = "700 44px 'Space Grotesk', sans-serif"
+  const yearW = trackedWidth(ctx, BADGE_EVENT_YEAR, 8)
+  const ruleY = y + 22
+  const ruleGap = yearW / 2 + 32
+  ctx.fillStyle = 'rgba(255,255,255,.16)'
+  ctx.fillRect(BADGE_W / 2 - 260, ruleY - 1, 260 - ruleGap, 2)
+  ctx.fillRect(BADGE_W / 2 + ruleGap, ruleY - 1, 260 - ruleGap, 2)
+  ctx.shadowColor = 'rgba(254,196,0,.5)'
+  ctx.shadowBlur = 22
+  ctx.fillStyle = '#FEC400'
+  fillTrackedCentered(ctx, BADGE_EVENT_YEAR, BADGE_W / 2, ruleY + 15, 8)
+  ctx.shadowBlur = 0
+  ctx.shadowColor = 'transparent'
+  y += 66
+
+  // Place, on one centred line
+  ctx.font = '700 32px Roboto, sans-serif'
+  ctx.fillStyle = '#ffffff'
+  fillTrackedCentered(ctx, BADGE_EVENT_PLACE.toUpperCase(), BADGE_W / 2, y + 32, 2)
+  y += 44
+
+  ctx.font = '600 22px Roboto, sans-serif'
+  ctx.fillStyle = 'rgba(201,208,239,.85)'
+  fillTrackedCentered(ctx, BADGE_TAGLINE.toUpperCase(), BADGE_W / 2, y + 22, 5)
+
+  // ---- footer: site URL over the brick strip ----
+  const brickH = 64
+  if (art) {
+    const bw = (brickH * art.brick.naturalWidth) / art.brick.naturalHeight
+    for (let bx = 0; bx < BADGE_W; bx += bw) {
+      ctx.drawImage(art.brick, bx, BADGE_H - brickH, bw, brickH)
+    }
+  }
+  ctx.font = '700 26px Roboto, sans-serif'
+  ctx.fillStyle = '#FEC400'
+  fillTrackedCentered(ctx, 'COMMUNITYDAYFORJAVA.COM', BADGE_W / 2, BADGE_H - brickH - 34, 4)
+
+  ctx.restore()
+}
+
+// ---- export / share ----
+
+export function badgeBlob(canvas: HTMLCanvasElement): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => (blob ? resolve(blob) : reject(new Error('Could not export the badge image.'))),
+      'image/png',
+    )
+  })
+}
+
+export function badgeFileName(name: string) {
+  const slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+  return `cdj-2026-badge${slug ? `-${slug}` : ''}.png`
+}
+
+export function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 4000)
+}

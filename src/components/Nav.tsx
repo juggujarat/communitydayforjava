@@ -8,6 +8,7 @@ import { TICKETS_COMING_SOON } from '../lib/links'
 const MENU_LINKS = [
   { href: '#manifesto', label: 'Agenda' },
   { href: '/cfp/', label: 'CFP' },
+  { href: '/badge/', label: 'Badge' },
   { href: '#venue', label: 'Venue' },
   { href: '#speakers', label: 'Speakers' },
   { href: '#sponsors-wall', label: 'Sponsor' },
