@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { KONFHUB_EVENT_URL, widgetUrl } from '../lib/tickets'
+import { widgetUrl } from '../lib/tickets'
 
 /**
  * Ticket popup: KonfHub's embeddable checkout widget in an iframe, so the whole flow —
@@ -19,7 +19,9 @@ import { KONFHUB_EVENT_URL, widgetUrl } from '../lib/tickets'
 export default function TicketsModal({ onClose }: { onClose: () => void }) {
   const [loaded, setLoaded] = useState(false)
 
-  // Close on Escape and freeze the page behind the overlay while it is open.
+  // Close on Escape and freeze the page behind the overlay while it is open. A click on
+  // the backdrop deliberately does NOT close it — a stray click mid-checkout would throw
+  // away whatever the visitor had already filled in. The X button is the way out.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', onKey)
@@ -42,7 +44,6 @@ export default function TicketsModal({ onClose }: { onClose: () => void }) {
     <div
       id="cdj-tickets-overlay"
       role="presentation"
-      onClick={onClose}
       style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', background: 'rgba(7,11,52,.72)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', animation: 'fadeIn .18s ease' }}
     >
       <div
@@ -50,7 +51,6 @@ export default function TicketsModal({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-label="Register for Community Day for Java 2026"
-        onClick={(e) => e.stopPropagation()}
         style={{ position: 'relative', width: '100%', maxWidth: '940px', maxHeight: '92vh', overflowY: 'auto', WebkitOverflowScrolling: 'touch', background: '#fff', color: '#0E1667', borderRadius: '20px', boxShadow: '0 40px 90px rgba(0,0,0,.5)' }}
       >
         <button
@@ -79,10 +79,6 @@ export default function TicketsModal({ onClose }: { onClose: () => void }) {
           onLoad={() => setLoaded(true)}
           style={{ display: 'block', width: '100%', height: '660px', border: 'none', borderRadius: '20px' }}
         />
-
-        <p style={{ margin: 0, padding: '0 20px 16px', fontSize: '11.5px', lineHeight: 1.5, color: '#8a91be', textAlign: 'center' }}>
-          Registration and payments are handled by our ticketing partner. <a href={KONFHUB_EVENT_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#FF384B', fontWeight: 700, textDecoration: 'none' }}>Having trouble? Open the ticket page ↗</a>
-        </p>
       </div>
     </div>,
     document.body,

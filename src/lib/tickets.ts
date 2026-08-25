@@ -9,10 +9,14 @@
  * konfhub.com/checkout (navigating away has been rejected).
  *
  * Because the widget is live, ticket names/prices/availability are NOT mirrored here;
- * only the ids are, to tell the widget which tickets to show and pre-select. Ids come
- * from the event's `ticketsData` and are also visible in a checkout link as
- * `?ticketId=<id>|<qty>`. Add an id below when a new ticket type is created on KonfHub,
- * otherwise it will not appear in the popup.
+ * only the ids are, to pre-select starting quantities. Ids come from the event's
+ * `ticketsData` and are also visible in a checkout link as `?ticketId=<id>|<qty>`.
+ *
+ * Do NOT add a `tickets=<id,id>` param to the widget URL. It looks like a "show only
+ * these tickets" filter, but the widget answers ANY value of it — valid ids, category
+ * ids, a single id — with "No tickets available", which is what emptied the popup.
+ * Without it the widget lists everything the event has published. Verified by rendering
+ * the widget headless against the live event on 2026-08-24.
  *
  * BRANDING: the widget renders a footer image from the event's `checkout_footer_icon`
  * field, which defaults to a KonfHub logo. It cannot be hidden, restyled or cropped
@@ -29,7 +33,9 @@ export const KONFHUB_EVENT_URL = `https://konfhub.com/${KONFHUB_EVENT}`
 
 /** KonfHub `ticket_id`s to offer, in display order. The first one starts at qty 1. */
 export const KONFHUB_TICKET_IDS = [
-  108132, // Regular Ticket
+  118543, // Regular — INR 599
+  118531, // Regular Plus Workshop — INR 799
+  118542, // Community Supporter — INR 5000
 ]
 
 /** Widget theming — CDJ palette mapped onto KonfHub's colour params (hex, no `#`). */
@@ -48,16 +54,16 @@ const THEME = {
 /**
  * Embeddable KonfHub checkout widget for this event.
  *
- * `tickets` is a comma-separated id list (which tickets to show) and `ticketId` is a
- * semicolon-separated `<id>|<qty>` list (their starting quantities); URLSearchParams
- * percent-encodes both separators, which is the form KonfHub's widget expects.
+ * `ticketId` is a semicolon-separated `<id>|<qty>` list of starting quantities;
+ * URLSearchParams percent-encodes both separators, which is the form the widget
+ * expects. Which tickets are listed is decided by KonfHub, not by us — see the
+ * `tickets=` warning above.
  */
 export function widgetUrl() {
   const params = new URLSearchParams({
     ...THEME,
     desc: 'true',
     widget_type: 'standard',
-    tickets: KONFHUB_TICKET_IDS.join(','),
     ticketId: KONFHUB_TICKET_IDS.map((id, i) => `${id}|${i === 0 ? 1 : 0}`).join(';'),
   })
   return `https://konfhub.com/widget/${KONFHUB_EVENT}?${params.toString()}`

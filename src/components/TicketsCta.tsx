@@ -1,7 +1,7 @@
 import { useState, type CSSProperties } from 'react'
 import TicketsModal from './TicketsModal'
 import { h } from '../lib/handlers'
-import { TICKETS_COMING_SOON } from '../lib/links'
+import { TICKETS_CTA_LABEL } from '../lib/links'
 
 /**
  * The ticket CTA chip — opens the ticket picker popup.
@@ -11,7 +11,7 @@ import { TICKETS_COMING_SOON } from '../lib/links'
  * the gradient CTA styling at mount and the mobile full-width rule in global.css still
  * matches; `style` carries the per-placement sizing that used to sit on the <span>.
  */
-export default function TicketsCta({ style, label = TICKETS_COMING_SOON }: { style?: CSSProperties; label?: string }) {
+export default function TicketsCta({ style, label = TICKETS_CTA_LABEL }: { style?: CSSProperties; label?: string }) {
   const [open, setOpen] = useState(false)
   return (
     <>
