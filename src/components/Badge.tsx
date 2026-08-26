@@ -9,6 +9,7 @@ import {
   BADGE_W,
   PHOTO,
   badgeBlob,
+  badgeSlogan,
   badgeFileName,
   clampOffset,
   downloadBlob,
@@ -16,6 +17,7 @@ import {
   loadBadgeArt,
   loadBadgeFonts,
   loadImage,
+  SLOGAN_OPTIONS,
   type BadgeArt,
   type BadgeRole,
 } from '../lib/badge'
@@ -25,8 +27,10 @@ const MAX_UPLOAD = 10 * 1024 * 1024
 
 const SHARE_HASHTAGS = '#CommunityDayForJava #CDJ2026 #Java #JUGGujarat'
 
-function shareText(role: BadgeRole) {
-  return `${role.share} Community Day for Java 2026 — Gujarat's biggest Java community conference, organized by Java User Group Gujarat. ${SHARE_HASHTAGS}`
+/** The post opens with the wearer's own line, the same one stamped on the badge. */
+function shareText(role: BadgeRole, slogan: string) {
+  const pride = slogan.replace(/[.!…]+$/, '')
+  return `${pride}! ${role.share} Community Day for Java 2026 — Gujarat's biggest Java community conference, organized by Java User Group Gujarat. ${SHARE_HASHTAGS}`
 }
 
 /**
@@ -39,28 +43,36 @@ const SHARE_TARGETS = [
     label: 'LinkedIn',
     icon: 'linkedin' as const,
     color: '#0A66C2',
-    url: () => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(BADGE_PAGE)}`,
+    url: (_role: BadgeRole, _slogan: string) =>
+      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(BADGE_PAGE)}`,
   },
   {
     id: 'x' as const,
     label: 'X (Twitter)',
     icon: 'x' as const,
     color: '#111111',
-    url: (role: BadgeRole) =>
-      `https://x.com/intent/post?text=${encodeURIComponent(shareText(role))}&url=${encodeURIComponent(BADGE_PAGE)}`,
+    url: (role: BadgeRole, slogan: string) =>
+      `https://x.com/intent/post?text=${encodeURIComponent(shareText(role, slogan))}&url=${encodeURIComponent(BADGE_PAGE)}`,
   },
   {
     id: 'whatsapp' as const,
     label: 'WhatsApp',
     icon: 'whatsapp' as const,
     color: '#25D366',
-    url: (role: BadgeRole) => `https://wa.me/?text=${encodeURIComponent(`${shareText(role)} ${BADGE_PAGE}`)}`,
+    url: (role: BadgeRole, slogan: string) =>
+      `https://wa.me/?text=${encodeURIComponent(`${shareText(role, slogan)} ${BADGE_PAGE}`)}`,
   },
 ]
 
+/** "a", "a and b", "a, b and c" — the missing-fields nudge reads as a sentence. */
+function listPhrase(items: string[]) {
+  if (items.length < 2) return items.join('')
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
+}
+
 const STEPS = [
   { n: '1', text: 'Tap the circle on the badge to add your photo, then drag and zoom until your face fills it.' },
-  { n: '2', text: 'Add your name, how you are joining, and your company or community.' },
+  { n: '2', text: 'Add your name, role and company, pick how you are joining, and choose your line.' },
   { n: '3', text: 'Download or copy the badge, then post it and tag us — we reshare every one.' },
 ]
 
@@ -123,6 +135,8 @@ export default function Badge() {
   const [name, setName] = useState('')
   const [title, setTitle] = useState('')
   const [company, setCompany] = useState('')
+  /** One of SLOGAN_OPTIONS; empty means the default line is the one stamped. */
+  const [slogan, setSlogan] = useState('')
   const [role, setRole] = useState<BadgeRole>(BADGE_ROLES[0])
   const [photo, setPhoto] = useState<HTMLImageElement | null>(null)
   const [zoom, setZoom] = useState(1)
@@ -150,8 +164,8 @@ export default function Badge() {
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d')
     if (!ctx) return
-    drawBadge(ctx, { name, title, company, role, photo, zoom, offset }, art)
-  }, [name, title, company, role, photo, zoom, offset, art, fontsReady])
+    drawBadge(ctx, { name, title, company, slogan, role, photo, zoom, offset }, art)
+  }, [name, title, company, slogan, role, photo, zoom, offset, art, fontsReady])
 
   const acceptFile = useCallback(async (file: File | null | undefined) => {
     if (!file) return
@@ -177,6 +191,9 @@ export default function Badge() {
       setStatus({ kind: 'err', text: 'That image could not be read. Try re-saving it as a PNG or JPG.' })
     }
   }, [])
+
+  /** What the badge is stamped with: the chosen line, else the role's own. */
+  const badgeLine = badgeSlogan({ slogan })
 
   const openPicker = () => fileRef.current?.click()
 
@@ -240,7 +257,7 @@ export default function Badge() {
         throw new Error('This browser cannot share files — use Download instead.')
       }
       try {
-        await navigator.share({ files: [file], text: `${shareText(role)} ${BADGE_PAGE}` })
+        await navigator.share({ files: [file], text: `${shareText(role, badgeLine)} ${BADGE_PAGE}` })
       } catch (err) {
         // The user closing the share sheet is not a failure.
         if ((err as DOMException)?.name !== 'AbortError') throw err
@@ -250,7 +267,7 @@ export default function Badge() {
   const shareTo = (target: (typeof SHARE_TARGETS)[number]) =>
     withBadge(target.id, async (blob) => {
       downloadBlob(blob, badgeFileName(name))
-      window.open(target.url(role), '_blank', 'noopener,noreferrer')
+      window.open(target.url(role, badgeLine), '_blank', 'noopener,noreferrer')
       setStatus({
         kind: 'ok',
         text: `Badge downloaded — attach it to the ${target.label} post that just opened.`,
@@ -261,10 +278,15 @@ export default function Badge() {
   const hot = hotPhoto || dropActive
 
   /**
-   * Nothing is exportable until the badge carries a face and a name — a download of
-   * the empty template helps nobody. Role and company stay genuinely optional.
+   * Nothing is exportable until the badge is actually filled in — a download of the
+   * empty template helps nobody. The slogan needs no check: one is always selected.
    */
-  const missing = [!photo && 'your photo', !name.trim() && 'your name'].filter(Boolean) as string[]
+  const missing = [
+    !photo && 'your photo',
+    !name.trim() && 'your name',
+    !title.trim() && 'your role',
+    !company.trim() && 'your company',
+  ].filter(Boolean) as string[]
   const blocked = missing.length > 0 || busy !== null
   const exportCursor = busy ? 'wait' : missing.length ? 'not-allowed' : 'pointer'
   const dimmed: React.CSSProperties = missing.length
@@ -304,7 +326,7 @@ export default function Badge() {
                 style={{ ...inputStyle, marginBottom: '20px' }}
               />
 
-              <label style={labelStyle} htmlFor="badge-title">Role <span style={{ color: '#9aa3d6' }}>(optional)</span></label>
+              <label style={labelStyle} htmlFor="badge-title">Role</label>
               <input
                 id="badge-title"
                 type="text"
@@ -315,7 +337,7 @@ export default function Badge() {
                 style={{ ...inputStyle, marginBottom: '20px' }}
               />
 
-              <label style={labelStyle} htmlFor="badge-company">Company / community <span style={{ color: '#9aa3d6' }}>(optional)</span></label>
+              <label style={labelStyle} htmlFor="badge-company">Company / community</label>
               <input
                 id="badge-company"
                 type="text"
@@ -347,6 +369,34 @@ export default function Badge() {
                       }}
                     >
                       {r.label}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Fixed set, one always selected — the badge never goes out without a
+                  line, and every line on it is one we wrote. */}
+              <span style={{ ...labelStyle, marginTop: '20px' }}>Your slogan</span>
+              <div id="badge-slogans" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {SLOGAN_OPTIONS.map((s) => {
+                  const on = s === badgeLine
+                  return (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setSlogan(s)}
+                      aria-pressed={on}
+                      style={{
+                        padding: '10px 14px', borderRadius: '999px', cursor: 'pointer',
+                        fontSize: '12.5px', fontWeight: 700, fontFamily: "'Roboto',sans-serif",
+                        border: `1.5px solid ${on ? role.accent : 'rgba(14,22,103,.14)'}`,
+                        background: on ? `${role.accent}1f` : '#fff',
+                        color: on ? '#0E1667' : '#5a6299',
+                        boxShadow: on ? `0 8px 20px ${role.accent}33` : 'none',
+                        transition: 'all .22s ease',
+                      }}
+                    >
+                      {s}
                     </button>
                   )
                 })}
@@ -455,7 +505,7 @@ export default function Badge() {
             {missing.length > 0 && (
               <p style={{ margin: '18px 0 0', display: 'flex', gap: '9px', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', borderRadius: '16px', background: 'rgba(13,92,219,.07)', color: '#42498a', fontSize: '13.5px', fontWeight: 700, lineHeight: 1.5, textAlign: 'center' }}>
                 <span style={{ flex: '0 0 auto', width: '8px', height: '8px', borderRadius: '50%', background: '#FEC400' }} />
-                Add {missing.join(' and ')} to unlock the download.
+                Add {listPhrase(missing)} to unlock the download.
               </p>
             )}
 

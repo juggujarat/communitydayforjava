@@ -135,7 +135,7 @@
     #dc-root [style*="margin-bottom: 60px"],
     #dc-root [style*="margin-bottom: 64px"]{ margin-bottom:28px!important; }
     #dc-root [data-cta]{ width:100%!important; justify-content:center!important; box-sizing:border-box; }
-    /* Hero CTAs (Tickets Coming Soon / Become a sponsor) + follow block: hidden on mobile */
+    /* Hero CTAs (Register Now / Become a sponsor) + follow block: hidden on mobile */
     #hero-ctas{ display:none!important; }
     #hero-follow{ display:none!important; }
     /* Hero stats line: allow it to wrap on mobile so it isn't cut off */

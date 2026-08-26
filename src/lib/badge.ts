@@ -13,7 +13,7 @@ export const BADGE_W = 1080
 export const BADGE_H = 1350
 
 /** Circular photo frame, in badge coordinates. The page overlays a drag target on it. */
-export const PHOTO = { cx: 540, cy: 566, r: 196 }
+export const PHOTO = { cx: 540, cy: 528, r: 196 }
 
 /**
  * The venue is the tentative one already published on /cfp/ — keep in sync with the
@@ -23,6 +23,20 @@ export const PHOTO = { cx: 540, cy: 566, r: 196 }
 export const BADGE_EVENT_PLACE = 'Ahmedabad, India'
 export const BADGE_EVENT_YEAR = '2026'
 export const BADGE_TAGLINE = "Gujarat's Biggest Java Community Conference"
+
+/**
+ * Slogan typography: the role/company face a step *up* from it — after the name it is
+ * the loudest line on the badge. It is drawn in the brand yellow, matching the year in
+ * the divider rule below it rather than the role colour, so the pride line reads the
+ * same on every badge. Sizes are tried largest first so a long line shrinks rather
+ * than losing its tail to an ellipsis.
+ */
+const SLOGAN_SIZES = [52, 48, 44, 40]
+const sloganFont = (size: number) => `500 ${size}px Roboto, sans-serif`
+/** Vertical room the slogan takes in the text block. */
+const SLOGAN_SLOT = 74
+/** Vertical room the role/company line takes in the text block. */
+const SUB_SLOT = 58
 
 export interface BadgeRole {
   id: string
@@ -45,24 +59,49 @@ export interface BadgeRole {
 /** Accents come from the extended brand PALETTE in lib/decor. */
 export const BADGE_ROLES: BadgeRole[] = [
   { id: 'attendee', label: 'Attendee', chip: "I'm attending", share: "I'm attending", accent: '#FEC400', ink: '#FEC400' },
-  { id: 'speaker', label: 'Speaker', chip: 'Speaker', share: "I'm speaking at", accent: '#FF384B', ink: '#FF7183' },
-  { id: 'enthusiast', label: 'Java Enthusiast', chip: 'Java Enthusiast', share: "I'm counting down to", accent: '#02CF70', ink: '#2BE58E' },
-  { id: 'sponsor', label: 'Sponsor', chip: 'Sponsor', share: "We're sponsoring", accent: '#FEC400', ink: '#FEC400' },
-  { id: 'organizer', label: 'Organizer', chip: 'Organizer', share: "I'm helping organise", accent: '#7D00BC', ink: '#C88BFF' },
-  { id: 'crew', label: 'Crew', chip: 'Crew', share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
+  { id: 'speaker', label: 'Speaker', chip: "I'm a speaker", share: "I'm speaking at", accent: '#FF384B', ink: '#FF7183' },
+  { id: 'enthusiast', label: 'Java Enthusiast', chip: "I'm a Java enthusiast", share: "I'm counting down to", accent: '#02CF70', ink: '#2BE58E' },
+  { id: 'sponsor', label: 'Sponsor', chip: "I'm a sponsor", share: "We're sponsoring", accent: '#FEC400', ink: '#FEC400' },
+  { id: 'organizer', label: 'Organizer', chip: "I'm an organizer", share: "I'm helping organise", accent: '#7D00BC', ink: '#C88BFF' },
+  { id: 'crew', label: 'Crew', chip: "I'm on the crew", share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
 ]
+
+/**
+ * The slogan is a fixed set rather than a free-text field: the badge goes out under
+ * the event's name, so every line on it is one we wrote. The list is deliberately the
+ * same for every role — the pride line is the wearer's own voice, not a credential,
+ * so picking a role never changes (or resets) it.
+ */
+export const SLOGAN_OPTIONS = [
+  'Proud to be part of the Java community',
+  'Proud to be a volunteer',
+  'Proud to be a Java developer',
+  'Proud to be a JUG Gujarat member',
+  'Java runs in my veins',
+  'See you in Ahmedabad!',
+]
+
+/** Stamped when the wearer has not picked a line yet. */
+export const DEFAULT_SLOGAN = SLOGAN_OPTIONS[0]
 
 export interface BadgeState {
   name: string
-  /** Free-text role/job title, e.g. "Java Developer". Optional. */
+  /** Free-text role/job title, e.g. "Java Developer". Required, like the company. */
   title: string
   company: string
+  /** One of SLOGAN_OPTIONS. Empty means DEFAULT_SLOGAN is the one stamped. */
+  slogan: string
   role: BadgeRole
   photo: HTMLImageElement | null
   /** 1 = photo just covers the circle; up to 3x for a tighter crop. */
   zoom: number
   /** Pan, in badge coordinates, relative to a centred photo. */
   offset: { x: number; y: number }
+}
+
+/** The line actually drawn — never empty, so the badge always carries a slogan. */
+export function badgeSlogan(state: Pick<BadgeState, 'slogan'>) {
+  return state.slogan.trim() || DEFAULT_SLOGAN
 }
 
 export interface BadgeArt {
@@ -96,11 +135,15 @@ export async function loadBadgeArt(): Promise<BadgeArt> {
  * so wait for the faces the badge actually uses before the first paint.
  */
 const FONT_SPECS = [
-  "700 98px 'Space Grotesk'",
+  "700 82px 'Space Grotesk'",
   "700 44px 'Space Grotesk'",
   '700 32px Roboto',
   '600 22px Roboto',
   '500 36px Roboto',
+  '500 52px Roboto',
+  '500 48px Roboto',
+  '500 44px Roboto',
+  '500 40px Roboto',
   '700 24px Roboto',
 ]
 
@@ -185,14 +228,21 @@ function greedyWrap(ctx: Ctx, text: string, maxWidth: number) {
   return lines
 }
 
-const NAME_SIZES = [98, 90, 82, 74, 66, 58, 50]
+const NAME_SIZES = [82, 74, 66, 58, 50, 44]
 
-/** Largest size at which the name fits in at most two lines. */
-function fitName(ctx: Ctx, name: string, maxWidth: number) {
+/**
+ * Largest size at which the name fits in at most two lines — and inside the height the
+ * rest of the block (role/company, slogan, event lines) leaves for it.
+ */
+function fitName(ctx: Ctx, name: string, maxWidth: number, maxHeight: number) {
   for (const size of NAME_SIZES) {
     ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
     const lines = greedyWrap(ctx, name, maxWidth)
-    if (lines.length <= 2 && lines.every((l) => ctx.measureText(l).width <= maxWidth)) {
+    if (
+      lines.length <= 2 &&
+      lines.every((l) => ctx.measureText(l).width <= maxWidth) &&
+      lines.length * Math.round(size * 1.02) <= maxHeight
+    ) {
       return { size, lines }
     }
   }
@@ -401,15 +451,36 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   // ---- text block, vertically centred between the portrait and the footer ----
   const maxTextW = 820
   const hasName = state.name.trim().length > 0
-  const { size, lines } = fitName(ctx, (state.name.trim() || 'Your Name').toUpperCase(), maxTextW)
-  const nameLH = Math.round(size * 1.02)
   // Role and company share the line under the name — the block has no room for two,
-  // and they read as one credential anyway.
-  const sub = [state.title.trim(), state.company.trim()].filter(Boolean).join('  ·  ')
+  // and they read as one credential anyway. Both are required, so the line always has
+  // its slot: while it is still empty it previews itself the way the name does.
+  const subText = [state.title.trim(), state.company.trim()].filter(Boolean).join('  ·  ')
+  const hasSub = subText.length > 0
+  const sub = subText || 'Your role  ·  Your company'
 
-  const BLOCK_TOP = 792
+  // The pride line, in quotes so it reads as the wearer speaking rather than as more
+  // event copy. Always present, and measured before the name, because the name is
+  // what gives up a size for it when the block runs out of room.
+  const quoted = `“${badgeSlogan(state)}”`
+  let sloganSize = SLOGAN_SIZES[SLOGAN_SIZES.length - 1]
+  for (const size of SLOGAN_SIZES) {
+    ctx.font = sloganFont(size)
+    if (ctx.measureText(quoted).width <= maxTextW) {
+      sloganSize = size
+      break
+    }
+  }
+  ctx.font = sloganFont(sloganSize)
+  const sloganText = clipText(ctx, quoted, maxTextW)
+
+  const BLOCK_TOP = 756
   const BLOCK_BOTTOM = 1218
-  const blockH = lines.length * nameLH + (sub ? 58 : 0) + 14 + 44 + 22 + 44 + 42
+  // 146 = the fixed run under the name: gap + year rule + place + tagline.
+  const nameBudget = BLOCK_BOTTOM - BLOCK_TOP - SUB_SLOT - SLOGAN_SLOT - 146
+  const { size, lines } = fitName(ctx, (state.name.trim() || 'Your Name').toUpperCase(), maxTextW, nameBudget)
+  const nameLH = Math.round(size * 1.02)
+
+  const blockH = lines.length * nameLH + SUB_SLOT + SLOGAN_SLOT + 14 + 44 + 22 + 44 + 42
   let y = BLOCK_TOP + Math.max(0, (BLOCK_BOTTOM - BLOCK_TOP - blockH) / 2)
 
   ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
@@ -417,12 +488,19 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   lines.forEach((line, i) => ctx.fillText(line, BADGE_W / 2, y + size * 0.78 + i * nameLH))
   y += lines.length * nameLH
 
-  if (sub) {
-    ctx.font = '500 36px Roboto, sans-serif'
-    ctx.fillStyle = '#c9d0ef'
-    ctx.fillText(clipText(ctx, sub, maxTextW), BADGE_W / 2, y + 36)
-    y += 58
-  }
+  ctx.font = '500 36px Roboto, sans-serif'
+  ctx.fillStyle = hasSub ? '#c9d0ef' : 'rgba(201,208,239,.35)'
+  ctx.fillText(clipText(ctx, sub, maxTextW), BADGE_W / 2, y + 36)
+  y += SUB_SLOT
+
+  ctx.font = sloganFont(sloganSize)
+  ctx.shadowColor = 'rgba(254,196,0,.5)'
+  ctx.shadowBlur = 18
+  ctx.fillStyle = '#FEC400'
+  ctx.fillText(sloganText, BADGE_W / 2, y + 50)
+  ctx.shadowBlur = 0
+  ctx.shadowColor = 'transparent'
+  y += SLOGAN_SLOT
 
   // The year sits inside the divider rule: the seam between the person (name) and
   // the event (place, tagline) is where the eye already stops, so the badge states
