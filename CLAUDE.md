@@ -60,8 +60,9 @@ the exported PNG is identical across browsers. Notes for changing it:
 - LinkedIn/X/WhatsApp cannot attach an image from a link, so those buttons download the
   PNG first and then open the composer. `navigator.share` with files is offered
   separately for phones.
-- `BADGE_EVENT_YEAR` is drawn into the divider rule between the name and the place — it
-  is the badge's one statement of which edition this is.
+- `BADGE_EVENT_YEAR` is drawn under the logo in the top-left masthead (`LOGO` in
+  `lib/badge.ts`) — it is the badge's one statement of which edition this is. The rule
+  between the slogan and the place is now a plain divider.
 - `BADGE_EVENT_PLACE` duplicates the still-tentative venue from the `FACTS` block in
   `components/CFP.tsx` — update both together. The event date is intentionally left off
   the badge while it is tentative.

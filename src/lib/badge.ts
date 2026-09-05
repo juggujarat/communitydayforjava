@@ -16,6 +16,31 @@ export const BADGE_H = 1350
 export const PHOTO = { cx: 540, cy: 528, r: 196 }
 
 /**
+ * Masthead: the logo sits in the top-left corner with the edition year stacked under
+ * it. Keeping the pair off the centre line leaves the middle column to the role chip
+ * and the face, which is what the badge is actually about.
+ */
+const LOGO = { x: 72, y: 58, h: 104 }
+
+/**
+ * The Java sticker balances the masthead from the opposite corner. It used to be a 6%
+ * watermark behind the portrait; as a foreground mark it reads as a sticker slapped on
+ * the badge, which is the point — so it is drawn at full opacity, after the decor
+ * layer so nothing floats over it. The source art is square.
+ */
+const STICKER = { size: 168, x: BADGE_W - 72 - 168, y: 62 }
+
+/**
+ * Role chip typography. The two runs share one baseline, offset from the chip's
+ * centre by roughly half the larger cap height so the pair sits optically centred.
+ */
+const CHIP_LEAD_FONT = '700 24px Roboto, sans-serif'
+const CHIP_MAIN_FONT = '700 38px Roboto, sans-serif'
+const CHIP_GAP = 16
+const CHIP_CY = 252
+const CHIP_BASELINE = CHIP_CY + 13
+
+/**
  * The venue is the tentative one already published on /cfp/ — keep in sync with the
  * FACTS block in src/components/CFP.tsx when it is locked. The date is deliberately
  * not on the badge while it is still tentative.
@@ -42,8 +67,14 @@ export interface BadgeRole {
   id: string
   /** Shown on the role picker in the form. */
   label: string
-  /** Stamped on the badge chip (rendered uppercase). */
-  chip: string
+  /**
+   * The badge chip, split so it can be set at two sizes (both rendered uppercase):
+   * `chipLead` is the connective run ("I'm on the"), `chipMain` the word that says
+   * who the wearer is ("crew"). The split is data rather than a string search
+   * because the lead-in is a different length for every role.
+   */
+  chipLead: string
+  chipMain: string
   /** Opening clause of the social share text. */
   share: string
   /** Picker chip colour on the light page. */
@@ -58,12 +89,12 @@ export interface BadgeRole {
 
 /** Accents come from the extended brand PALETTE in lib/decor. */
 export const BADGE_ROLES: BadgeRole[] = [
-  { id: 'attendee', label: 'Attendee', chip: "I'm attending", share: "I'm attending", accent: '#FEC400', ink: '#FEC400' },
-  { id: 'speaker', label: 'Speaker', chip: "I'm a speaker", share: "I'm speaking at", accent: '#FF384B', ink: '#FF7183' },
-  { id: 'enthusiast', label: 'Java Enthusiast', chip: "I'm a Java enthusiast", share: "I'm counting down to", accent: '#02CF70', ink: '#2BE58E' },
-  { id: 'sponsor', label: 'Sponsor', chip: "I'm a sponsor", share: "We're sponsoring", accent: '#FEC400', ink: '#FEC400' },
-  { id: 'organizer', label: 'Organizer', chip: "I'm an organizer", share: "I'm helping organise", accent: '#7D00BC', ink: '#C88BFF' },
-  { id: 'crew', label: 'Crew', chip: "I'm on the crew", share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
+  { id: 'attendee', label: 'Attendee', chipLead: "I'm", chipMain: 'attending', share: "I'm attending", accent: '#FEC400', ink: '#FEC400' },
+  { id: 'speaker', label: 'Speaker', chipLead: "I'm a", chipMain: 'speaker', share: "I'm speaking at", accent: '#FF384B', ink: '#FF7183' },
+  { id: 'enthusiast', label: 'Java Enthusiast', chipLead: "I'm a", chipMain: 'Java enthusiast', share: "I'm counting down to", accent: '#02CF70', ink: '#2BE58E' },
+  { id: 'sponsor', label: 'Sponsor', chipLead: "I'm a", chipMain: 'sponsor', share: "We're sponsoring", accent: '#FEC400', ink: '#FEC400' },
+  { id: 'organizer', label: 'Organizer', chipLead: "I'm an", chipMain: 'organizer', share: "I'm helping organise", accent: '#7D00BC', ink: '#C88BFF' },
+  { id: 'crew', label: 'Crew', chipLead: "I'm on the", chipMain: 'crew', share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
 ]
 
 /**
@@ -83,6 +114,49 @@ export const SLOGAN_OPTIONS = [
 
 /** Stamped when the wearer has not picked a line yet. */
 export const DEFAULT_SLOGAN = SLOGAN_OPTIONS[0]
+
+/**
+ * Social captions, three per role — unlike the slogan these are never stamped on the
+ * badge image, only used as the post text, so they can be longer and role-specific
+ * instead of one line that has to read well for every role.
+ */
+export const CAPTION_OPTIONS: Record<string, string[]> = {
+  attendee: [
+    "Excited to be attending Community Day for Java 2026 — Gujarat's biggest Java community conference! Who else is coming?",
+    "Just got my badge for Community Day for Java 2026. Can't wait to connect with the Java community in Ahmedabad.",
+    "Counting down to Community Day for Java 2026 — grab your own badge and let's meet up there!",
+  ],
+  speaker: [
+    "Honoured to be speaking at Community Day for Java 2026 — Gujarat's biggest Java community conference!",
+    "I'll be taking the stage at Community Day for Java 2026. Come say hi and catch my session!",
+    "Sharing what I know about Java at Community Day for Java 2026 this year — see you there!",
+  ],
+  enthusiast: [
+    "Java runs in my veins — counting down to Community Day for Java 2026!",
+    "Proud Java enthusiast, hyped for Community Day for Java 2026. Who else is going?",
+    "Been a Java fan for years — Community Day for Java 2026 is the meetup I've been waiting for.",
+  ],
+  sponsor: [
+    "Proud to sponsor Community Day for Java 2026 — Gujarat's biggest Java community conference!",
+    "We're backing the Java community — sponsoring Community Day for Java 2026 this year.",
+    "Supporting developers where they grow. See us as a sponsor at Community Day for Java 2026.",
+  ],
+  organizer: [
+    "Behind the scenes, making Community Day for Java 2026 happen. Can't wait to see you all there!",
+    "Helping organise Community Day for Java 2026 — Gujarat's biggest Java community conference. Let's build something great together.",
+    "Putting together Community Day for Java 2026 with an amazing team. See you at the event!",
+  ],
+  crew: [
+    "On the crew for Community Day for Java 2026 — here to make the day run smooth!",
+    "Proud to be part of the crew at Community Day for Java 2026. Come find us on the day!",
+    "Volunteering with the crew at Community Day for Java 2026 — Gujarat's biggest Java community conference.",
+  ],
+}
+
+/** The line actually posted: the wearer's own pick, else the role's first caption. */
+export function badgeCaption(role: BadgeRole, caption: string) {
+  return caption.trim() || CAPTION_OPTIONS[role.id]?.[0] || role.share
+}
 
 export interface BadgeState {
   name: string
@@ -106,7 +180,8 @@ export function badgeSlogan(state: Pick<BadgeState, 'slogan'>) {
 
 export interface BadgeArt {
   logo: HTMLImageElement
-  watermark: HTMLImageElement
+  /** The Java sticker in the top-right corner. */
+  sticker: HTMLImageElement
   brick: HTMLImageElement
 }
 
@@ -122,12 +197,12 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
 
 /** All three are same-origin, so drawing them never taints the canvas. */
 export async function loadBadgeArt(): Promise<BadgeArt> {
-  const [logo, watermark, brick] = await Promise.all([
+  const [logo, sticker, brick] = await Promise.all([
     loadImage(A['cd2b3de0-e87e-45cf-8bd3-459baf76597f']),
     loadImage('/assets/java-sticker.png'),
     loadImage(A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']),
   ])
-  return { logo, watermark, brick }
+  return { logo, sticker, brick }
 }
 
 /**
@@ -137,6 +212,7 @@ export async function loadBadgeArt(): Promise<BadgeArt> {
 const FONT_SPECS = [
   "700 82px 'Space Grotesk'",
   "700 44px 'Space Grotesk'",
+  '700 38px Roboto',
   '700 32px Roboto',
   '600 22px Roboto',
   '500 36px Roboto',
@@ -386,28 +462,37 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.fillStyle = glow
   ctx.fillRect(0, 0, BADGE_W, BADGE_H)
 
-  if (art) {
-    const w = 660
-    const h = (w * art.watermark.naturalHeight) / art.watermark.naturalWidth
-    ctx.globalAlpha = 0.06
-    ctx.drawImage(art.watermark, BADGE_W / 2 - w / 2, PHOTO.cy - h / 2 + 60, w, h)
-    ctx.globalAlpha = 1
-  }
-
   drawDecor(ctx)
 
   if (art) {
-    const h = 128
-    const w = (h * art.logo.naturalWidth) / art.logo.naturalHeight
-    ctx.drawImage(art.logo, BADGE_W / 2 - w / 2, 74, w, h)
+    const w = (LOGO.h * art.logo.naturalWidth) / art.logo.naturalHeight
+    ctx.drawImage(art.logo, LOGO.x, LOGO.y, w, LOGO.h)
+    const sh = (STICKER.size * art.sticker.naturalHeight) / art.sticker.naturalWidth
+    ctx.drawImage(art.sticker, STICKER.x, STICKER.y, STICKER.size, sh)
   }
 
-  // Role chip
-  const chip = role.chip.toUpperCase()
-  ctx.font = '700 30px Roboto, sans-serif'
-  const chipW = trackedWidth(ctx, chip, 4) + 76
-  const chipH = 66
-  roundRectPath(ctx, BADGE_W / 2 - chipW / 2, 252 - chipH / 2, chipW, chipH, chipH / 2)
+  // The edition year, under the logo — the badge's one statement of which year this is.
+  ctx.font = "700 44px 'Space Grotesk', sans-serif"
+  ctx.shadowColor = 'rgba(254,196,0,.5)'
+  ctx.shadowBlur = 22
+  ctx.fillStyle = '#FEC400'
+  fillTracked(ctx, BADGE_EVENT_YEAR, LOGO.x + 6, LOGO.y + LOGO.h + 46, 8)
+  ctx.shadowBlur = 0
+  ctx.shadowColor = 'transparent'
+
+  // Role chip, set at two sizes: the lead-in ("I'M ON THE") a step down from the word
+  // that actually says who the wearer is ("CREW"), so the chip reads at a glance
+  // instead of as one flat run of capitals. Both sit on a shared baseline.
+  const lead = role.chipLead.toUpperCase()
+  const main = role.chipMain.toUpperCase()
+  ctx.font = CHIP_LEAD_FONT
+  const leadW = trackedWidth(ctx, lead, 3)
+  ctx.font = CHIP_MAIN_FONT
+  const mainW = trackedWidth(ctx, main, 4)
+  const textW = leadW + CHIP_GAP + mainW
+  const chipW = textW + 76
+  const chipH = 72
+  roundRectPath(ctx, BADGE_W / 2 - chipW / 2, CHIP_CY - chipH / 2, chipW, chipH, chipH / 2)
   ctx.fillStyle = hexA(role.ink, 0.16)
   ctx.fill()
   ctx.lineWidth = 2
@@ -417,7 +502,11 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.shadowColor = hexA(role.ink, 0.6)
   ctx.shadowBlur = 20
   ctx.fillStyle = role.ink
-  fillTrackedCentered(ctx, chip, BADGE_W / 2, 263, 4)
+  const chipTextX = BADGE_W / 2 - textW / 2
+  ctx.font = CHIP_LEAD_FONT
+  fillTracked(ctx, lead, chipTextX, CHIP_BASELINE, 3)
+  ctx.font = CHIP_MAIN_FONT
+  fillTracked(ctx, main, chipTextX + leadW + CHIP_GAP, CHIP_BASELINE, 4)
   ctx.shadowBlur = 0
   ctx.shadowColor = 'transparent'
 
@@ -475,12 +564,12 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
 
   const BLOCK_TOP = 756
   const BLOCK_BOTTOM = 1218
-  // 146 = the fixed run under the name: gap + year rule + place + tagline.
-  const nameBudget = BLOCK_BOTTOM - BLOCK_TOP - SUB_SLOT - SLOGAN_SLOT - 146
+  // 120 = the fixed run under the name: gap + divider rule + place + tagline.
+  const nameBudget = BLOCK_BOTTOM - BLOCK_TOP - SUB_SLOT - SLOGAN_SLOT - 120
   const { size, lines } = fitName(ctx, (state.name.trim() || 'Your Name').toUpperCase(), maxTextW, nameBudget)
   const nameLH = Math.round(size * 1.02)
 
-  const blockH = lines.length * nameLH + SUB_SLOT + SLOGAN_SLOT + 14 + 44 + 22 + 44 + 42
+  const blockH = lines.length * nameLH + SUB_SLOT + SLOGAN_SLOT + 14 + 40 + 44 + 42
   let y = BLOCK_TOP + Math.max(0, (BLOCK_BOTTOM - BLOCK_TOP - blockH) / 2)
 
   ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
@@ -502,24 +591,12 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.shadowColor = 'transparent'
   y += SLOGAN_SLOT
 
-  // The year sits inside the divider rule: the seam between the person (name) and
-  // the event (place, tagline) is where the eye already stops, so the badge states
-  // which edition it is without another band competing with the logo or the face.
+  // Divider rule: the seam between the person (name, slogan) and the event (place,
+  // tagline). The year used to sit inside it; it now lives under the logo instead.
   y += 14
-  ctx.font = "700 44px 'Space Grotesk', sans-serif"
-  const yearW = trackedWidth(ctx, BADGE_EVENT_YEAR, 8)
-  const ruleY = y + 22
-  const ruleGap = yearW / 2 + 32
   ctx.fillStyle = 'rgba(255,255,255,.16)'
-  ctx.fillRect(BADGE_W / 2 - 260, ruleY - 1, 260 - ruleGap, 2)
-  ctx.fillRect(BADGE_W / 2 + ruleGap, ruleY - 1, 260 - ruleGap, 2)
-  ctx.shadowColor = 'rgba(254,196,0,.5)'
-  ctx.shadowBlur = 22
-  ctx.fillStyle = '#FEC400'
-  fillTrackedCentered(ctx, BADGE_EVENT_YEAR, BADGE_W / 2, ruleY + 15, 8)
-  ctx.shadowBlur = 0
-  ctx.shadowColor = 'transparent'
-  y += 66
+  ctx.fillRect(BADGE_W / 2 - 260, y + 21, 520, 2)
+  y += 40
 
   // Place, on one centred line
   ctx.font = '700 32px Roboto, sans-serif'

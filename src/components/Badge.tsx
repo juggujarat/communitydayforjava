@@ -7,8 +7,10 @@ import {
   BADGE_H,
   BADGE_ROLES,
   BADGE_W,
+  CAPTION_OPTIONS,
   PHOTO,
   badgeBlob,
+  badgeCaption,
   badgeSlogan,
   badgeFileName,
   clampOffset,
@@ -25,17 +27,18 @@ import {
 /** Hard cap on the upload — anything larger is a camera original nobody needs here. */
 const MAX_UPLOAD = 10 * 1024 * 1024
 
-const SHARE_HASHTAGS = '#CommunityDayForJava #CDJ2026 #Java #JUGGujarat'
+const SHARE_HASHTAGS = '#java #cd4j2026 #communitydayforjava'
 
-/** The post opens with the wearer's own line, the same one stamped on the badge. */
-function shareText(role: BadgeRole, slogan: string) {
-  const pride = slogan.replace(/[.!…]+$/, '')
-  return `${pride}! ${role.share} Community Day for Java 2026 — Gujarat's biggest Java community conference, organized by Java User Group Gujarat. ${SHARE_HASHTAGS}`
+/** The post opens with the wearer's chosen caption, plain text plus the shared tags. */
+function shareText(caption: string) {
+  return `${caption} ${SHARE_HASHTAGS}`
 }
 
 /**
- * None of the three networks lets a page attach an image to a post, so every social
- * button downloads the PNG first and then opens the composer with the text prefilled.
+ * None of these networks lets a page attach an image to a post, so every social button
+ * copies/downloads the PNG first and then opens the composer. Instagram additionally
+ * blocks any web caption prefill, so its composer opens blank — `hasCaption: false`
+ * flags that for the status message.
  */
 const SHARE_TARGETS = [
   {
@@ -43,24 +46,26 @@ const SHARE_TARGETS = [
     label: 'LinkedIn',
     icon: 'linkedin' as const,
     color: '#0A66C2',
-    url: (_role: BadgeRole, _slogan: string) =>
+    hasCaption: true,
+    url: (_caption: string) =>
       `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(BADGE_PAGE)}`,
   },
   {
-    id: 'x' as const,
-    label: 'X (Twitter)',
-    icon: 'x' as const,
-    color: '#111111',
-    url: (role: BadgeRole, slogan: string) =>
-      `https://x.com/intent/post?text=${encodeURIComponent(shareText(role, slogan))}&url=${encodeURIComponent(BADGE_PAGE)}`,
+    id: 'instagram' as const,
+    label: 'Instagram',
+    icon: 'instagram' as const,
+    color: '#C13584',
+    hasCaption: false,
+    url: (_caption: string) => 'https://www.instagram.com/',
   },
   {
     id: 'whatsapp' as const,
     label: 'WhatsApp',
     icon: 'whatsapp' as const,
     color: '#25D366',
-    url: (role: BadgeRole, slogan: string) =>
-      `https://wa.me/?text=${encodeURIComponent(`${shareText(role, slogan)} ${BADGE_PAGE}`)}`,
+    hasCaption: true,
+    url: (caption: string) =>
+      `https://wa.me/?text=${encodeURIComponent(`${shareText(caption)} ${BADGE_PAGE}`)}`,
   },
 ]
 
@@ -138,6 +143,8 @@ export default function Badge() {
   /** One of SLOGAN_OPTIONS; empty means the default line is the one stamped. */
   const [slogan, setSlogan] = useState('')
   const [role, setRole] = useState<BadgeRole>(BADGE_ROLES[0])
+  /** One of CAPTION_OPTIONS[role.id]; empty means that role's first caption is used. */
+  const [caption, setCaption] = useState('')
   const [photo, setPhoto] = useState<HTMLImageElement | null>(null)
   const [zoom, setZoom] = useState(1)
   const [offset, setOffset] = useState({ x: 0, y: 0 })
@@ -194,6 +201,15 @@ export default function Badge() {
 
   /** What the badge is stamped with: the chosen line, else the role's own. */
   const badgeLine = badgeSlogan({ slogan })
+  /** The captions on offer for the current role, and the one actually posted. */
+  const captionOptions = CAPTION_OPTIONS[role.id] ?? []
+  const activeCaption = badgeCaption(role, caption)
+
+  /** Captions are role-specific, so switching role drops any pick from the old one. */
+  const changeRole = (r: BadgeRole) => {
+    setRole(r)
+    setCaption('')
+  }
 
   const openPicker = () => fileRef.current?.click()
 
@@ -250,6 +266,20 @@ export default function Badge() {
       setStatus({ kind: 'ok', text: 'Badge copied. Paste it straight into a post, story or chat.' })
     })
 
+  /** Clicking a caption both picks it and copies it — no separate copy step. */
+  const pickCaption = async (c: string) => {
+    setCaption(c)
+    try {
+      if (!navigator.clipboard?.writeText) {
+        throw new Error('This browser cannot copy text — please select and copy the caption manually.')
+      }
+      await navigator.clipboard.writeText(shareText(c))
+      setStatus({ kind: 'ok', text: 'Caption copied — paste it wherever you post the badge.' })
+    } catch (err) {
+      setStatus({ kind: 'err', text: err instanceof Error ? err.message : 'Could not copy the caption — please try again.' })
+    }
+  }
+
   const shareNative = () =>
     withBadge('share', async (blob) => {
       const file = new File([blob], badgeFileName(name), { type: 'image/png' })
@@ -257,7 +287,7 @@ export default function Badge() {
         throw new Error('This browser cannot share files — use Download instead.')
       }
       try {
-        await navigator.share({ files: [file], text: `${shareText(role, badgeLine)} ${BADGE_PAGE}` })
+        await navigator.share({ files: [file], text: `${shareText(activeCaption)} ${BADGE_PAGE}` })
       } catch (err) {
         // The user closing the share sheet is not a failure.
         if ((err as DOMException)?.name !== 'AbortError') throw err
@@ -266,13 +296,34 @@ export default function Badge() {
 
   const shareTo = (target: (typeof SHARE_TARGETS)[number]) =>
     withBadge(target.id, async (blob) => {
+      // Clipboard write can silently fail (e.g. permissions) — the download is the
+      // fallback that always gets the badge onto the user's machine either way.
+      let copied = false
+      if (navigator.clipboard?.write && typeof ClipboardItem !== 'undefined') {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+          copied = true
+        } catch {
+          copied = false
+        }
+      }
       downloadBlob(blob, badgeFileName(name))
-      window.open(target.url(role, badgeLine), '_blank', 'noopener,noreferrer')
+      window.open(target.url(activeCaption), '_blank', 'noopener,noreferrer')
+      const lead = copied ? 'Badge copied and downloaded' : 'Badge downloaded'
+      const attach = copied ? 'press Ctrl/Cmd+V to paste it in' : 'attach it from your downloads'
       setStatus({
         kind: 'ok',
-        text: `Badge downloaded — attach it to the ${target.label} post that just opened.`,
+        text: target.hasCaption
+          ? `${lead} — ${attach} the ${target.label} post that just opened.`
+          : `${lead} — ${attach} on ${target.label}, then add your own caption (it doesn't accept one from the web).`,
       })
     })
+
+  /** Files-capable Web Share exists mainly on phones — the only flow that attaches the
+   *  badge image and caption together in a single tap, so it leads when available. */
+  const canShareFiles = typeof navigator !== 'undefined'
+    && typeof navigator.share === 'function'
+    && typeof navigator.canShare === 'function'
 
   /** Empty-circle affordance lights up on hover and while a file is dragged over. */
   const hot = hotPhoto || dropActive
@@ -292,6 +343,10 @@ export default function Badge() {
   const dimmed: React.CSSProperties = missing.length
     ? { opacity: 0.5, filter: 'grayscale(1)', transition: 'filter .25s ease, opacity .25s ease' }
     : { transition: 'filter .25s ease, opacity .25s ease' }
+
+  // Only used by the commented-out "Share it" JSX below — keeps noUnusedLocals quiet
+  // while that section is disabled, without deleting the section or its helpers.
+  void Icon; void shareNative; void shareTo; void canShareFiles
 
   return (
     <section id="badge" style={{ position: 'relative', padding: '84px 40px', background: 'linear-gradient(180deg,#F4F1E8 0%,#fff8ee 100%)', color: '#0E1667', overflow: 'hidden' }}>
@@ -356,7 +411,7 @@ export default function Badge() {
                     <button
                       key={r.id}
                       type="button"
-                      onClick={() => setRole(r)}
+                      onClick={() => changeRole(r)}
                       aria-pressed={on}
                       style={{
                         padding: '13px 10px', borderRadius: '14px', cursor: 'pointer',
@@ -401,6 +456,34 @@ export default function Badge() {
                   )
                 })}
               </div>
+
+              {/* Three ready-made captions per role — never stamped on the badge itself.
+                  Tapping one both picks it and copies it, ready to paste anywhere. */}
+              <span style={{ ...labelStyle, marginTop: '20px' }}>Your caption (tap to copy)</span>
+              <div id="badge-captions" style={{ display: 'grid', gap: '8px' }}>
+                {captionOptions.map((c) => {
+                  const on = c === activeCaption
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => void pickCaption(c)}
+                      aria-pressed={on}
+                      style={{
+                        textAlign: 'left', padding: '12px 14px', borderRadius: '14px', cursor: 'pointer',
+                        fontSize: '13px', fontWeight: 600, lineHeight: 1.5, fontFamily: "'Roboto',sans-serif",
+                        border: `1.5px solid ${on ? role.accent : 'rgba(14,22,103,.14)'}`,
+                        background: on ? `${role.accent}1f` : '#fff',
+                        color: on ? '#0E1667' : '#5a6299',
+                        boxShadow: on ? `0 8px 20px ${role.accent}33` : 'none',
+                        transition: 'all .22s ease',
+                      }}
+                    >
+                      {c}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
 
           </div>
@@ -412,7 +495,7 @@ export default function Badge() {
               onDragOver={(e) => { e.preventDefault(); setDropActive(true) }}
               onDragLeave={() => setDropActive(false)}
               onDrop={(e) => { e.preventDefault(); setDropActive(false); void acceptFile(e.dataTransfer.files?.[0]) }}
-              style={{ position: 'relative', width: '80%', margin: '0 auto', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 34px 74px rgba(14,22,103,.24)', border: `1px solid ${dropActive ? '#FEC400' : 'rgba(14,22,103,.1)'}`, background: '#131C56' }}
+              style={{ position: 'relative', width: '68%', margin: '0 auto', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 34px 74px rgba(14,22,103,.24)', border: `1px solid ${dropActive ? '#FEC400' : 'rgba(14,22,103,.1)'}`, background: '#131C56' }}
             >
               <canvas
                 ref={canvasRef}
@@ -526,9 +609,29 @@ export default function Badge() {
               </button>
             </div>
 
+            {/* "Share it" section disabled for now — the download/copy flow above is
+                enough on its own. Left in place (not deleted) in case we bring it back. */}
+            {/*
             <div style={{ marginTop: '18px' }}>
               <div style={{ ...labelStyle, marginBottom: '10px' }}>Share it</div>
-              <div id="badge-share" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '10px' }}>
+
+              // On phones this is the one true one-tap share: badge image + caption
+              // land in the share sheet together, no copy/paste or download needed.
+              {canShareFiles && (
+                <button
+                  type="button"
+                  onClick={shareNative}
+                  disabled={blocked}
+                  data-cta="1"
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '9px', width: '100%', padding: '16px 22px', borderRadius: '46px', border: 'none', color: '#fff', fontSize: '14px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', fontFamily: "'Roboto',sans-serif", cursor: exportCursor, filter: missing.length ? 'grayscale(1)' : 'none', opacity: missing.length ? 0.5 : 1, transition: 'filter .25s ease, opacity .25s ease' }}
+                  onMouseEnter={h.btnOn}
+                  onMouseLeave={h.btnOff}
+                >
+                  {busy === 'share' ? 'Opening…' : 'Share badge + caption'}
+                </button>
+              )}
+
+              <div id="badge-share" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '10px', marginTop: canShareFiles ? '10px' : 0 }}>
                 {SHARE_TARGETS.map((t) => (
                   <button
                     key={t.id}
@@ -542,15 +645,13 @@ export default function Badge() {
                   </button>
                 ))}
               </div>
-              <button
-                type="button"
-                onClick={shareNative}
-                disabled={blocked}
-                style={{ ...secondaryBtn, width: '100%', marginTop: '10px', ...dimmed, cursor: exportCursor }}
-              >
-                {busy === 'share' ? 'Opening…' : 'Share from this device'}
-              </button>
+              {!canShareFiles && (
+                <p style={{ margin: '10px 0 0', fontSize: '12.5px', fontWeight: 600, lineHeight: 1.5, color: '#5a6299' }}>
+                  Each button copies the badge to your clipboard (and downloads it as a backup), then opens the post box — just paste with Ctrl/Cmd+V.
+                </p>
+              )}
             </div>
+            */}
 
             <div aria-live="polite" style={{ minHeight: '22px', marginTop: '14px' }}>
               {status && (
