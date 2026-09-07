@@ -13,6 +13,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         cfp: 'cfp/index.html',
+        tickets: 'tickets.html',
       },
     },
   },

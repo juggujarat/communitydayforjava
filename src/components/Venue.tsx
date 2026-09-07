@@ -5,7 +5,7 @@ export default function Venue() {
       <span style={{ position: 'absolute', bottom: '14%', right: '7%', width: '30px', height: '30px', background: '#7D00BC', clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)', animation: 'cdj-float2 8s ease-in-out infinite', opacity: 0.8 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1140px', margin: '0 auto' }}>
         <div data-reveal style={{ textAlign: 'center', marginBottom: '30px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(24px,3vw,38px)', lineHeight: 1.06, letterSpacing: '-1px' }}>Centre For Professional Courses, <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>Gujarat University</span></h2>
+          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(24px,3vw,38px)', lineHeight: 1.06, letterSpacing: '-1px' }}>Centre For Professional Courses Department, <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>Gujarat University</span></h2>
           <p style={{ margin: '16px auto 0', maxWidth: '540px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>A full-day technical immersive in the heart of Ahmedabad city.</p>
         </div>
         {/* Google Maps preview — Centre for Professional Courses, Gujarat University */}
