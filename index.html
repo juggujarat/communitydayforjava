@@ -88,6 +88,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Restore the path public/404.html stashed before bouncing here — must run
+      // before main.tsx's modules (useTicketsModal.ts reads location.pathname at
+      // import time to reopen the tickets popup on a direct /register load).
+      // Only /register is a real deep link today; anything else stays on "/".
+      var redirectPath = sessionStorage.getItem('cdj-redirect-path')
+      if (redirectPath) {
+        sessionStorage.removeItem('cdj-redirect-path')
+        if (redirectPath === '/register') history.replaceState(null, '', redirectPath)
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
