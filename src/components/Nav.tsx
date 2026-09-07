@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { h } from '../lib/handlers'
 import { SocialLink } from '../lib/icons'
 import { SOCIALS } from '../lib/socials'
-import { TICKETS_COMING_SOON } from '../lib/links'
+import TicketsCta from './TicketsCta'
 
 /** Links + social handles shown inside the mobile menu panel. */
 const MENU_LINKS = [
@@ -135,7 +135,7 @@ export default function Nav({ hashPrefix = '' }: { hashPrefix?: string }) {
       )}
 
       <div id="cdj-sticky-cta" style={{ display: 'none', position: 'fixed', left: '0', right: '0', bottom: '0', zIndex: '300', padding: '10px 14px', background: 'rgba(13,19,70,.94)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '14px', borderRadius: '46px', cursor: 'default' }}>{TICKETS_COMING_SOON}</span>
+        <TicketsCta style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '8px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '14px', borderRadius: '46px' }} />
       </div>
     </>
   )

@@ -3,7 +3,7 @@ import { SOCIALS } from '../lib/socials'
 
 /**
  * Reusable "follow our socials" block: a row of outlined LinkedIn/Instagram/X
- * chips + a caption. Used under the CFP and "Tickets Coming Soon" CTAs.
+ * chips + a caption. Used under the CFP and ticket CTAs.
  */
 export default function FollowSocials({ caption, align = 'center', tone = 'dark' }: { caption: string; align?: 'center' | 'start'; tone?: 'dark' | 'light' }) {
   const border = tone === 'light' ? 'rgba(14,22,103,.28)' : 'rgba(255,255,255,.5)'

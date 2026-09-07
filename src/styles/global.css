@@ -253,3 +253,17 @@
     /* Break / full-width cells stay centered bands */
     #dc-root #schedule-table td:not([data-label]){ text-align:center!important; font-weight:700!important; border-radius:8px!important; margin:2px 0!important; }
   }
+
+  /* ---- Tickets popup ----
+     TicketsModal is portaled onto <body>, so the #dc-root inline-style selectors above
+     never touch it; these id-scoped rules are its only responsive layer. The card, not
+     the iframe, is what scrolls on desktop. */
+  @media (max-width:900px){
+    #cdj-tickets-frame{ height:calc(100vh - 150px)!important; min-height:520px!important; }
+  }
+  @media (max-width:600px){
+    /* Full-height sheet on phones, like the rest of the mobile UI. */
+    #cdj-tickets-overlay{ padding:8px!important; align-items:flex-end!important; }
+    #cdj-tickets-card{ max-height:96vh!important; border-radius:16px!important; }
+    #cdj-tickets-frame{ height:calc(100dvh - 120px)!important; border-radius:16px!important; }
+  }
