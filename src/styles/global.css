@@ -50,8 +50,9 @@
   @media (max-width:768px){
     #dc-root nav{ padding-left:16px!important; padding-right:16px!important; }
     #dc-root nav img{ height:46px!important; }
-    /* Nav logo shrinks to 46px here, so the CFP page's spacer for the fixed nav shrinks too */
+    /* Nav logo shrinks to 46px here, so the CFP/Tickets pages' spacer for the fixed nav shrinks too */
     #cfp-page{ padding-top:86px!important; }
+    #tickets-page{ padding-top:86px!important; }
     #dc-root section{ padding-left:18px!important; padding-right:18px!important; }
     #dc-root footer{ padding-left:18px!important; padding-right:18px!important; }
     #cfp-layout{ grid-template-columns:1fr!important; }
@@ -103,8 +104,9 @@
     #dc-root [style*="minmax(180px, 1fr)"] > *,
     #dc-root [style*="minmax(220px, 1fr)"] > *,
     #dc-root [style*="minmax(260px, 1fr)"] > *{ scroll-snap-align:start; }
-    /* CFP date/location chips stack on phones — they must never become a swipe strip */
-    #dc-root #cfp-facts{
+    /* CFP/Tickets date/location chips stack on phones — they must never become a swipe strip */
+    #dc-root #cfp-facts,
+    #dc-root #tickets-facts{
       grid-template-columns:1fr!important;
       grid-auto-flow:row!important;
       overflow-x:visible!important;

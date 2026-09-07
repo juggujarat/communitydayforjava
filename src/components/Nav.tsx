@@ -7,6 +7,7 @@ import TicketsCta from './TicketsCta'
 /** Links + social handles shown inside the mobile menu panel. */
 const MENU_LINKS = [
   { href: '#manifesto', label: 'Agenda' },
+  { href: '/tickets', label: 'Tickets' },
   { href: '/cfp/', label: 'CFP' },
   { href: '#venue', label: 'Venue' },
   { href: '#speakers', label: 'Speakers' },
@@ -91,7 +92,7 @@ export default function Nav({ hashPrefix = '' }: { hashPrefix?: string }) {
               )}
             </div>
           </div>
-          <a href="/cfp/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FF384B', color: '#fff', fontWeight: '500', textTransform: 'uppercase', fontSize: '13px', letterSpacing: '1px', padding: '11px 20px', borderRadius: '40px', textDecoration: 'none', boxShadow: '0 6px 22px rgba(255,56,75,.34)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Submit CFP</a>
+          <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: '500', textTransform: 'uppercase', fontSize: '13px', letterSpacing: '1px', padding: '11px 20px', borderRadius: '40px', boxShadow: '0 6px 22px rgba(255,56,75,.34)' }} />
           <button id="cdj-burger" type="button" aria-label="Open menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} style={{ display: 'none', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', padding: '6px', margin: 0, lineHeight: 0 }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M3 6h18" /><path d="M3 12h18" /><path d="M3 18h18" /></svg>
           </button>

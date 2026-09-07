@@ -2,6 +2,7 @@ import { h } from '../lib/handlers'
 import FollowSocials from './FollowSocials'
 import { TICKETS_UPDATE_CAPTION } from '../lib/links'
 import TicketsCta from './TicketsCta'
+import { openTickets } from '../hooks/useTicketsModal'
 
 const MARQUEE = [
   { src: '/assets/hero-marquee-venkat.webp', alt: 'CDJ 2025 speaker Venkat' },
@@ -30,9 +31,15 @@ export default function Hero() {
           <strong id="hero-stats" style={{ color: '#fff', whiteSpace: 'nowrap' }}>600+ Java Developers • 20+ Expert Speakers • 3 Parallel Tracks</strong>
         </p>
 
-        <div data-reveal data-reveal-d="190" style={{ marginTop: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 18px', borderRadius: '30px', background: 'rgba(254,196,0,.12)', border: '1px solid rgba(254,196,0,.3)' }}>
+        <button
+          type="button"
+          onClick={openTickets}
+          data-reveal
+          data-reveal-d="190"
+          style={{ marginTop: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 18px', borderRadius: '30px', background: 'rgba(254,196,0,.12)', border: '1px solid rgba(254,196,0,.3)', cursor: 'pointer', fontFamily: 'inherit' }}
+        >
           <span style={{ fontSize: '13px', fontWeight: 600, color: '#FEC400', letterSpacing: '.2px' }}>Ticket is Open Now</span>
-        </div>
+        </button>
 
         <div id="hero-ctas" data-reveal data-reveal-d="220" style={{ marginTop: '36px', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'center' }}>
           <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} />
