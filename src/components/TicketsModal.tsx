@@ -19,8 +19,11 @@ const chevron = (open: boolean) => (
  * CDJ branding instead of KonfHub's. It cannot be removed from this component.
  *
  * The "What's included?" strip above the iframe is our own content (TICKET_PLANS) —
- * KonfHub's widget doesn't render per-ticket descriptions itself, so this is the only
- * way to show that copy as part of the popup.
+ * confirmed live that KonfHub's widget does NOT render per-ticket descriptions anywhere
+ * in its own UI (checked the default list view), so this is the only way to show that
+ * copy as part of the popup. Do not remove this again without visually re-confirming
+ * KonfHub shows it natively — the widget's own UI is the only source of truth here, not
+ * assumptions from a screenshot.
  *
  * Rendered in a portal on document.body (outside #dc-root) so the page's inline-style
  * attribute selectors in global.css can't reach into it; its own responsive rules are

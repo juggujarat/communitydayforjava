@@ -105,9 +105,10 @@
     #dc-root [style*="minmax(180px, 1fr)"] > *,
     #dc-root [style*="minmax(220px, 1fr)"] > *,
     #dc-root [style*="minmax(260px, 1fr)"] > *{ scroll-snap-align:start; }
-    /* CFP/Tickets date/location chips stack on phones — they must never become a swipe strip */
-    #dc-root #cfp-facts,
-    #dc-root #tickets-facts{
+    /* CFP date/location chips stack on phones — they must never become a swipe strip.
+       (Tickets' own facts row is a plain repeat(2, 1fr) now, already stacked by the
+       generic [style*="repeat(2, 1fr)"] rule above — no id-specific override needed.) */
+    #dc-root #cfp-facts{
       grid-template-columns:1fr!important;
       grid-auto-flow:row!important;
       overflow-x:visible!important;
