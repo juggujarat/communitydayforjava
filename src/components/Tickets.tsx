@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { A } from '../lib/assets'
 import { CFPShapes } from '../lib/decor'
+import { TICKET_PLANS } from '../lib/tickets'
 import TicketsCta from './TicketsCta'
 
-const TICKET_CTA_LABEL = '🎟️ Book Your Ticket →'
+const TICKET_CTA_LABEL = 'Book Your Ticket →'
 
 const FACTS = [
   { label: '📅 Date', value: '24 Oct 2026' },
@@ -23,22 +23,6 @@ const HIGHLIGHTS = [
   { img: '/assets/gallery-group-stage.jpg', alt: 'Community Day for Java 2025 group photo on stage' },
 ]
 
-const FAQS = [
-  { q: 'Who can attend?', a: 'Anyone interested in Java, AI, software engineering, and technology.' },
-  { q: 'What does my ticket include?', a: 'Access to the full-day event, all scheduled sessions, and community activities.' },
-  { q: 'Where is the event happening?', a: 'Centre For Professional Courses Department, Gujarat University, Ahmedabad.' },
-  { q: "Can I get a refund if I can't attend?", a: 'Please refer to our Cancellation & Refund Policy for details.' },
-  { q: 'Will food and refreshments be provided?', a: 'Yes, details will be shared closer to the event.' },
-]
-
-const cardStyle = {
-  background: '#fff',
-  borderRadius: '28px',
-  padding: '30px',
-  border: '1px solid rgba(14,22,103,.08)',
-  boxShadow: '0 18px 42px rgba(14,22,103,.08)',
-} as const
-
 const eyebrowStyle = {
   fontSize: '13px',
   fontWeight: 800,
@@ -48,29 +32,13 @@ const eyebrowStyle = {
   marginBottom: '16px',
 } as const
 
-const chevron = (open: boolean) => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s ease' }}>
-    <path d="M6 9l6 6 6-6" />
-  </svg>
-)
-
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div style={{ borderBottom: '1px solid rgba(14,22,103,.1)' }}>
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 2px', background: 'none', border: 'none', textAlign: 'left', fontFamily: 'inherit', fontSize: '16px', fontWeight: 700, color: '#0E1667', cursor: 'pointer' }}
-      >
-        {q}
-        {chevron(open)}
-      </button>
-      {open && <p style={{ margin: '0 0 20px', padding: '0 2px', fontSize: '14px', lineHeight: 1.7, color: '#42498a' }}>{a}</p>}
-    </div>
-  )
-}
+const cardStyle = {
+  background: '#fff',
+  borderRadius: '28px',
+  padding: '30px',
+  border: '1px solid rgba(14,22,103,.08)',
+  boxShadow: '0 18px 42px rgba(14,22,103,.08)',
+} as const
 
 /**
  * Standalone ticket-selling landing page (/tickets). Its own hero + supporting sections
@@ -98,26 +66,43 @@ export default function Tickets() {
               </div>
             ))}
           </div>
-
-          <div data-reveal data-reveal-d="140" style={{ marginTop: '36px' }}>
-            <TicketsCta
-              label={TICKET_CTA_LABEL}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }}
-            />
-          </div>
         </div>
       </section>
 
-      <section id="tickets-expect" style={{ position: 'relative', background: '#F4F1E8', color: '#0E1667', padding: '76px 40px', textAlign: 'center' }}>
-        <div data-reveal style={{ maxWidth: '720px', margin: '0 auto' }}>
-          <h2 style={{ margin: '0 0 14px', fontWeight: 500, fontSize: 'clamp(26px,3.6vw,40px)', letterSpacing: '-1px' }}>What to Expect</h2>
-          <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.7, color: '#42498a' }}>
-            A full day of practical sessions, expert insights, real-world engineering, and meaningful community connections.
-          </p>
+      <section id="tickets-plans" style={{ position: 'relative', background: '#fff', color: '#0E1667', padding: '76px 40px' }}>
+        <div data-reveal style={{ maxWidth: '1140px', margin: '0 auto 36px', textAlign: 'center' }}>
+          <div style={eyebrowStyle}>Choose Your Pass</div>
+          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(26px,3.6vw,40px)', letterSpacing: '-1px' }}>Ticket Details</h2>
+        </div>
+        <div id="tickets-plans-grid" style={{ maxWidth: '1140px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '24px', alignItems: 'start' }}>
+          {TICKET_PLANS.map((plan, i) => (
+            <div key={plan.label} data-reveal data-reveal-d={String(i * 60)} style={{ ...cardStyle, borderTop: `4px solid ${plan.accent}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '12px', marginBottom: plan.tagline ? '10px' : '18px' }}>
+                <h3 style={{ margin: 0, fontSize: '22px', fontWeight: 800, color: '#0E1667' }}>{plan.label}</h3>
+                <div style={{ fontSize: '24px', fontWeight: 800, color: plan.accent, whiteSpace: 'nowrap' }}>{plan.price}</div>
+              </div>
+              {plan.tagline && (
+                <div style={{ fontSize: '13px', fontWeight: 800, letterSpacing: '.3px', color: plan.accent, marginBottom: '18px' }}>{plan.tagline}</div>
+              )}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
+                {plan.intro.map((p) => <p key={p} style={{ margin: 0, fontSize: '14px', lineHeight: 1.65, color: '#42498a' }}>{p}</p>)}
+              </div>
+              <div style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '.6px', textTransform: 'uppercase', color: '#0D5CDB', marginBottom: '12px' }}>What's Included</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '20px' }}>
+                {plan.included.map((item) => <div key={item} style={{ fontSize: '14px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
+              </div>
+              <p style={{ margin: '0 0 18px', fontSize: '13.5px', lineHeight: 1.6, color: '#5a6299' }}>
+                <strong style={{ color: '#0E1667' }}>Perfect for:</strong> {plan.perfectFor}
+              </p>
+              <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(14,22,103,.1)', fontSize: '12.5px', fontWeight: 700, color: '#5a6299' }}>
+                Available till {plan.availableTill}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section id="tickets-highlights" style={{ position: 'relative', background: '#F4F1E8', color: '#0E1667', padding: '0 40px 84px' }}>
+      <section id="tickets-highlights" style={{ position: 'relative', background: '#F4F1E8', color: '#0E1667', padding: '76px 40px 84px' }}>
         <div data-reveal style={{ maxWidth: '1140px', margin: '0 auto 32px', textAlign: 'center' }}>
           <div style={eyebrowStyle}>Explore the Experience</div>
           <h2 style={{ margin: '0 0 12px', fontWeight: 500, fontSize: 'clamp(26px,3.6vw,40px)', letterSpacing: '-1px' }}>Event Highlights</h2>
@@ -136,57 +121,6 @@ export default function Tickets() {
               <img src={s.img} alt={s.alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
           ))}
-        </div>
-      </section>
-
-      <section id="tickets-tracks" style={{ position: 'relative', background: '#fff', color: '#0E1667', padding: '76px 40px', textAlign: 'center' }}>
-        <div data-reveal style={{ maxWidth: '720px', margin: '0 auto' }}>
-          <h2 style={{ margin: '0 0 14px', fontWeight: 500, fontSize: 'clamp(26px,3.6vw,40px)', letterSpacing: '-1px' }}>Tracks That Matter</h2>
-          <p style={{ margin: '0 0 22px', fontSize: '16px', lineHeight: 1.7, color: '#42498a' }}>
-            Explore focused tracks covering the latest challenges and opportunities across Java, AI, architecture, cloud, and modern software engineering.
-          </p>
-          <a href="/cfp/#cfp-tracks" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: 800, fontSize: '14px', color: '#0D5CDB', textDecoration: 'none' }}>
-            View Track Details →
-          </a>
-        </div>
-      </section>
-
-      <section id="tickets-schedule" style={{ position: 'relative', background: '#F4F1E8', color: '#0E1667', padding: '76px 40px', textAlign: 'center' }}>
-        <div data-reveal style={{ maxWidth: '720px', margin: '0 auto' }}>
-          <h2 style={{ margin: '0 0 14px', fontWeight: 500, fontSize: 'clamp(26px,3.6vw,40px)', letterSpacing: '-1px' }}>Event Day Schedule</h2>
-          <p style={{ margin: '0 0 22px', fontSize: '16px', lineHeight: 1.7, color: '#42498a' }}>
-            See what's happening throughout the day—from keynotes and technical sessions to networking and community moments.
-          </p>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(13,92,219,.08)', color: '#0D5CDB', padding: '9px 18px', borderRadius: '999px', fontSize: '13px', fontWeight: 800, letterSpacing: '.6px', textTransform: 'uppercase' }}>
-            Coming Soon
-          </span>
-        </div>
-      </section>
-
-      <section id="tickets-faq" style={{ position: 'relative', background: '#fff', color: '#0E1667', padding: '76px 40px' }}>
-        <div style={{ maxWidth: '760px', margin: '0 auto' }}>
-          <div data-reveal style={{ marginBottom: '30px', textAlign: 'center' }}>
-            <h2 style={{ margin: '0 0 10px', fontWeight: 500, fontSize: 'clamp(26px,3.6vw,40px)', letterSpacing: '-1px' }}>Frequently Asked Questions</h2>
-            <p style={{ margin: 0, fontSize: '15px', color: '#5a6299' }}>Everything you need to know before joining us.</p>
-          </div>
-          <div data-reveal data-reveal-d="60" style={cardStyle}>
-            {FAQS.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
-          </div>
-        </div>
-      </section>
-
-      <section id="tickets-cta" style={{ position: 'relative', background: 'linear-gradient(150deg,#1a2670,#0E1667)', color: '#fff', padding: '84px 40px', textAlign: 'center', overflow: 'hidden' }}>
-        <CFPShapes />
-        <div data-reveal style={{ position: 'relative', zIndex: 3, maxWidth: '640px', margin: '0 auto' }}>
-          <div style={{ ...eyebrowStyle, color: '#FEC400' }}>Ready to Join the Community?</div>
-          <h2 style={{ margin: '0 0 14px', fontWeight: 500, fontSize: 'clamp(28px,4vw,44px)', letterSpacing: '-1.3px' }}>Secure Your Spot</h2>
-          <p style={{ margin: '0 0 30px', fontSize: '16px', lineHeight: 1.65, color: '#c9d0ef' }}>
-            Don't just watch the future of Java and AI—be part of the conversation.
-          </p>
-          <TicketsCta
-            label={TICKET_CTA_LABEL}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }}
-          />
         </div>
       </section>
 
