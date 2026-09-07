@@ -16,19 +16,28 @@ export const BADGE_H = 1350
 export const PHOTO = { cx: 540, cy: 528, r: 196 }
 
 /**
- * Masthead: the logo sits in the top-left corner with the edition year stacked under
- * it. Keeping the pair off the centre line leaves the middle column to the role chip
- * and the face, which is what the badge is actually about.
+ * Masthead: the Community Day for Java wordmark sits in the top-left corner with the
+ * edition year stacked under it. Keeping the pair off the centre line leaves the
+ * middle column to the role chip and the face, which is what the badge is actually
+ * about.
  */
 const LOGO = { x: 72, y: 58, h: 104 }
 
 /**
- * The Java sticker balances the masthead from the opposite corner. It used to be a 6%
- * watermark behind the portrait; as a foreground mark it reads as a sticker slapped on
- * the badge, which is the point — so it is drawn at full opacity, after the decor
- * layer so nothing floats over it. The source art is square.
+ * JUG Gujarat's round logo (the site favicon) balances the masthead from the top-right
+ * corner. `margin` is resolved against the image's natural width at draw time, since
+ * the mark is circular rather than a fixed-ratio wordmark.
  */
-const STICKER = { size: 168, x: BADGE_W - 72 - 168, y: 62 }
+const JUG_LOGO = { margin: 72, y: 58, h: 104 }
+
+/**
+ * The Java sticker sits in the bottom-left corner, resting just above the brick footer.
+ * Its `y` is resolved at draw time (see drawBadge) from where the tagline actually ends
+ * — that row's height varies with the name/role/company text, so a fixed y risks either
+ * overlapping the tagline (too high) or the brick strip (too low). The source art is
+ * square.
+ */
+const STICKER = { size: 120, x: 40 }
 
 /**
  * Role chip typography. The two runs share one baseline, offset from the chip's
@@ -179,8 +188,11 @@ export function badgeSlogan(state: Pick<BadgeState, 'slogan'>) {
 }
 
 export interface BadgeArt {
+  /** Community Day for Java wordmark, top-left. */
   logo: HTMLImageElement
-  /** The Java sticker in the top-right corner. */
+  /** JUG Gujarat's round logo/favicon, top-right. */
+  jugLogo: HTMLImageElement
+  /** The Java sticker in the bottom-left corner. */
   sticker: HTMLImageElement
   brick: HTMLImageElement
 }
@@ -195,14 +207,15 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
   })
 }
 
-/** All three are same-origin, so drawing them never taints the canvas. */
+/** All four are same-origin, so drawing them never taints the canvas. */
 export async function loadBadgeArt(): Promise<BadgeArt> {
-  const [logo, sticker, brick] = await Promise.all([
+  const [logo, jugLogo, sticker, brick] = await Promise.all([
     loadImage(A['cd2b3de0-e87e-45cf-8bd3-459baf76597f']),
+    loadImage(A['48ee4d89-31eb-41e2-925d-db02be348059']),
     loadImage('/assets/java-sticker.png'),
     loadImage(A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']),
   ])
-  return { logo, sticker, brick }
+  return { logo, jugLogo, sticker, brick }
 }
 
 /**
@@ -467,8 +480,8 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   if (art) {
     const w = (LOGO.h * art.logo.naturalWidth) / art.logo.naturalHeight
     ctx.drawImage(art.logo, LOGO.x, LOGO.y, w, LOGO.h)
-    const sh = (STICKER.size * art.sticker.naturalHeight) / art.sticker.naturalWidth
-    ctx.drawImage(art.sticker, STICKER.x, STICKER.y, STICKER.size, sh)
+    const jw = (JUG_LOGO.h * art.jugLogo.naturalWidth) / art.jugLogo.naturalHeight
+    ctx.drawImage(art.jugLogo, BADGE_W - JUG_LOGO.margin - jw, JUG_LOGO.y, jw, JUG_LOGO.h)
   }
 
   // The edition year, under the logo — the badge's one statement of which year this is.
@@ -607,6 +620,9 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.font = '600 22px Roboto, sans-serif'
   ctx.fillStyle = 'rgba(201,208,239,.85)'
   fillTrackedCentered(ctx, BADGE_TAGLINE.toUpperCase(), BADGE_W / 2, y + 22, 5)
+  // Bottom of the tagline's glyphs, with a little room for descenders — the sticker
+  // must never start above this or it will clip the tagline text.
+  const taglineBottom = y + 22 + 10
 
   // ---- footer: site URL over the brick strip ----
   const brickH = 64
@@ -619,6 +635,17 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.font = '700 26px Roboto, sans-serif'
   ctx.fillStyle = '#FEC400'
   fillTrackedCentered(ctx, 'COMMUNITYDAYFORJAVA.COM', BADGE_W / 2, BADGE_H - brickH - 34, 4)
+
+  // The Java sticker, last, in the bottom-left corner. It rests flush against the top
+  // of the brick strip — unless the tagline above runs long enough to need more room,
+  // in which case it drops just below the tagline instead (and may then touch the
+  // bricks, which is the rarer case).
+  if (art) {
+    const sh = (STICKER.size * art.sticker.naturalHeight) / art.sticker.naturalWidth
+    const flushY = BADGE_H - brickH - sh
+    const stickerY = Math.max(flushY, taglineBottom)
+    ctx.drawImage(art.sticker, STICKER.x, stickerY, STICKER.size, sh)
+  }
 
   ctx.restore()
 }
