@@ -199,14 +199,17 @@ export default function Badge() {
   }, [])
 
   /** What the badge is stamped with: the chosen line, else the role's own. */
-  const badgeLine = badgeSlogan({ slogan })
+  const badgeLine = badgeSlogan({ slogan, role })
+  /** The slogans on offer for the current role. */
+  const sloganOptions = SLOGAN_OPTIONS[role.id] ?? []
   /** The captions on offer for the current role, and the one actually posted. */
   const captionOptions = CAPTION_OPTIONS[role.id] ?? []
   const activeCaption = badgeCaption(role, caption)
 
-  /** Captions are role-specific, so switching role drops any pick from the old one. */
+  /** Slogans and captions are role-specific, so switching role drops any pick from the old one. */
   const changeRole = (r: BadgeRole) => {
     setRole(r)
+    setSlogan('')
     setCaption('')
   }
 
@@ -430,7 +433,7 @@ export default function Badge() {
                   line, and every line on it is one we wrote. */}
               <span style={{ ...labelStyle, marginTop: '20px' }}>Your slogan</span>
               <div id="badge-slogans" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {SLOGAN_OPTIONS.map((s) => {
+                {sloganOptions.map((s) => {
                   const on = s === badgeLine
                   return (
                     <button
