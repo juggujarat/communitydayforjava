@@ -101,28 +101,61 @@ export const BADGE_ROLES: BadgeRole[] = [
   { id: 'attendee', label: 'Attendee', chipLead: "I'm", chipMain: 'attending', share: "I'm attending", accent: '#FEC400', ink: '#FEC400' },
   { id: 'speaker', label: 'Speaker', chipLead: "I'm a", chipMain: 'speaker', share: "I'm speaking at", accent: '#FF384B', ink: '#FF7183' },
   { id: 'enthusiast', label: 'Java Enthusiast', chipLead: "I'm a", chipMain: 'Java enthusiast', share: "I'm counting down to", accent: '#02CF70', ink: '#2BE58E' },
-  { id: 'sponsor', label: 'Sponsor', chipLead: "I'm a", chipMain: 'sponsor', share: "We're sponsoring", accent: '#FEC400', ink: '#FEC400' },
+  { id: 'sponsor', label: 'Sponsor', chipLead: "I'm a", chipMain: 'sponsor', share: "We're sponsoring", accent: '#00B8B0', ink: '#4FE8E0' },
   { id: 'organizer', label: 'Organizer', chipLead: "I'm an", chipMain: 'organizer', share: "I'm helping organise", accent: '#7D00BC', ink: '#C88BFF' },
   { id: 'crew', label: 'Crew', chipLead: "I'm on the", chipMain: 'crew', share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
 ]
 
 /**
  * The slogan is a fixed set rather than a free-text field: the badge goes out under
- * the event's name, so every line on it is one we wrote. The list is deliberately the
- * same for every role — the pride line is the wearer's own voice, not a credential,
- * so picking a role never changes (or resets) it.
+ * the event's name, so every line on it is one we wrote. The options are keyed by role
+ * — same as CAPTION_OPTIONS — so "How are you joining?" also drives which pride lines
+ * are on offer, with the first entry stamped by default.
  */
-export const SLOGAN_OPTIONS = [
-  'Proud to be part of the Java community',
-  'Proud to be a volunteer',
-  'Proud to be a Java developer',
-  'Proud to be a JUG Gujarat member',
-  'Java runs in my veins',
-  'See you in Ahmedabad!',
-]
-
-/** Stamped when the wearer has not picked a line yet. */
-export const DEFAULT_SLOGAN = SLOGAN_OPTIONS[0]
+export const SLOGAN_OPTIONS: Record<string, string[]> = {
+  attendee: [
+    'Proud to be part of the Java community',
+    'Excited to be at Community Day for Java',
+    'See you in Ahmedabad!',
+    'Java runs in my veins',
+    'Counting down to Community Day for Java',
+  ],
+  speaker: [
+    'Proud to be a Java speaker',
+    'Sharing Java on stage today',
+    'See you in Ahmedabad!',
+    'Proud to take the stage',
+    'Talking Java at CDJ 2026',
+  ],
+  enthusiast: [
+    'Java runs in my veins',
+    'Proud to be a Java developer',
+    'Proud to be part of the Java community',
+    'Coffee, code, and Java',
+    'Always learning, always Java',
+  ],
+  sponsor: [
+    'Proud to sponsor the Java community',
+    'Backing Java developers in Gujarat',
+    'See you in Ahmedabad!',
+    'Investing in the Java community',
+    'Proud partner of CDJ 2026',
+  ],
+  organizer: [
+    'Proud to help organise this',
+    'Building Community Day for Java',
+    'See you in Ahmedabad!',
+    'Making it happen, behind the scenes',
+    'Proud to build this with the team',
+  ],
+  crew: [
+    'Proud to be a volunteer',
+    'Proud to be on the crew',
+    'Proud to be a JUG Gujarat member',
+    'Here to make the day run smooth',
+    'See you in Ahmedabad!',
+  ],
+}
 
 /**
  * Social captions, three per role — unlike the slogan these are never stamped on the
@@ -172,7 +205,7 @@ export interface BadgeState {
   /** Free-text role/job title, e.g. "Java Developer". Required, like the company. */
   title: string
   company: string
-  /** One of SLOGAN_OPTIONS. Empty means DEFAULT_SLOGAN is the one stamped. */
+  /** One of SLOGAN_OPTIONS[role.id]. Empty means that role's first line is stamped. */
   slogan: string
   role: BadgeRole
   photo: HTMLImageElement | null
@@ -183,8 +216,8 @@ export interface BadgeState {
 }
 
 /** The line actually drawn — never empty, so the badge always carries a slogan. */
-export function badgeSlogan(state: Pick<BadgeState, 'slogan'>) {
-  return state.slogan.trim() || DEFAULT_SLOGAN
+export function badgeSlogan(state: Pick<BadgeState, 'slogan' | 'role'>) {
+  return state.slogan.trim() || SLOGAN_OPTIONS[state.role.id]?.[0] || SLOGAN_OPTIONS.attendee[0]
 }
 
 export interface BadgeArt {
@@ -285,6 +318,26 @@ function fillTracked(ctx: Ctx, text: string, x: number, baseline: number, tracki
 
 function fillTrackedCentered(ctx: Ctx, text: string, centerX: number, baseline: number, tracking: number) {
   fillTracked(ctx, text, centerX - trackedWidth(ctx, text, tracking) / 2, baseline, tracking)
+}
+
+/**
+ * Two runs on one line with a middle dot pinned at `centerX` — the dot's position
+ * never shifts with how long either run is; `a` grows leftward from it, `b` grows
+ * rightward, each with the same gap. Each side is independently clipped so a long
+ * run can't push the dot off centre.
+ */
+function fillDotPair(ctx: Ctx, a: string, b: string, centerX: number, baseline: number, gap: number, maxWidth: number) {
+  const dot = '·'
+  const dw = ctx.measureText(dot).width
+  const sideBudget = Math.max(0, maxWidth / 2 - gap - dw / 2)
+  const align = ctx.textAlign
+  ctx.textAlign = 'right'
+  ctx.fillText(clipText(ctx, a, sideBudget), centerX - dw / 2 - gap, baseline)
+  ctx.textAlign = 'center'
+  ctx.fillText(dot, centerX, baseline)
+  ctx.textAlign = 'left'
+  ctx.fillText(clipText(ctx, b, sideBudget), centerX + dw / 2 + gap, baseline)
+  ctx.textAlign = align
 }
 
 /** Truncate with an ellipsis so a very long single word never bleeds off the badge. */
@@ -551,9 +604,11 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   // Role and company share the line under the name — the block has no room for two,
   // and they read as one credential anyway. Both are required, so the line always has
   // its slot: while it is still empty it previews itself the way the name does.
-  const subText = [state.title.trim(), state.company.trim()].filter(Boolean).join('  ·  ')
-  const hasSub = subText.length > 0
-  const sub = subText || 'Your role  ·  Your company'
+  const subTitle = state.title.trim()
+  const subCompany = state.company.trim()
+  const hasSub = subTitle.length > 0 || subCompany.length > 0
+  const subA = subTitle || 'Your role'
+  const subB = subCompany || 'Your company'
 
   // The pride line, in quotes so it reads as the wearer speaking rather than as more
   // event copy. Always present, and measured before the name, because the name is
@@ -587,7 +642,7 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
 
   ctx.font = '500 36px Roboto, sans-serif'
   ctx.fillStyle = hasSub ? '#c9d0ef' : 'rgba(201,208,239,.35)'
-  ctx.fillText(clipText(ctx, sub, maxTextW), BADGE_W / 2, y + 36)
+  fillDotPair(ctx, subA, subB, BADGE_W / 2, y + 36, 14, maxTextW)
   y += SUB_SLOT
 
   ctx.font = sloganFont(sloganSize)
