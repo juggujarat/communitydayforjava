@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { h } from '../lib/handlers'
-import { BadgeShapes } from '../lib/decor'
 import { Icon } from '../lib/icons'
 import { BADGE_PAGE } from '../lib/links'
 import {
@@ -350,8 +349,6 @@ export default function Badge() {
 
   return (
     <section id="badge" style={{ position: 'relative', padding: '84px 40px', background: 'linear-gradient(180deg,#F4F1E8 0%,#fff8ee 100%)', color: '#0E1667', overflow: 'hidden' }}>
-      <BadgeShapes />
-
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1180px', margin: '0 auto' }}>
         <div data-reveal style={{ marginBottom: '34px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(13,92,219,.08)', color: '#0D5CDB', padding: '9px 14px', borderRadius: '999px', fontSize: '12px', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '18px' }}>

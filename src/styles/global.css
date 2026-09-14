@@ -268,8 +268,6 @@
   @media (max-width:768px){
     /* Nav logo shrinks to 46px here, so the spacer for the fixed nav shrinks with it */
     #badge-page{ padding-top:86px!important; }
-    /* No gutters left on phones — the floating shapes would sit under the text */
-    #badge-shapes{ display:none!important; }
     /* "How it works" runs 3-across under the grid; one per row on phones */
     #dc-root #badge-steps{ grid-template-columns:1fr!important; gap:12px!important; }
     /* The headline is set nowrap; below 768px the clamp's 30px floor would push it

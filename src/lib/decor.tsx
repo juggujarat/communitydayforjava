@@ -131,22 +131,6 @@ export const CFPShapes = () => (
   </div>
 )
 
-/**
- * Floating shapes for the badge builder (/badge/). Same gutter-only placement as
- * CFPShapes — the content column is capped, so these never sit behind text. The id lets
- * global.css hide the whole layer on phones, where the content runs edge to edge.
- */
-export const BadgeShapes = () => (
-  <div id="badge-shapes" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
-    {shape({ key: 'bg1', size: 96, color: '#FEC400', kind: 'ring', top: '4%', left: '2%', anim: 'cdj-float1', dur: 11, op: .45 })}
-    {shape({ key: 'bg2', size: 44, color: '#FF384B', kind: 'diamond', top: '6%', right: '3%', anim: 'cdj-float2', dur: 9, op: .7 })}
-    {shape({ key: 'bg3', size: 26, color: '#02CF70', kind: 'circle', top: '30%', left: '1.5%', anim: 'cdj-float1', dur: 8, delay: .6, op: .8 })}
-    {shape({ key: 'bg4', size: 60, color: '#7D00BC', kind: 'ring', top: '58%', right: '2%', anim: 'cdj-float2', dur: 10, op: .4 })}
-    {shape({ key: 'bg5', size: 50, color: '#0D5CDB', kind: 'tri', bottom: '8%', left: '2.5%', anim: 'cdj-float1', dur: 12, op: .35 })}
-    {shape({ key: 'bg6', size: 200, color: '#0D5CDB', kind: 'circle', bottom: '-5%', right: '-4%', op: .1, blur: 40 })}
-  </div>
-)
-
 export const NotifyShapes = () => shapeLayer(<>
   {shape({ key: 'n1', size: 80, color: '#FEC400', kind: 'ring', top: '18%', left: '12%', anim: 'cdj-float1', dur: 10, op: .5 })}
   {shape({ key: 'n2', size: 44, color: '#FF384B', kind: 'diamond', bottom: '22%', right: '14%', anim: 'cdj-float2', dur: 8, op: .8 })}

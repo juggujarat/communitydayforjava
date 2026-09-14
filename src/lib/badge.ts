@@ -250,12 +250,6 @@ export async function loadBadgeFonts(): Promise<void> {
 
 type Ctx = CanvasRenderingContext2D
 
-/** `#RRGGBB` + alpha -> `rgba(...)`. */
-function hexA(hex: string, a: number) {
-  const n = parseInt(hex.slice(1), 16)
-  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`
-}
-
 function roundRectPath(ctx: Ctx, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath()
   ctx.moveTo(x + r, y)
@@ -378,50 +372,6 @@ export function clampOffset(photo: HTMLImageElement, zoom: number, offset: { x: 
 
 // ---- the badge itself ----
 
-function drawDecor(ctx: Ctx) {
-  // Same floating-shape vocabulary as the rest of the site, flattened into the artwork.
-  ctx.save()
-  ctx.globalAlpha = 0.42
-  ctx.strokeStyle = '#FEC400'
-  ctx.lineWidth = 12
-  ctx.beginPath()
-  ctx.arc(126, 322, 74, 0, Math.PI * 2)
-  ctx.stroke()
-
-  ctx.globalAlpha = 0.65
-  ctx.fillStyle = '#FF384B'
-  ctx.beginPath()
-  ctx.moveTo(946, 300)
-  ctx.lineTo(978, 332)
-  ctx.lineTo(946, 364)
-  ctx.lineTo(914, 332)
-  ctx.closePath()
-  ctx.fill()
-
-  ctx.globalAlpha = 0.55
-  ctx.fillStyle = '#02CF70'
-  ctx.beginPath()
-  ctx.arc(112, 1004, 19, 0, Math.PI * 2)
-  ctx.fill()
-
-  ctx.globalAlpha = 0.3
-  ctx.fillStyle = '#0D5CDB'
-  ctx.beginPath()
-  ctx.moveTo(962, 944)
-  ctx.lineTo(1000, 1010)
-  ctx.lineTo(924, 1010)
-  ctx.closePath()
-  ctx.fill()
-
-  ctx.globalAlpha = 0.55
-  ctx.strokeStyle = '#7D00BC'
-  ctx.lineWidth = 9
-  ctx.beginPath()
-  ctx.arc(986, 620, 44, 0, Math.PI * 2)
-  ctx.stroke()
-  ctx.restore()
-}
-
 /** Lucide `cloud-upload`, on a 24x24 grid. */
 const CLOUD_UPLOAD = [
   'M12 13v8',
@@ -492,32 +442,6 @@ function drawRoleGraphic(ctx: Ctx, role: BadgeRole) {
 }
 
 /**
- * Small L-shaped brackets pinned to the badge's top corners, tinted by the role —
- * an ID-card framing detail that changes with the pick, echoed at the very edges
- * so it never competes with the logos.
- */
-function drawCornerBrackets(ctx: Ctx, role: BadgeRole) {
-  ctx.save()
-  ctx.strokeStyle = role.ink
-  ctx.lineWidth = 4
-  ctx.lineCap = 'round'
-  ctx.globalAlpha = 0.85
-  const arm = 34
-  const inset = 30
-  ctx.beginPath()
-  ctx.moveTo(inset + arm, inset)
-  ctx.lineTo(inset, inset)
-  ctx.lineTo(inset, inset + arm)
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.moveTo(BADGE_W - inset - arm, inset)
-  ctx.lineTo(BADGE_W - inset, inset)
-  ctx.lineTo(BADGE_W - inset, inset + arm)
-  ctx.stroke()
-  ctx.restore()
-}
-
-/**
  * Empty state: a white drop-zone disc with the cloud mark and the instruction, so
  * the circle reads as "put a photo here" at a glance. The HTML overlay on the
  * preview only adds the cursor, hover ring and click target.
@@ -556,15 +480,7 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.fillStyle = bg
   ctx.fillRect(0, 0, BADGE_W, BADGE_H)
 
-  // Accent glow behind the portrait, tinted by the selected role.
-  const glow = ctx.createRadialGradient(PHOTO.cx, PHOTO.cy, 0, PHOTO.cx, PHOTO.cy, 540)
-  glow.addColorStop(0, hexA(role.ink, 0.2))
-  glow.addColorStop(1, hexA(role.ink, 0))
-  ctx.fillStyle = glow
-  ctx.fillRect(0, 0, BADGE_W, BADGE_H)
-
   drawRoleGraphic(ctx, role)
-  drawDecor(ctx)
 
   if (art) {
     const w = (LOGO.h * art.logo.naturalWidth) / art.logo.naturalHeight
@@ -595,29 +511,19 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   const chipW = textW + 76
   const chipH = 72
   roundRectPath(ctx, BADGE_W / 2 - chipW / 2, CHIP_CY - chipH / 2, chipW, chipH, chipH / 2)
-  ctx.fillStyle = hexA(role.ink, 0.16)
+  ctx.fillStyle = '#131C56'
   ctx.fill()
   ctx.lineWidth = 2
-  ctx.strokeStyle = hexA(role.ink, 0.55)
+  ctx.strokeStyle = role.ink
   ctx.stroke()
-  // Halo behind the letters so the chip glows on the navy instead of sitting flat.
-  ctx.shadowColor = hexA(role.ink, 0.6)
-  ctx.shadowBlur = 20
   ctx.fillStyle = role.ink
   const chipTextX = BADGE_W / 2 - textW / 2
   ctx.font = CHIP_LEAD_FONT
   fillTracked(ctx, lead, chipTextX, CHIP_BASELINE, 3)
   ctx.font = CHIP_MAIN_FONT
   fillTracked(ctx, main, chipTextX + leadW + CHIP_GAP, CHIP_BASELINE, 4)
-  ctx.shadowBlur = 0
-  ctx.shadowColor = 'transparent'
 
   // Portrait
-  ctx.beginPath()
-  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r + 18, 0, Math.PI * 2)
-  ctx.fillStyle = 'rgba(255,255,255,.07)'
-  ctx.fill()
-
   ctx.save()
   ctx.beginPath()
   ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r, 0, Math.PI * 2)
@@ -638,17 +544,6 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.lineWidth = 10
   ctx.strokeStyle = role.ink
   ctx.stroke()
-
-  // Dashed outer accent ring, the same ID-card detail as the solid one but a step
-  // out — the second, more graphic cue (beyond fill colour) that names the role.
-  ctx.save()
-  ctx.beginPath()
-  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r + 30, 0, Math.PI * 2)
-  ctx.setLineDash([16, 12])
-  ctx.lineWidth = 3
-  ctx.strokeStyle = hexA(role.ink, 0.6)
-  ctx.stroke()
-  ctx.restore()
 
   // ---- text block, vertically centred between the portrait and the footer ----
   const maxTextW = 820
@@ -746,8 +641,6 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
     const stickerY = Math.max(flushY, taglineBottom)
     ctx.drawImage(art.sticker, STICKER.x, stickerY, STICKER.size, sh)
   }
-
-  drawCornerBrackets(ctx, role)
 
   ctx.restore()
 }
