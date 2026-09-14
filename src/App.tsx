@@ -27,11 +27,14 @@ import Volunteers from './components/Volunteers'
 import Footer from './components/Footer'
 import BrickDivider from './components/BrickDivider'
 import ScrollButtons from './components/ScrollButtons'
+import TicketsModal from './components/TicketsModal'
 import { useDCEffects } from './hooks/useDCEffects'
+import { closeTickets, useTicketsOpen } from './hooks/useTicketsModal'
 import { A } from './lib/assets'
 
 export default function App() {
   useDCEffects()
+  const ticketsOpen = useTicketsOpen()
   return (
     <div id="dc-root">
       <div style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#131C56' }}>
@@ -60,6 +63,7 @@ export default function App() {
         <Footer />
       </div>
       <ScrollButtons />
+      {ticketsOpen && <TicketsModal onClose={closeTickets} />}
     </div>
   )
 }

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Community Day for Java</title>
+    <script>
+      // This is a static site (GitHub Pages), so there's no server-side route for
+      // /register — a hard load or refresh here 404s. Stash the intended path and
+      // bounce to the real app at "/"; main.tsx restores it before mounting so the
+      // tickets popup still opens. Any other unknown path just lands on the homepage.
+      sessionStorage.setItem('cdj-redirect-path', location.pathname)
+      location.replace('/')
+    </script>
+  </head>
+  <body></body>
+</html>

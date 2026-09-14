@@ -50,8 +50,9 @@
   @media (max-width:768px){
     #dc-root nav{ padding-left:16px!important; padding-right:16px!important; }
     #dc-root nav img{ height:46px!important; }
-    /* Nav logo shrinks to 46px here, so the CFP page's spacer for the fixed nav shrinks too */
+    /* Nav logo shrinks to 46px here, so the CFP/Tickets pages' spacer for the fixed nav shrinks too */
     #cfp-page{ padding-top:86px!important; }
+    #tickets-page{ padding-top:86px!important; }
     #dc-root section{ padding-left:18px!important; padding-right:18px!important; }
     #dc-root footer{ padding-left:18px!important; padding-right:18px!important; }
     #cfp-layout{ grid-template-columns:1fr!important; }
@@ -63,6 +64,7 @@
     #cfp-formats{ grid-template-columns:1fr!important; }
     #cfp-value-grid{ grid-template-columns:1fr!important; }
     #cfp-info-grid{ grid-template-columns:1fr!important; }
+    #tickets-plans-grid{ grid-template-columns:1fr!important; }
     #top{ padding-top:130px!important; }
     #manifesto h2{ font-size:40px!important; letter-spacing:-1px!important; }
     #dc-root [style*="repeat(4, minmax(0px, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
@@ -103,7 +105,9 @@
     #dc-root [style*="minmax(180px, 1fr)"] > *,
     #dc-root [style*="minmax(220px, 1fr)"] > *,
     #dc-root [style*="minmax(260px, 1fr)"] > *{ scroll-snap-align:start; }
-    /* CFP date/location chips stack on phones — they must never become a swipe strip */
+    /* CFP date/location chips stack on phones — they must never become a swipe strip.
+       (Tickets' own facts row is a plain repeat(2, 1fr) now, already stacked by the
+       generic [style*="repeat(2, 1fr)"] rule above — no id-specific override needed.) */
     #dc-root #cfp-facts{
       grid-template-columns:1fr!important;
       grid-auto-flow:row!important;
@@ -278,4 +282,18 @@
     #badge-roles{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
     /* Keep the three share buttons on one row by tightening them instead of wrapping */
     #badge-share button{ padding:12px 6px!important; font-size:12px!important; gap:6px!important; }
+  }
+
+  /* ---- Tickets popup ----
+     TicketsModal is portaled onto <body>, so the #dc-root inline-style selectors above
+     never touch it; these id-scoped rules are its only responsive layer. The card, not
+     the iframe, is what scrolls on desktop. */
+  @media (max-width:900px){
+    #cdj-tickets-frame{ height:calc(100vh - 150px)!important; min-height:520px!important; }
+  }
+  @media (max-width:600px){
+    /* Full-height sheet on phones, like the rest of the mobile UI. */
+    #cdj-tickets-overlay{ padding:8px!important; align-items:flex-end!important; }
+    #cdj-tickets-card{ max-height:96vh!important; border-radius:16px!important; }
+    #cdj-tickets-frame{ height:calc(100dvh - 120px)!important; border-radius:16px!important; }
   }

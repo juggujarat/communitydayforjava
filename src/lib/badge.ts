@@ -207,7 +207,7 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
   })
 }
 
-/** All four are same-origin, so drawing them never taints the canvas. */
+/** All four site assets, kept same-origin so none of them ever taint the export canvas. */
 export async function loadBadgeArt(): Promise<BadgeArt> {
   const [logo, jugLogo, sticker, brick] = await Promise.all([
     loadImage(A['cd2b3de0-e87e-45cf-8bd3-459baf76597f']),
@@ -430,6 +430,94 @@ const CLOUD_UPLOAD = [
 ]
 
 /**
+ * One icon per "How are you joining?" pick, Lucide-style on a 24x24 grid — drawn huge
+ * and faint behind the portrait so the badge carries a graphic that names the role,
+ * not just a colour. Ticket / mic / coffee cup / medal / calendar / wrench.
+ */
+const ROLE_GRAPHIC: Record<string, string[]> = {
+  attendee: [
+    'M7 4h10a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6V6a2 2 0 0 1 2-2Z',
+    'M13 8v.01',
+    'M13 12v.01',
+    'M13 16v.01',
+  ],
+  speaker: [
+    'M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z',
+    'M19 10v2a7 7 0 0 1-14 0v-2',
+    'M12 19v3',
+  ],
+  enthusiast: [
+    'M17 8h1a4 4 0 1 1 0 8h-1',
+    'M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z',
+    'M6 2v2',
+    'M10 2v2',
+    'M14 2v2',
+  ],
+  sponsor: [
+    'M8.21 13.89 7 23l5-3 5 3-1.21-9.12',
+    'M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z',
+  ],
+  organizer: [
+    'M8 2v4',
+    'M16 2v4',
+    'M3 10h18',
+    'M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z',
+  ],
+  crew: [
+    'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94Z',
+  ],
+}
+
+/**
+ * Drawn large, off to the side of the portrait, before the logos/chip/photo/text —
+ * so it reads as an actual graphic (like a mascot print), not a colour swap, while
+ * still sitting behind everything that has to stay legible.
+ */
+function drawRoleGraphic(ctx: Ctx, role: BadgeRole) {
+  const paths = ROLE_GRAPHIC[role.id]
+  if (!paths) return
+  ctx.save()
+  const size = 460
+  const cx = 230
+  const cy = 580
+  ctx.translate(cx - size / 2, cy - size / 2)
+  ctx.scale(size / 24, size / 24)
+  ctx.globalAlpha = 0.16
+  ctx.strokeStyle = role.ink
+  ctx.lineWidth = 0.5
+  ctx.lineCap = 'round'
+  ctx.lineJoin = 'round'
+  paths.forEach((d) => ctx.stroke(new Path2D(d)))
+  ctx.restore()
+}
+
+/**
+ * Small L-shaped brackets pinned to the badge's top corners, tinted by the role —
+ * an ID-card framing detail that changes with the pick, echoed at the very edges
+ * so it never competes with the logos.
+ */
+function drawCornerBrackets(ctx: Ctx, role: BadgeRole) {
+  ctx.save()
+  ctx.strokeStyle = role.ink
+  ctx.lineWidth = 4
+  ctx.lineCap = 'round'
+  ctx.globalAlpha = 0.85
+  const arm = 34
+  const inset = 30
+  ctx.beginPath()
+  ctx.moveTo(inset + arm, inset)
+  ctx.lineTo(inset, inset)
+  ctx.lineTo(inset, inset + arm)
+  ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(BADGE_W - inset - arm, inset)
+  ctx.lineTo(BADGE_W - inset, inset)
+  ctx.lineTo(BADGE_W - inset, inset + arm)
+  ctx.stroke()
+  ctx.restore()
+}
+
+/**
  * Empty state: a white drop-zone disc with the cloud mark and the instruction, so
  * the circle reads as "put a photo here" at a glance. The HTML overlay on the
  * preview only adds the cursor, hover ring and click target.
@@ -475,6 +563,7 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.fillStyle = glow
   ctx.fillRect(0, 0, BADGE_W, BADGE_H)
 
+  drawRoleGraphic(ctx, role)
   drawDecor(ctx)
 
   if (art) {
@@ -549,6 +638,17 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.lineWidth = 10
   ctx.strokeStyle = role.ink
   ctx.stroke()
+
+  // Dashed outer accent ring, the same ID-card detail as the solid one but a step
+  // out — the second, more graphic cue (beyond fill colour) that names the role.
+  ctx.save()
+  ctx.beginPath()
+  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r + 30, 0, Math.PI * 2)
+  ctx.setLineDash([16, 12])
+  ctx.lineWidth = 3
+  ctx.strokeStyle = hexA(role.ink, 0.6)
+  ctx.stroke()
+  ctx.restore()
 
   // ---- text block, vertically centred between the portrait and the footer ----
   const maxTextW = 820
@@ -646,6 +746,8 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
     const stickerY = Math.max(flushY, taglineBottom)
     ctx.drawImage(art.sticker, STICKER.x, stickerY, STICKER.size, sh)
   }
+
+  drawCornerBrackets(ctx, role)
 
   ctx.restore()
 }

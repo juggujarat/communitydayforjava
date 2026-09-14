@@ -21,8 +21,8 @@ const EVENT_INTRO = [
 // The date and venue are not locked yet (Sessionize lists the venue as "To be discussed"),
 // so these two carry a "tentative" marker — the only wording on this page not from Sessionize.
 const FACTS = [
-  { label: 'event date (tentative)', value: '24 Oct 2026' },
-  { label: 'location (tentative)', value: 'Ahmedabad, India' },
+  { label: 'event date', value: '24 Oct 2026' },
+  { label: 'location', value: 'Ahmedabad, India' },
   { label: 'Call opens at 12:00 AM', value: '10 Aug 2026' },
   { label: 'Call closes at 11:59 PM', value: '15 Sep 2026' },
 ]
