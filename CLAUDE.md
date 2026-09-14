@@ -55,6 +55,44 @@ The button label still reads "Tickets Coming Soon" (`TICKETS_COMING_SOON` in
 placements. `TICKET_MAILTO`/`MAIL` are legacy and unused. CFP submissions go to
 Sessionize via `CFP_SESSIONIZE`.
 
+## Standalone pages (multi-page Vite build)
+
+Besides the single-page `index.html`, the build has two extra entries registered in
+`vite.config.ts` under `build.rollupOptions.input`:
+
+- `cfp/index.html` -> `src/cfp.tsx` -> `components/CFP` (`/cfp/`)
+- `badge/index.html` -> `src/badge.tsx` -> `components/Badge` (`/badge/`)
+
+Both follow the same shell: `#dc-root` > a navy wrapper with `paddingTop` for the fixed
+nav (`#cfp-page` / `#badge-page`, both stepped down in `global.css` at 768px where the
+nav logo shrinks) > `Nav hashPrefix="/"` > the section > `BrickDivider` >
+`Footer showSponsorCta={false}`. Adding a page means adding the entry, an `index.html`
+with its own meta tags, a `src/<page>.tsx` bootstrap, a `public/sitemap.xml` row, and a
+`MENU_LINKS` entry in `Nav.tsx`.
+
+**The badge builder** (`/badge/`) renders a shareable 1080x1350 attendee badge into a
+`<canvas>`: `components/Badge.tsx` holds the form/preview UI, `lib/badge.ts` holds the
+canvas renderer plus the PNG export/download helpers. It is deliberately
+dependency-free — no html-to-image library — so all layout is in badge coordinates and
+the exported PNG is identical across browsers. Notes for changing it:
+
+- Photos never leave the browser (object URL -> `<img>` -> `drawImage`). Every image the
+  badge draws is same-origin, so the canvas is never tainted and `toBlob` keeps working.
+- `loadBadgeFonts()` must resolve before the first paint, otherwise canvas text silently
+  falls back to a system font. Any new `ctx.font` size/weight needs a matching entry in
+  `FONT_SPECS`.
+- `photoFrame()` is the single source of truth for the crop: it clamps the pan so the
+  photo always covers the circle. Both the renderer and the drag handler go through it.
+- LinkedIn/X/WhatsApp cannot attach an image from a link, so those buttons download the
+  PNG first and then open the composer. `navigator.share` with files is offered
+  separately for phones.
+- `BADGE_EVENT_YEAR` is drawn under the logo in the top-left masthead (`LOGO` in
+  `lib/badge.ts`) — it is the badge's one statement of which edition this is. The rule
+  between the slogan and the place is now a plain divider.
+- `BADGE_EVENT_PLACE` duplicates the still-tentative venue from the `FACTS` block in
+  `components/CFP.tsx` — update both together. The event date is intentionally left off
+  the badge while it is tentative.
+
 ## Commands
 
 ```bash

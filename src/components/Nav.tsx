@@ -9,6 +9,7 @@ const MENU_LINKS = [
   { href: '#manifesto', label: 'Agenda' },
   { href: '/tickets', label: 'Tickets' },
   { href: '/cfp/', label: 'CFP' },
+  { href: '/badge/', label: 'Badge' },
   { href: '#venue', label: 'Venue' },
   { href: '#speakers', label: 'Speakers' },
   { href: '#sponsors-wall', label: 'Sponsor' },
