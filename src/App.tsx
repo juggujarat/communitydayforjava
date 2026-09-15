@@ -21,6 +21,7 @@ import SponsorsWall from './components/SponsorsWall'
 import Sponsor from './components/Sponsor'
 import Partners from './components/Partners'
 import CommunityPartners from './components/CommunityPartners'
+import VenuePartner from './components/VenuePartner'
 import Organizers from './components/Organizers'
 import Committee from './components/Committee'
 import Volunteers from './components/Volunteers'
@@ -54,6 +55,7 @@ export default function App() {
         <Sponsor />
         <Partners />
         <CommunityPartners />
+        <VenuePartner />
         <BrickDivider src={A['8cb11cf6-f516-467b-8a0f-27f4125d339f']} />
         <Organizers />
         <Committee />
