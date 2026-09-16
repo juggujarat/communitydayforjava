@@ -78,6 +78,14 @@ export default function TicketsModal({ onClose }: { onClose: () => void }) {
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
         </button>
 
+        <div id="cdj-tickets-banner" style={{ margin: '18px 54px 0 18px', padding: '11px 16px', borderRadius: '12px', background: 'rgba(2,207,112,.1)', border: '1px solid rgba(2,207,112,.35)', display: 'flex', alignItems: 'center', gap: '9px', fontSize: '13px', fontWeight: 700, color: '#0E1667' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', flex: 'none', padding: '3px 9px', borderRadius: '999px', background: '#02CF70', color: '#fff', fontSize: '10.5px', fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#fff', animation: 'cdj-pulse 1.4s ease-in-out infinite' }} />
+            Live
+          </span>
+          Group discount is live — grab tickets for your squad and save.
+        </div>
+
         <div id="cdj-tickets-included" style={{ padding: '18px 54px 4px 18px' }}>
           <button
             type="button"
