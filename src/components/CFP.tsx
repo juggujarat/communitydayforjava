@@ -9,8 +9,9 @@ import { CFP_SESSIONIZE } from '../lib/links'
  * source of truth (it carries the terms speakers agree to). Do not reword, shorten,
  * or add sentences here; if the Sessionize page changes, re-copy it. The only exceptions
  * are the page headline ("Share your Java story with the community."), the
- * "Submit on Sessionize" button label, and the "(tentative)" marker on the event
- * date/location chips — all added deliberately.
+ * "Submit on Sessionize" button label, the "(tentative)" marker on the event
+ * date/location chips, and the "Extended" tag on the closing-date chip — all added
+ * deliberately.
  */
 
 const EVENT_INTRO = [
@@ -20,11 +21,13 @@ const EVENT_INTRO = [
 
 // The date and venue are not locked yet (Sessionize lists the venue as "To be discussed"),
 // so these two carry a "tentative" marker — the only wording on this page not from Sessionize.
+// The closing-date chip also carries an "Extended" tag, for the same reason: it flags
+// that the value changed from Sessionize's original date, without touching the value itself.
 const FACTS = [
   { label: 'event date', value: '24 Oct 2026' },
   { label: 'location', value: 'Ahmedabad, India' },
   { label: 'Call opens at 12:00 AM', value: '10 Aug 2026' },
-  { label: 'Call closes at 11:59 PM', value: '15 Sep 2026' },
+  { label: 'Call closes at 11:59 PM', value: '24 Sep 2026', tag: 'Extended' },
 ]
 
 const TIMEZONE_NOTE = 'Call closes in India Standard Time (UTC+05:30) timezone.'
@@ -201,7 +204,10 @@ export default function CFP() {
             <=600px, which is wrong for these short chips. See the #cfp-facts rules there. */}
         <div id="cfp-facts" data-reveal data-reveal-d="40" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '14px' }}>
           {FACTS.map((f) => (
-            <div key={f.label} style={{ background: '#fff', borderRadius: '20px', padding: '18px 20px', border: '1px solid rgba(14,22,103,.08)', boxShadow: '0 14px 32px rgba(14,22,103,.06)' }}>
+            <div key={f.label} style={{ position: 'relative', background: '#fff', borderRadius: '20px', padding: '18px 20px', border: '1px solid rgba(14,22,103,.08)', boxShadow: '0 14px 32px rgba(14,22,103,.06)' }}>
+              {f.tag && (
+                <span style={{ position: 'absolute', top: '-10px', right: '14px', padding: '3px 9px', borderRadius: '999px', background: '#FF384B', color: '#fff', fontSize: '10px', fontWeight: 800, letterSpacing: '.4px', textTransform: 'uppercase' }}>{f.tag}</span>
+              )}
               <div style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '.6px', textTransform: 'uppercase', color: '#0D5CDB', marginBottom: '8px' }}>{f.label}</div>
               <div style={{ fontSize: '19px', fontWeight: 800, color: '#0E1667' }}>{f.value}</div>
             </div>
