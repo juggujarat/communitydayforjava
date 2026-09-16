@@ -27,7 +27,7 @@ const FACTS = [
   { label: 'event date', value: '24 Oct 2026' },
   { label: 'location', value: 'Ahmedabad, India' },
   { label: 'Call opens at 12:00 AM', value: '10 Aug 2026' },
-  { label: 'Call closes at 11:59 PM', value: '24 Sep 2026', tag: 'Extended' },
+  { label: 'Call closes at 11:59 PM', value: '25 Sep 2026', tag: 'Extended' },
 ]
 
 const TIMEZONE_NOTE = 'Call closes in India Standard Time (UTC+05:30) timezone.'
