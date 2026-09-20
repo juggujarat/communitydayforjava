@@ -14,6 +14,7 @@ export default defineConfig({
         main: 'index.html',
         cfp: 'cfp/index.html',
         badge: 'badge/index.html',
+        badgeTeam: '3d31280d-b523-4db7-a5b2-8cfda001b544/index.html',
         tickets: 'tickets.html',
       },
     },

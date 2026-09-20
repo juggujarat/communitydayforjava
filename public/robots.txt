@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /3d31280d-b523-4db7-a5b2-8cfda001b544/
 
 Sitemap: https://www.communitydayforjava.com/sitemap.xml
