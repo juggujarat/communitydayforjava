@@ -129,7 +129,10 @@ const secondaryBtn: React.CSSProperties = {
 
 type Status = { kind: 'ok' | 'err'; text: string } | null
 
-export default function Badge() {
+export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
+  /** Public page passes PUBLIC_BADGE_ROLE_IDS to hide Speaker/Sponsor/Organizer/Crew;
+   *  the unlisted team page passes nothing and gets every role. */
+  const roles = roleIds ? BADGE_ROLES.filter((r) => roleIds.includes(r.id)) : BADGE_ROLES
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
   /** Object URL backing the current photo; revoked only once it is replaced. */
@@ -141,7 +144,7 @@ export default function Badge() {
   const [company, setCompany] = useState('')
   /** One of SLOGAN_OPTIONS; empty means the default line is the one stamped. */
   const [slogan, setSlogan] = useState('')
-  const [role, setRole] = useState<BadgeRole>(BADGE_ROLES[0])
+  const [role, setRole] = useState<BadgeRole>(roles[0])
   /** One of CAPTION_OPTIONS[role.id]; empty means that role's first caption is used. */
   const [caption, setCaption] = useState('')
   const [photo, setPhoto] = useState<HTMLImageElement | null>(null)
@@ -405,7 +408,7 @@ export default function Badge() {
 
               <span style={labelStyle}>How are you joining?</span>
               <div id="badge-roles" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '10px' }}>
-                {BADGE_ROLES.map((r) => {
+                {roles.map((r) => {
                   const on = r.id === role.id
                   return (
                     <button

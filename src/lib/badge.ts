@@ -106,6 +106,18 @@ export const BADGE_ROLES: BadgeRole[] = [
   { id: 'crew', label: 'Crew', chipLead: "I'm on the", chipMain: 'crew', share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
 ]
 
+/** Roles shown on the public /badge/ picker. */
+export const PUBLIC_BADGE_ROLE_IDS = ['attendee', 'enthusiast']
+
+/**
+ * Roles shown on the unlisted team badge page — the complement of
+ * PUBLIC_BADGE_ROLE_IDS. Attendee/Java Enthusiast stay off it; it's only for
+ * Speaker/Sponsor/Organizer/Crew.
+ */
+export const PRIVATE_BADGE_ROLE_IDS = BADGE_ROLES.map((r) => r.id).filter(
+  (id) => !PUBLIC_BADGE_ROLE_IDS.includes(id),
+)
+
 /**
  * The slogan is a fixed set rather than a free-text field: the badge goes out under
  * the event's name, so every line on it is one we wrote. The options are keyed by role
