@@ -84,6 +84,24 @@ export const TICKET_PLANS = [
     perfectFor: 'Developers and Java enthusiasts who want to go beyond the talks and gain practical, hands-on experience.',
     availableTill: '23rd Oct 2026, 06:00 PM (GMT+05:30)',
   },
+  {
+    label: 'Community Supporter Pass',
+    price: '₹5000',
+    accent: '#FEC400',
+    intro: [
+      'Support the Java community and help us create more opportunities for learning, networking, and knowledge sharing.',
+      'This pass includes exclusive supporter benefits and recognition throughout the event.',
+    ],
+    included: [
+      '📢 Social media recognition',
+      '⭐ VIP seating and networking experience',
+      '🍽️ Special lunch with speakers and Java experts',
+      '🎤 Recognition on stage',
+      '🎁 Exclusive goodies',
+    ],
+    perfectFor: 'Individuals and organizations who want to give back to the Java community and be recognized as a supporter.',
+    availableTill: '23rd Oct 2026, 06:00 PM (GMT+05:30)',
+  },
 ]
 
 /** Widget theming — CDJ palette mapped onto KonfHub's colour params (hex, no `#`). */
