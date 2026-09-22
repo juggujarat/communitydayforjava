@@ -31,11 +31,20 @@ export const KONFHUB_EVENT = 'community-day-for-java-2026'
 /** Public event page, linked from the popup as a fallback. */
 export const KONFHUB_EVENT_URL = `https://konfhub.com/${KONFHUB_EVENT}`
 
-/** KonfHub `ticket_id`s to offer, in display order. The first one starts at qty 1. */
+/**
+ * KonfHub `ticket_id`s to offer, in display order. The first one starts at qty 1.
+ *
+ * These must match the live event's current ticket ids exactly — if KonfHub's tickets
+ * are ever deleted and recreated (each recreation gets fresh ids), the old ids here go
+ * stale and the widget can't resolve them, which empties the popup ("tickets not
+ * visible" — confirmed 2026-09-22 by fetching the widget's __NEXT_DATA__ and diffing
+ * `ticketData.uncategorized[].ticket_id` against this list). Re-verify against a fresh
+ * fetch of https://konfhub.com/widget/community-day-for-java-2026 before trusting these.
+ */
 export const KONFHUB_TICKET_IDS = [
-  118543, // Regular — INR 599
-  118531, // Regular Plus Workshop — INR 799
-  118542, // Community Supporter — INR 5000
+  118550, // Regular — INR 599
+  118551, // Regular Plus Workshop — INR 799
+  118552, // Community Supporter — INR 5000
 ]
 
 /**
