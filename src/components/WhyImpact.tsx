@@ -58,7 +58,7 @@ const IMPACT = [
 
 const STATS = [
   { rot: -5, bg: '#FF384B', img: A['02d899ea-fe63-40f8-a846-6f4036aea702'], alt: 'CDJ 2025 audience', num: '600+', numColor: '#fff', label: 'ATTENDEES', labelColor: 'rgba(255,255,255,.92)', d: 0, border: undefined as string | undefined },
-  { rot: 3, bg: '#FEC400', img: A['73ed873c-b127-4493-af6a-8c909c3d9a59'], alt: 'CDJ 2025 speaker', num: '20+', numColor: '#0E1667', label: 'SPEAKERS', labelColor: 'rgba(14,22,103,.85)', d: 90, border: undefined },
+  { rot: 3, bg: '#FEC400', img: A['73ed873c-b127-4493-af6a-8c909c3d9a59'], alt: 'CDJ 2025 speaker', num: '15+', numColor: '#0E1667', label: 'SPEAKERS', labelColor: 'rgba(14,22,103,.85)', d: 90, border: undefined },
   { rot: -2, bg: '#7D00BC', img: A['cf0e32f2-6d8f-410d-9781-bbdb674a8308'], alt: 'CDJ 2025 tracks', num: '3', numColor: '#fff', label: 'PARALLEL TRACKS', labelColor: 'rgba(255,255,255,.7)', d: 180, border: '1px solid rgba(255,255,255,.08)' },
   { rot: 5, bg: '#02CF70', img: A['ce7ffe15-ed83-408b-9f70-3a5607b3e20d'], alt: 'CDJ 2025 team', num: '1', numColor: '#063d24', label: 'UNFORGETTABLE DAY', labelColor: 'rgba(6,61,36,.82)', d: 270, border: undefined },
 ]
