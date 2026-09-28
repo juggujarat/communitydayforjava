@@ -2,7 +2,7 @@ import { A } from '../lib/assets'
 import { SocialLink, type Social } from '../lib/icons'
 
 interface Volunteer {
-  name: string; role?: string; org: string; img: string; bg: string; pos: string; zoom?: boolean; scale?: number; origin?: string; socials: Social[]
+  name: string; role?: string; org?: string; img: string; bg: string; pos: string; zoom?: boolean; scale?: number; origin?: string; socials: Social[]
 }
 
 const li = (name: string, href: string): Social => ({ type: 'linkedin', href, label: `${name} on LinkedIn` })
@@ -38,6 +38,8 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Hemangini B Thakkar', role: 'Developer', org: 'Monarch Innovation Pvt Ltd', img: '/assets/volunteer-hemangini-thakkar-brand.jpg', bg: '#7D00BC', pos: '50% 14%', socials: [li('Hemangini B Thakkar', 'https://www.linkedin.com/in/hemangini-thakkar-724115245/')] },
   { name: 'Riyanshi Chaudhary', role: 'Student', org: 'Student', img: '/assets/volunteer-riyanshi-chaudhary-brand.jpg', bg: '#0D5CDB', pos: '50% 14%', socials: [li('Riyanshi Chaudhary', 'https://www.linkedin.com/in/riyanshi-chaudhary-ab842731b')] },
   { name: 'Dwij Pancholi', role: 'Student', org: 'SAL Institute of Technology and Engineering Research', img: '/assets/volunteer-dwij-pancholi-brand.jpg', bg: '#FEC400', pos: '50% 14%', socials: [li('Dwij Pancholi', 'https://www.linkedin.com/in/dwijpancholi')] },
+  { name: 'Nirva Padaliya', role: 'Cloud Engineer', org: 'Hackberry Softech Private Limited', img: '/assets/volunteer-nirva-padaliya.png', bg: '#7D00BC', pos: '50% 14%', socials: [li('Nirva Padaliya', 'https://www.linkedin.com/in/nirva-padaliya'), { type: 'x', href: 'https://x.com/nirva_45', label: 'Nirva Padaliya on X' }, ig('Nirva Padaliya', 'https://www.instagram.com/nirva_45')] },
+  { name: 'Vanshika Kamdar', role: 'Student', org: 'TechnoSpace Institute', img: '/assets/volunteer-vanshika-kamdar.png', bg: '#FF384B', pos: '50% 100%', zoom: true, origin: 'center top', socials: [li('Vanshika Kamdar', 'https://www.linkedin.com/in/vanshikakamdar/'), { type: 'x', href: 'https://x.com/vanshika_kamdar', label: 'Vanshika Kamdar on X' }, ig('Vanshika Kamdar', 'https://www.instagram.com/vanshika_kamdar_/')] },
 ]
 
 /** Volunteers & organisers (#volunteers). */
@@ -63,7 +65,7 @@ export default function Volunteers() {
               </div>
               <div style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>{v.name}</div>
               {v.role && <div style={{ fontSize: '13px', color: '#9aa3d6', marginTop: '4px' }}>{v.role}</div>}
-              <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#FEC400', marginTop: '5px' }}>{v.org}</div>
+              {v.org && <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#FEC400', marginTop: '5px' }}>{v.org}</div>}
               {/* {v.socials.length > 0 && <SocialRow socials={v.socials} variant="dark" />} */}
             </div>
           ))}
