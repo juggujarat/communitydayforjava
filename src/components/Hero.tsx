@@ -1,8 +1,5 @@
 import { h } from '../lib/handlers'
-import FollowSocials from './FollowSocials'
-import { TICKETS_UPDATE_CAPTION } from '../lib/links'
 import TicketsCta from './TicketsCta'
-import { openTickets } from '../hooks/useTicketsModal'
 
 const MARQUEE = [
   { src: '/assets/hero-marquee-venkat.webp', alt: 'CDJ 2025 speaker Venkat' },
@@ -28,26 +25,11 @@ export default function Hero() {
         <h1 data-reveal data-reveal-d="60" style={{ margin: '0 auto', maxWidth: 'none', fontWeight: '600', lineHeight: '1.05', letterSpacing: '-1.5px', color: '#fff', fontSize: 'clamp(28px,4.6vw,56px)', textTransform: 'uppercase' }}>Gujarat's BIGGEST<br /><span style={{ color: '#FEC400' }}>Java</span> Community <span style={{ color: '#FEC400' }}>Conference</span></h1>
 
         <p data-reveal data-reveal-d="160" style={{ margin: '14px auto 0', maxWidth: '720px', fontSize: 'clamp(15px,1.6vw,19px)', fontWeight: '500', lineHeight: '1.55', color: '#c9d0ef' }}>
-          <strong id="hero-stats" style={{ color: '#fff', whiteSpace: 'nowrap' }}>600+ Java Developers • 15+ Expert Speakers • 3 Parallel Tracks</strong>
+          <strong id="hero-stats" style={{ color: '#fff', whiteSpace: 'nowrap' }}>600+ Java Developers • 15+ Expert Speakers<span id="hero-stats-tracks"> • 3 Parallel Tracks</span></strong>
         </p>
-
-        <button
-          type="button"
-          onClick={openTickets}
-          data-reveal
-          data-reveal-d="190"
-          style={{ marginTop: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 18px', borderRadius: '30px', background: 'rgba(254,196,0,.12)', border: '1px solid rgba(254,196,0,.3)', cursor: 'pointer', fontFamily: 'inherit' }}
-        >
-          <span style={{ fontSize: '13px', fontWeight: 600, color: '#FEC400', letterSpacing: '.2px' }}>Ticket is Open Now</span>
-        </button>
 
         <div id="hero-ctas" data-reveal data-reveal-d="220" style={{ marginTop: '36px', display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'center' }}>
           <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontWeight: '500', textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} />
-          <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: '700', fontSize: '15px', padding: '16px 30px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
-        </div>
-
-        <div id="hero-follow" data-reveal data-reveal-d="250" style={{ marginTop: '26px' }}>
-          <FollowSocials caption={TICKETS_UPDATE_CAPTION} />
         </div>
 
         <div data-reveal data-reveal-d="260" style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>

@@ -1,7 +1,4 @@
 import { ManifestoShapes } from '../lib/decor'
-import FollowSocials from './FollowSocials'
-import { TICKETS_UPDATE_CAPTION } from '../lib/links'
-import TicketsCta from './TicketsCta'
 
 const PROOFS = [
   { title: 'Enterprise AI, shipped', desc: 'Java already powers real, production AI features inside modern enterprise systems.' },
@@ -35,13 +32,6 @@ export default function Manifesto() {
           </div>
         </div>
 
-        <div data-reveal data-reveal-d="360" style={{ marginTop: 'clamp(40px,6vw,56px)', textAlign: 'center' }}>
-          <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} />
-
-          <div style={{ marginTop: '24px' }}>
-            <FollowSocials tone="light" caption={TICKETS_UPDATE_CAPTION} />
-          </div>
-        </div>
       </div>
     </section>
   )

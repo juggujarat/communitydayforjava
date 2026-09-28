@@ -1,5 +1,5 @@
 import { A } from '../lib/assets'
-import { SocialRow, type Social } from '../lib/icons'
+import { SocialLink, type Social } from '../lib/icons'
 
 interface Volunteer {
   name: string; role?: string; org: string; img: string; bg: string; pos: string; zoom?: boolean; scale?: number; origin?: string; socials: Social[]
@@ -38,19 +38,18 @@ export default function Volunteers() {
         <div id="volunteers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px, 1fr))', gap: '34px 24px', maxWidth: '1080px', margin: '0 auto' }}>
           {VOLUNTEERS.map((v, i) => (
             <div key={i} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <div style={{ aspectRatio: '1', margin: '0 auto 16px', width: '100%', borderRadius: '22px', overflow: 'hidden', background: v.bg, boxShadow: '0 16px 34px rgba(0,0,0,.34)' }}>
+              <div style={{ aspectRatio: '1', margin: '0 auto 16px', width: '100%', borderRadius: '22px', overflow: 'hidden', background: v.bg, boxShadow: '0 16px 34px rgba(0,0,0,.34)', position: 'relative' }}>
                 <img src={v.img} alt={v.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: v.pos, display: 'block', ...((v.scale ?? (v.zoom ? 1.45 : 1)) !== 1 ? { transform: `scale(${v.scale ?? 1.45})`, transformOrigin: v.origin ?? 'center top' } : {}) }} />
+                {v.socials.find((s) => s.type === 'linkedin') && (
+                  <div style={{ position: 'absolute', left: '12px', bottom: '12px', zIndex: 2 }}>
+                    <SocialLink social={v.socials.find((s) => s.type === 'linkedin')!} variant="dark" />
+                  </div>
+                )}
               </div>
               <div style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>{v.name}</div>
               {v.role && <div style={{ fontSize: '13px', color: '#9aa3d6', marginTop: '4px' }}>{v.role}</div>}
               <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#FEC400', marginTop: '5px' }}>{v.org}</div>
               {/* {v.socials.length > 0 && <SocialRow socials={v.socials} variant="dark" />} */}
-              {/* Only LinkedIn is shown for now — drop Instagram / GitHub icons: */}
-              {v.socials.filter((s) => s.type === 'linkedin').length > 0 && (
-                <div style={{ marginTop: 'auto' }}>
-                  <SocialRow socials={v.socials.filter((s) => s.type === 'linkedin')} variant="dark" />
-                </div>
-              )}
             </div>
           ))}
         </div>
