@@ -1,8 +1,6 @@
-import { h } from '../lib/handlers'
 import { A } from '../lib/assets'
 import BrickDivider from './BrickDivider'
 import FollowSocials from './FollowSocials'
-import { TICKETS_UPDATE_CAPTION } from '../lib/links'
 import TicketsCta from './TicketsCta'
 
 const bigSpan: React.CSSProperties = {
@@ -11,8 +9,7 @@ const bigSpan: React.CSSProperties = {
 }
 const MARQUEE = 'Join the Biggest Java Community Conference in Gujarat! · '
 
-/** `showSponsorCta` is off on the standalone CFP page, which has no `#sponsor` section to link to. */
-export default function Footer({ showSponsorCta = true }: { showSponsorCta?: boolean }) {
+export default function Footer() {
   return (
     <footer style={{ position: 'relative', background: '#070B34', padding: '100px 40px 0', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1200px', margin: '0 auto' }}>
@@ -25,12 +22,9 @@ export default function Footer({ showSponsorCta = true }: { showSponsorCta?: boo
             </div>
             <div style={{ position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
               <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', padding: '15px 28px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} />
-              {showSponsorCta && (
-                <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '15px 26px', borderRadius: '46px', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.32)' }} onMouseEnter={h.ghostOn} onMouseLeave={h.ghostOff}>Become a sponsor →</a>
-              )}
             </div>
             <div style={{ position: 'relative' }}>
-              <FollowSocials caption={TICKETS_UPDATE_CAPTION} align="start" />
+              <FollowSocials caption="Follow us on social media for latest update" align="start" />
             </div>
           </div>
           <div style={{ position: 'relative', minHeight: '300px' }}>

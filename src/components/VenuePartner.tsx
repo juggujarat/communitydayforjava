@@ -17,10 +17,10 @@ export default function VenuePartner() {
             style={{ display: 'block', height: '130px', borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(14,22,103,.08)', boxShadow: '0 6px 18px rgba(14,22,103,.08)' }}
           >
             <img
-              src="/assets/venue.png"
+              src="/assets/cpc%20gu%20logo.png"
               alt="Gujarat University Centre For Professional Courses"
               loading="lazy"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 35%', display: 'block' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
           </a>
         </div>

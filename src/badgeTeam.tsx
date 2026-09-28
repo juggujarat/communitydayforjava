@@ -25,7 +25,7 @@ function BadgeTeamPage() {
 
         <Badge roleIds={PRIVATE_BADGE_ROLE_IDS} />
         <BrickDivider src={A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']} />
-        <Footer showSponsorCta={false} />
+        <Footer />
       </div>
     </div>
   )

@@ -1,5 +1,3 @@
-import { h } from '../lib/handlers'
-
 /**
  * Sponsor logo wall (#sponsors-wall). In the original these are fillable
  * <image-slot> placeholders that ship empty; rendered here as empty logo tiles
@@ -56,9 +54,6 @@ export default function SponsorsWall() {
               <Slot id="cdj-sp-5" label="Gold logo" height={140} padding={24} />
             </div>
           </div>
-        </div>
-        <div data-reveal data-reveal-d="160" style={{ marginTop: '36px' }}>
-          <a href="#sponsor" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#FF384B', color: '#fff', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '15px', padding: '15px 30px', borderRadius: '46px', textDecoration: 'none', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} data-cta="1" onMouseEnter={h.btnOn} onMouseLeave={h.btnOff}>Become a sponsor</a>
         </div>
       </div>
     </section>

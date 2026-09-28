@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { h } from '../lib/handlers'
-import { SocialLink } from '../lib/icons'
-import { SOCIALS } from '../lib/socials'
 import TicketsCta from './TicketsCta'
 
 /** Links + social handles shown inside the mobile menu panel. */
@@ -126,11 +124,6 @@ export default function Nav({ hashPrefix = '' }: { hashPrefix?: string }) {
                   ))}
                 </div>
               )}
-            </div>
-            <div style={{ borderTop: '1px solid rgba(14,22,103,.12)', margin: '16px 0 14px' }} />
-            <p style={{ margin: '0 0 12px', fontSize: '13.5px', fontWeight: 600, color: '#42498a' }}>Follow our social handles for more updates.</p>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              {SOCIALS.map((s, i) => <SocialLink key={i} social={s} variant="light" />)}
             </div>
           </div>
         </div>

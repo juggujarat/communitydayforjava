@@ -13,15 +13,15 @@ export default function FollowSocials({ caption, align = 'center', tone = 'dark'
   const captionColor = tone === 'light' ? '#6b73a8' : '#a8b0e0'
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'center' ? 'center' : 'flex-start', gap: '12px' }}>
-      <div style={{ display: 'flex', gap: '12px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'center' ? 'center' : 'flex-start', gap: '18px' }}>
+      <div style={{ display: 'flex', gap: '18px' }}>
         {SOCIALS.map((s, i) => (
-          <a key={i} href={s.href} target="_blank" rel="noopener" aria-label={s.label} style={{ width: '44px', height: '44px', borderRadius: '50%', border: `1.5px solid ${border}`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color, textDecoration: 'none', transition: 'background .25s ease, border-color .25s ease' }} onMouseEnter={e => { e.currentTarget.style.background = hoverBg; e.currentTarget.style.borderColor = hoverBorder }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = border }}>
+          <a key={i} href={s.href} target="_blank" rel="noopener" aria-label={s.label} style={{ width: '64px', height: '64px', borderRadius: '50%', border: `1.5px solid ${border}`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color, textDecoration: 'none', transition: 'background .25s ease, border-color .25s ease' }} onMouseEnter={e => { e.currentTarget.style.background = hoverBg; e.currentTarget.style.borderColor = hoverBorder }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = border }}>
             <Icon type={s.type} />
           </a>
         ))}
       </div>
-      <div style={{ fontSize: '14px', color: captionColor, fontWeight: 500 }}>{caption}</div>
+      <div style={{ fontSize: '20px', color: captionColor, fontWeight: 600 }}>{caption}</div>
     </div>
   )
 }

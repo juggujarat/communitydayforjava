@@ -1,5 +1,5 @@
 import { A } from '../lib/assets'
-import { SocialRow, type Social } from '../lib/icons'
+import { SocialLink, type Social } from '../lib/icons'
 
 interface Member {
   name: string; role: string; org: string; img: string; grad: string; pos: string; bio: string; socials: Social[]
@@ -31,16 +31,15 @@ export default function Committee() {
             <div key={i} style={{ background: '#fff', border: '1px solid rgba(14,22,103,.08)', borderRadius: '26px', overflow: 'hidden', boxShadow: '0 16px 40px rgba(14,22,103,.12)', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ aspectRatio: '1/1', position: 'relative', overflow: 'hidden', background: m.grad }}>
                 <img src={m.img} alt={m.name} loading="lazy" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: m.pos }} />
+                <div style={{ position: 'absolute', left: '12px', bottom: '12px', zIndex: 2 }}>
+                  <SocialLink social={m.socials.find((s) => s.type === 'linkedin')!} variant="light" />
+                </div>
               </div>
               <div style={{ padding: '14px 18px 18px', textAlign: 'center', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '19px', color: '#0E1667', lineHeight: 1.2, letterSpacing: '-.3px' }}>{m.name}</div>
                 <div style={{ fontSize: '13.5px', color: '#0D5CDB', fontWeight: 700, marginTop: '6px' }}>{m.role}</div>
                 <div style={{ fontSize: '12.5px', color: '#6b73a8', marginTop: '4px' }}>{m.org}</div>
                 <div className="committee-bio" style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#42498a', marginTop: '12px', textWrap: 'pretty' as React.CSSProperties['textWrap'] }}>{m.bio}</div>
-                {/* Only LinkedIn is shown for now — drop X / website icons: */}
-                <div style={{ marginTop: 'auto' }}>
-                  <SocialRow socials={m.socials.filter((s) => s.type === 'linkedin')} variant="light" />
-                </div>
               </div>
             </div>
           ))}
