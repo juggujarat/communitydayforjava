@@ -4,7 +4,7 @@ import { A } from '../lib/assets'
 /** Impact cards — icon markup is ported verbatim from the original bundle. */
 const IMPACT = [
   {
-    d: 0, bg: '#FF384B', color: '#fff', title: 'Java for AI era',
+    d: 0, bg: 'rgba(255,56,75,.14)', color: '#FF6573', title: 'Java for AI era',
     desc: 'Sessions on building intelligent, AI-powered apps and tooling with modern Java.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -14,7 +14,7 @@ const IMPACT = [
     ),
   },
   {
-    d: 70, bg: '#0D5CDB', color: '#fff', title: 'Hands-on Workshops',
+    d: 70, bg: 'rgba(13,92,219,.16)', color: '#63A5FF', title: 'Hands-on Workshops',
     desc: 'Parallel technical labs designed for deep, practical learning.',
     icon: (
       <svg width="28" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
@@ -23,7 +23,7 @@ const IMPACT = [
     ),
   },
   {
-    d: 0, bg: '#02CF70', color: '#063d24', title: 'Community Fuel',
+    d: 0, bg: 'rgba(2,207,112,.14)', color: '#02CF70', title: 'Community Fuel',
     desc: 'Full catering — breakfast and lunch included for every attendee.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -34,7 +34,7 @@ const IMPACT = [
     ),
   },
   {
-    d: 70, bg: '#FEC400', color: '#0E1667', title: 'Cool Swag',
+    d: 70, bg: 'rgba(254,196,0,.14)', color: '#FEC400', title: 'Cool Swag',
     desc: 'Limited-edition merchandise and collectibles for the community.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -45,7 +45,7 @@ const IMPACT = [
     ),
   },
   {
-    d: 0, bg: '#7D00BC', color: '#fff', title: 'Unlimited Networking',
+    d: 0, bg: 'rgba(125,0,188,.16)', color: '#C77BFA', title: 'Unlimited Networking',
     desc: 'Build real connections with Java developers, architects, CXOs, speakers and students.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -103,13 +103,13 @@ export default function WhyImpact() {
       </div>
 
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1140px', margin: '56px auto 0' }}>
-        <div data-reveal style={{ textAlign: 'center', maxWidth: '660px', margin: '0 auto 56px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>An action-packed day of learning, networking &amp; <span style={{ color: '#02CF70' }}>code.</span></h2>
+        <div data-reveal style={{ textAlign: 'center', maxWidth: '1000px', margin: '0 auto 56px' }}>
+          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.4vw,52px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>An action-packed day of learning, networking &amp; <span style={{ color: '#02CF70' }}>code.</span></h2>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px' }}>
           {IMPACT.map((c, i) => (
             <div key={i} data-reveal data-reveal-d={String(c.d)} style={{ flex: '1 1 340px', maxWidth: '360px', minWidth: '280px', display: 'flex', gap: '20px', alignItems: 'flex-start', padding: '28px 30px', borderRadius: '20px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)' }} onMouseEnter={h.cardOn} onMouseLeave={h.cardOff}>
-              <div style={{ flex: 'none', width: '48px', height: '48px', borderRadius: '14px', background: c.bg, display: 'grid', placeItems: 'center', color: c.color }}>{c.icon}</div>
+              <div style={{ flex: 'none', width: '56px', height: '56px', borderRadius: '16px', background: c.bg, display: 'grid', placeItems: 'center', color: c.color }}>{c.icon}</div>
               <div>
                 <h3 style={{ margin: '0 0 6px', fontSize: '19px', fontWeight: 500 }}>{c.title}</h3>
                 <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.55, color: '#a8b0e0' }}>{c.desc}</p>

@@ -464,7 +464,7 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   // A muted role emblem on the left and the Java sticker on the right frame the portrait.
   if (art && role.id === 'crew') {
     ctx.save()
-    ctx.globalAlpha = 0.2
+    ctx.globalAlpha = 0.8
     ctx.drawImage(art.roleSticker, 110, 420, 190, 190)
     ctx.restore()
   } else {

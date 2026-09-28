@@ -24,7 +24,7 @@ export default function Committee() {
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1180px', margin: '0 auto' }}>
         <div data-reveal style={{ textAlign: 'center', marginBottom: '50px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>CFP review <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>committee</span></h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '820px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>Experienced engineers and community leaders curating the 2026 talk lineup.</p>
+          <p style={{ margin: '16px auto 0', maxWidth: '820px', fontSize: '18px', fontWeight: 500, color: '#42498a', textAlign: 'center' }}>Experienced engineers and community leaders curating the 2026 talk lineup.</p>
         </div>
         <div id="committee-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '22px' }}>
           {MEMBERS.map((m, i) => (
@@ -35,11 +35,11 @@ export default function Committee() {
                   <SocialLink social={m.socials.find((s) => s.type === 'linkedin')!} variant="light" />
                 </div>
               </div>
-              <div style={{ padding: '14px 18px 18px', textAlign: 'center', display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <div style={{ padding: '14px 18px 18px', textAlign: 'left', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '19px', color: '#0E1667', lineHeight: 1.2, letterSpacing: '-.3px' }}>{m.name}</div>
                 <div style={{ fontSize: '13.5px', color: '#0D5CDB', fontWeight: 700, marginTop: '6px' }}>{m.role}</div>
                 <div style={{ fontSize: '12.5px', color: '#6b73a8', marginTop: '4px' }}>{m.org}</div>
-                <div className="committee-bio" style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#42498a', marginTop: '12px', textWrap: 'pretty' as React.CSSProperties['textWrap'] }}>{m.bio}</div>
+                  <div className="committee-bio" style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#42498a', marginTop: '12px', textAlign: 'left', textWrap: 'pretty' as React.CSSProperties['textWrap'] }}>{m.bio}</div>
               </div>
             </div>
           ))}
