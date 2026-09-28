@@ -220,6 +220,7 @@ export interface BadgeArt {
   date: HTMLImageElement
   venuePartner: HTMLImageElement
   platinumSponsor: HTMLImageElement
+  bottomBar: HTMLImageElement
 }
 
 export function loadImage(src: string): Promise<HTMLImageElement> {
@@ -235,7 +236,7 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
 /** Load supplied same-origin badge artwork for the preview and exported PNG. */
 export async function loadBadgeArt(): Promise<BadgeArt> {
   const root = '/assets/badge/'
-  const [background, logo, organizer, roleSticker, sticker, qr, date, venuePartner, platinumSponsor] = await Promise.all([
+  const [background, logo, organizer, roleSticker, sticker, qr, date, venuePartner, platinumSponsor, bottomBar] = await Promise.all([
     loadImage(`${root}bg-img.png`),
     loadImage(`${root}cd4j-img.png`),
     loadImage(`${root}logo.png`),
@@ -245,8 +246,9 @@ export async function loadBadgeArt(): Promise<BadgeArt> {
     loadImage(`${root}date.png`),
     loadImage(`${root}vp.png`),
     loadImage(`${root}ps.png`),
+    loadImage(`${root}bottom bar.png`),
   ])
-  return { background, logo, organizer, roleSticker, sticker, qr, date, venuePartner, platinumSponsor }
+  return { background, logo, organizer, roleSticker, sticker, qr, date, venuePartner, platinumSponsor, bottomBar }
 }
 
 /**
@@ -433,15 +435,7 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.fillRect(0, 0, BADGE_W, BADGE_H)
   if (art) ctx.drawImage(art.background, 0, 0, BADGE_W, BADGE_H)
 
-  // Bright geometric footer peeks out behind the registration and partner cards.
-  ctx.fillStyle = '#00c978'
-  ctx.beginPath(); ctx.moveTo(0, 1210); ctx.lineTo(1080, 1210); ctx.lineTo(1080, 1296); ctx.lineTo(0, 1296); ctx.fill()
-  ctx.fillStyle = '#ff384b'
-  ctx.beginPath(); ctx.moveTo(0, 1210); ctx.lineTo(380, 1210); ctx.lineTo(300, 1296); ctx.lineTo(0, 1296); ctx.fill()
-  ctx.fillStyle = '#fec400'
-  ctx.beginPath(); ctx.moveTo(405, 1210); ctx.lineTo(810, 1210); ctx.lineTo(900, 1296); ctx.lineTo(330, 1296); ctx.fill()
-  ctx.fillStyle = '#0d5cdb'
-  ctx.beginPath(); ctx.moveTo(995, 1210); ctx.lineTo(1080, 1210); ctx.lineTo(1080, 1296); ctx.lineTo(930, 1296); ctx.fill()
+  if (art) ctx.drawImage(art.bottomBar, 0, BADGE_H - art.bottomBar.naturalHeight, BADGE_W, art.bottomBar.naturalHeight)
 
   if (art) {
     ctx.drawImage(art.logo, LOGO.x, LOGO.y, LOGO.w, LOGO.h)
@@ -512,7 +506,7 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
     ctx.font = `700 ${nameSize}px Oswald, sans-serif`
   }
   ctx.fillStyle = state.name.trim() ? '#fff' : 'rgba(255,255,255,.55)'
-  ctx.fillText(clipText(ctx, name, 960), BADGE_W / 2, 772)
+  ctx.fillText(clipText(ctx, name, 960), BADGE_W / 2, 812)
 
   const credential = [state.title.trim() || 'Your role', state.company.trim() || 'Your company'].join(', ')
   ctx.font = '700 30px Inter, sans-serif'
@@ -520,10 +514,10 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   const credentialWidth = Math.min(660, ctx.measureText(credentialText).width + 46)
   ctx.strokeStyle = 'rgba(255,255,255,.9)'
   ctx.lineWidth = 2
-  ctx.strokeRect(BADGE_W / 2 - credentialWidth / 2, 800, credentialWidth, 58)
+  ctx.strokeRect(BADGE_W / 2 - credentialWidth / 2, 840, credentialWidth, 58)
   ctx.fillStyle = state.title.trim() || state.company.trim() ? '#fff' : 'rgba(255,255,255,.55)'
   ctx.font = '700 28px Inter, sans-serif'
-  ctx.fillText(clipText(ctx, credential.toUpperCase(), credentialWidth - 28), BADGE_W / 2, 839)
+  ctx.fillText(clipText(ctx, credential.toUpperCase(), credentialWidth - 28), BADGE_W / 2, 879)
 
   const slogan = badgeSlogan(state).toUpperCase()
   let sloganSize = 42
@@ -533,7 +527,7 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
     ctx.font = `700 ${sloganSize}px Inter, sans-serif`
   }
   ctx.fillStyle = '#fec400'
-  ctx.fillText(clipText(ctx, slogan, 965), BADGE_W / 2, 925)
+  ctx.fillText(clipText(ctx, slogan, 965), BADGE_W / 2, 965)
   ctx.restore()
 }
 
