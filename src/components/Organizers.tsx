@@ -25,7 +25,7 @@ export default function Organizers() {
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '50px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Core <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FF384B' }}>organizers</span></h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '720px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>The people steering Community Day for Java from the front.</p>
+          <p style={{ margin: '16px auto 0', maxWidth: '720px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0', textAlign: 'center' }}>The people steering Community Day for Java from the front.</p>
         </div>
         <div id="organizers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px, 1fr))', gap: '24px' }}>
           {ORGANIZERS.map((o, i) => (
@@ -36,7 +36,7 @@ export default function Organizers() {
                   <SocialLink social={socials(o)[0]} variant="light" />
                 </div>
               </div>
-              <div style={{ padding: '24px 24px 28px', textAlign: 'center', display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <div style={{ padding: '24px 24px 28px', textAlign: 'left', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '22px', color: '#0E1667' }}>{o.name}</div>
                 <div style={{ fontSize: '14px', color: '#FF384B', fontWeight: 700, marginTop: '6px' }}>{o.role}</div>
                 <div style={{ fontSize: '13px', color: '#6b73a8', marginTop: '4px' }}>{o.org}</div>

@@ -75,8 +75,8 @@ export default function Agenda() {
           <h2 style={{ margin: 0, fontWeight: 700, fontSize: 'clamp(30px,4.8vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>
             Three parallel <span style={{ color: '#0D5CDB' }}>tracks</span>
           </h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '540px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>
-            A full-day technical immersive across Core Java, Enterprise and hands-on Workshops. Sessions will be revealed with the 2026 lineup.
+          <p style={{ margin: '16px auto 0', maxWidth: '900px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>
+            A full-day technical immersive across Core Java, Enterprise and hands-on Workshops. <span style={{ whiteSpace: 'nowrap' }}>Sessions will be revealed with the 2026 lineup.</span>
           </p>
         </div>
 

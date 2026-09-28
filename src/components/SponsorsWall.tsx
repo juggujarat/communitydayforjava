@@ -40,18 +40,9 @@ export default function SponsorsWall() {
         </div>
         <div data-reveal data-reveal-d="80" style={{ maxWidth: '920px', margin: '0 auto', textAlign: 'left' }}>
           <div style={{ marginBottom: '40px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#FEC400' }} />PLATINUM</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '16px' }}>
+            <div style={{ display: 'flex', width: 'fit-content', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', margin: '0 auto 18px' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#FEC400' }} />PLATINUM</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'min(100%, 460px)', justifyContent: 'center', gap: '16px' }}>
               <Slot id="cdj-sp-1" label="Platinum logo" height={170} padding={28} img="/assets/jetbrains-logo.svg" alt="JetBrains" href="https://www.jetbrains.com/idea/" />
-              <Slot id="cdj-sp-2" label="Platinum logo" height={170} padding={28} />
-            </div>
-          </div>
-          <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FEC400', color: '#0E1667', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', marginBottom: '18px' }}>GOLD</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
-              <Slot id="cdj-sp-3" label="Gold logo" height={140} padding={24} />
-              <Slot id="cdj-sp-4" label="Gold logo" height={140} padding={24} />
-              <Slot id="cdj-sp-5" label="Gold logo" height={140} padding={24} />
             </div>
           </div>
         </div>

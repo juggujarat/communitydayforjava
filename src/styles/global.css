@@ -48,6 +48,7 @@
     #dc-root #cfp-facts{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
   }
   @media (max-width:768px){
+    #dc-root #manifesto-proofs{ display:grid!important; grid-template-columns:1fr!important; grid-auto-flow:row!important; grid-auto-columns:auto!important; overflow-x:visible!important; scroll-snap-type:none!important; }
     #dc-root nav{ padding-left:16px!important; padding-right:16px!important; }
     #dc-root nav img{ height:46px!important; }
     /* Nav logo shrinks to 46px here, so the CFP/Tickets pages' spacer for the fixed nav shrinks too */
@@ -179,7 +180,7 @@
     /* Proof cards (Enterprise AI shipped / AI running natively / Cloud-native):
        these are short text blurbs, not photo cards — stack full-width instead
        of the horizontal swipe-slider so nothing is cropped at the edge. */
-    #manifesto-proofs{ grid-template-columns:1fr!important; grid-auto-flow:row!important; grid-auto-columns:auto!important; overflow-x:visible!important; scroll-snap-type:none!important; padding-bottom:0!important; gap:24px!important; }
+    #dc-root #manifesto-proofs{ display:grid!important; grid-template-columns:1fr!important; grid-auto-flow:row!important; grid-auto-columns:auto!important; overflow-x:visible!important; scroll-snap-type:none!important; padding-bottom:0!important; gap:24px!important; }
     #dc-root span[style*="cdj-float1"], #dc-root span[style*="cdj-float2"]{ display:none!important; }
     #top [style*="cdj-marquee 38s"]{ width:100vw!important; margin-left:calc(50% - 50vw)!important; }
     /* Java watermark: reposition for mobile only (desktop untouched) so it

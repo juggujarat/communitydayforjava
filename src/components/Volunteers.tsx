@@ -11,18 +11,33 @@ const gh = (name: string, href: string): Social => ({ type: 'github', href, labe
 
 const VOLUNTEERS: Volunteer[] = [
   { name: 'Daman Singh Rajput', role: 'Java FullStack Developer', org: 'Techxplore', img: A['8431f54c-7088-4c9e-8d84-5cf02d90f8ad'], bg: '#FF384B', pos: '50% 18%', socials: [li('Daman Singh Rajput', 'https://in.linkedin.com/in/daman-singh-rajput-2a1ba4237')] },
-  { name: 'Paree Patel', role: 'Student', org: 'Parul University', img: A['6bd3fda0-0d8a-48a9-9026-a0e45769304c'], bg: '#0D5CDB', pos: '50% 8%', zoom: true, socials: [li('Paree Patel', 'https://www.linkedin.com/in/paree-patel-b1707a329')] },
-  { name: 'Deep Shah', role: 'Java FullStack Developer', org: 'Techxplore', img: '/assets/deep-shah.webp', bg: '#02CF70', pos: '50% 12%', socials: [li('Deep Shah', 'https://www.linkedin.com/in/deepshah-java-developer'), ig('Deep Shah', 'https://www.instagram.com/ishahdeep')] },
+  { name: 'Vinay Rajput', role: 'Sr. Visual Designer', org: 'Apexure India', img: A['2edee5be-2908-4001-80aa-7e789fe6554f'], bg: '#7D00BC', pos: '50% 20%', socials: [li('Vinay Rajput', '#')] },
   { name: 'Jayesh Gupta', role: 'Software Engineer', org: 'Tata Consultancy Services  ', img: A['9bbc223f-9f21-49aa-af66-23ac8226e948'], bg: '#FEC400', pos: '50% 6%', zoom: true, socials: [li('Jayesh Gupta', 'https://in.linkedin.com/in/jayeshgupta91')] },
   { name: 'Nagendra Verma', role: 'Java FullStack Developer', org: 'Techxplore', img: A['09610378-4035-4348-aa57-10b677b7eb0f'], bg: '#7D00BC', pos: '50% 18%', socials: [li('Nagendra Verma', 'https://linkedin.com/in/nagendra-verma-8a60372b2/'), ig('Nagendra Verma', 'https://www.instagram.com/nagendrayounger')] },
   { name: 'Smit Joshi', role: 'ASE @ Advenix Systems LLP', org: 'Advenix Systems LLP', img: A['6fedc772-7fb3-4c46-996f-3fc8065fb6fc'], bg: '#0D5CDB', pos: '50% 10%', socials: [li('Smit Joshi', 'https://www.linkedin.com/in/smit-joshi814'), gh('Smit Joshi', 'https://github.com/smit-joshi814')] },
   { name: 'Malhar Gupte', role: 'AI Data Engineer', org: 'ProductSquads', img: A['4bbd6e58-8d6f-4db9-8a4c-9827262260fd'], bg: '#02CF70', pos: '50% 8%', socials: [li('Malhar Gupte', 'https://www.linkedin.com/in/malhargupte/')] },
   { name: 'Harshvardhan Parmar', role: "LFX'25 Mentee", org: 'Microcks', img: A['0b80d07f-cdc9-45ab-a226-7bfd34ce3991'], bg: '#FEC400', pos: '50% 14%', socials: [li('Harshvardhan Parmar', 'https://www.linkedin.com/in/harshvardhan-parmar')] },
   // was: socials: [] — LinkedIn icon added for alignment; replace '#' with the real profile URL
-  { name: 'Vinay Rajput', role: 'Sr. Visual Designer', org: 'Apexure India', img: A['2edee5be-2908-4001-80aa-7e789fe6554f'], bg: '#7D00BC', pos: '50% 20%', socials: [li('Vinay Rajput', '#')] },
+  { name: 'Deep Shah', role: 'Java FullStack Developer', org: 'Techxplore', img: '/assets/deep-shah-photo.png', bg: '#FF384B', pos: '50% 12%', socials: [li('Deep Shah', 'https://www.linkedin.com/in/deepshah-java-developer'), ig('Deep Shah', 'https://www.instagram.com/ishahdeep')] },
   { name: 'Divyesh Prajapati', role: 'Java Technical Lead', org: 'Tata Consultancy Services', img: '/assets/divyesh-prajapati.webp', bg: '#0D5CDB', pos: '50% 0%', scale: 1.8, origin: 'center top', socials: [li('Divyesh Prajapati', 'https://www.linkedin.com/in/divyeshprajapati1010/')] },
   { name: 'Tanvir Dhanani', role: 'Backend Developer', org: 'IBM', img: '/assets/dhanani-tanvir.webp', bg: '#02CF70', pos: '50% 22%', scale: 1.9, origin: 'center center', socials: [li('Dhanani Tanvir', 'https://www.linkedin.com/in/tanvirdhanani')] },
   { name: 'Harshit Gajjar', role: 'Content Creator', org: 'Freelancer', img: '/assets/harshit-gajjar.webp', bg: '#FEC400', pos: '50% 50%', socials: [li('Harshit Gajjar', 'https://www.linkedin.com/in/harshit-gajjar-79b51a296/')] },
+  { name: 'Ashish Vaghela', role: 'Frontend Developer', org: 'Nelkinda Software Craft', img: '/assets/volunteer-ashish-vaghela-brand.jpg', bg: '#FF384B', pos: '50% 14%', socials: [li('Ashish Vaghela', 'https://linkedin.com/in/ashish-codejourney')] },
+  { name: 'Romin Kevadiya', role: 'Student', org: 'LJIET', img: '/assets/volunteer-romin-kevadiya-brand.jpg', bg: '#0D5CDB', pos: '50% 14%', socials: [li('Romin Kevadiya', 'https://linkedin.com/in/rominkevadiya')] },
+  { name: 'Margi Shah', role: 'Java Developer', org: 'IBM', img: '/assets/volunteer-margi-shah-brand.jpg', bg: '#02CF70', pos: '50% 14%', socials: [li('Margi Shah', 'https://www.linkedin.com/in/margi212')] },
+  { name: 'Ankit Dabhi', role: 'Frontend Developer', org: 'Prama.ai', img: '/assets/volunteer-ankit-dabhi-brand.jpg', bg: '#FEC400', pos: '50% 14%', zoom: true, socials: [li('Ankit Dabhi', 'https://www.linkedin.com/in/theankitdabhi')] },
+  { name: 'Krunal Pandit', role: 'Developer', org: 'IBM India Pvt Ltd', img: '/assets/volunteer-krunal-pandit-brand.jpg', bg: '#7D00BC', pos: '50% 14%', socials: [li('Krunal Pandit', 'https://www.linkedin.com/in/krunal-pandit-46920469')] },
+  { name: 'Ketan Bhavsar', role: 'Developer', org: 'Staunchsys', img: '/assets/volunteer-ketan-bhavsar-brand.jpg', bg: '#0D5CDB', pos: '50% 14%', socials: [li('Ketan Bhavsar', 'https://www.linkedin.com/in/ketanbhavsar')] },
+  { name: 'Ishank Gupta', role: 'Developer', org: 'Avaloq', img: '/assets/volunteer-ishank-gupta-brand.jpg', bg: '#02CF70', pos: '50% 14%', socials: [li('Ishank Gupta', 'https://www.linkedin.com/in/ishankguptag/')] },
+  { name: 'Shrujal Ganatra', role: 'Student', org: 'AD Patel Institute of Technology', img: '/assets/volunteer-shrujal-ganatra-brand.jpg', bg: '#FF384B', pos: '50% 14%', zoom: true, socials: [li('Shrujal Ganatra', 'https://www.linkedin.com/in/shrujal-ganatra/')] },
+  { name: 'Ved Vyas', role: 'Student', org: 'GSFC University', img: '/assets/volunteer-ved-vyas-brand.jpg', bg: '#FEC400', pos: '50% 14%', socials: [li('Ved Vyas', 'https://www.linkedin.com/in/ved-vyas416631327')] },
+  { name: 'Divya Trivedi', role: 'Developer', org: 'Thomson Reuters', img: '/assets/volunteer-divya-trivedi-brand.jpg', bg: '#7D00BC', pos: '50% 14%', socials: [li('Divya Trivedi', 'https://www.linkedin.com/in/divya-trivedi-8177b0165')] },
+  { name: 'Aditya Lallchandani', role: 'Student', org: 'Nirma University', img: '/assets/volunteer-aditya-lallchandani-brand.jpg', bg: '#0D5CDB', pos: '50% 14%', socials: [li('Aditya Lallchandani', 'https://www.linkedin.com/in/adityalallchandani/')] },
+  { name: 'Dhruvi Jha', role: 'Developer', org: 'Agileverify', img: '/assets/volunteer-dhruvi-jha-brand.jpg', bg: '#02CF70', pos: '50% 14%', socials: [li('Dhruvi Jha', 'https://www.linkedin.com/in/dhruvi-jha/')] },
+  { name: 'Harsh Patel', role: 'Student', org: 'DevIT', img: '/assets/volunteer-harsh-patel-brand.jpg', bg: '#FF384B', pos: '50% 14%', socials: [li('Harsh Patel', 'https://www.linkedin.com/in/harsh-patel-2137b5237')] },
+  { name: 'Hemangini B Thakkar', role: 'Developer', org: 'Monarch Innovation Pvt Ltd', img: '/assets/volunteer-hemangini-thakkar-brand.jpg', bg: '#7D00BC', pos: '50% 14%', socials: [li('Hemangini B Thakkar', 'https://www.linkedin.com/in/hemangini-thakkar-724115245/')] },
+  { name: 'Riyanshi Chaudhary', role: 'Student', org: 'Student', img: '/assets/volunteer-riyanshi-chaudhary-brand.jpg', bg: '#0D5CDB', pos: '50% 14%', socials: [li('Riyanshi Chaudhary', 'https://www.linkedin.com/in/riyanshi-chaudhary-ab842731b')] },
+  { name: 'Dwij Pancholi', role: 'Student', org: 'SAL Institute of Technology and Engineering Research', img: '/assets/volunteer-dwij-pancholi-brand.jpg', bg: '#FEC400', pos: '50% 14%', socials: [li('Dwij Pancholi', 'https://www.linkedin.com/in/dwijpancholi')] },
 ]
 
 /** Volunteers & organisers (#volunteers). */
@@ -33,11 +48,11 @@ export default function Volunteers() {
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '48px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Volunteers &amp; <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#FEC400' }}>organisers</span></h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '520px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>Community Day for Java runs on the energy of volunteers who make the day happen.</p>
+          <p style={{ margin: '16px auto 0', maxWidth: '100%', fontSize: '18px', fontWeight: 500, color: '#a8b0e0', textAlign: 'left' }}>Community Day for Java runs on the energy of volunteers who make the day happen.</p>
         </div>
         <div id="volunteers-grid" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px, 1fr))', gap: '34px 24px', maxWidth: '1080px', margin: '0 auto' }}>
           {VOLUNTEERS.map((v, i) => (
-            <div key={i} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <div key={i} style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ aspectRatio: '1', margin: '0 auto 16px', width: '100%', borderRadius: '22px', overflow: 'hidden', background: v.bg, boxShadow: '0 16px 34px rgba(0,0,0,.34)', position: 'relative' }}>
                 <img src={v.img} alt={v.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: v.pos, display: 'block', ...((v.scale ?? (v.zoom ? 1.45 : 1)) !== 1 ? { transform: `scale(${v.scale ?? 1.45})`, transformOrigin: v.origin ?? 'center top' } : {}) }} />
                 {v.socials.find((s) => s.type === 'linkedin') && (
