@@ -4,55 +4,39 @@
  * The badge is drawn with plain Canvas 2D rather than an HTML-to-image library so the
  * page stays dependency-free (the site has no runtime deps beyond React) and so the
  * exported PNG is pixel-identical everywhere. Everything is laid out in badge
- * coordinates (1080x1350, a 4:5 portrait that posts well on LinkedIn/Instagram/X); the
+ * coordinates (1080x1296, matching the supplied badge artwork); the
  * <canvas> is displayed scaled down via CSS.
  */
-import { A } from './assets'
-
 export const BADGE_W = 1080
-export const BADGE_H = 1350
+export const BADGE_H = 1296
 
 /** Circular photo frame, in badge coordinates. The page overlays a drag target on it. */
-export const PHOTO = { cx: 540, cy: 528, r: 196 }
+export const PHOTO = { cx: 540, cy: 538, r: 148 }
 
 /**
  * Masthead: the Community Day for Java wordmark sits in the top-left corner with the
  * edition year stacked under it. Keeping the pair off the centre line leaves the
- * middle column to the role chip and the face, which is what the badge is actually
- * about.
+ * main column to the role title and portrait.
  */
-const LOGO = { x: 72, y: 58, h: 104 }
+const LOGO = { x: 76, y: 42, w: 310, h: 96 }
 
 /**
- * JUG Gujarat's round logo (the site favicon) balances the masthead from the top-right
- * corner. `margin` is resolved against the image's natural width at draw time, since
- * the mark is circular rather than a fixed-ratio wordmark.
+ * JUG Gujarat's organizer lockup balances the masthead from the top-right corner.
  */
-const JUG_LOGO = { margin: 72, y: 58, h: 104 }
+const JUG_LOGO = { x: 790, y: 28, w: 283, h: 142 }
 
 /**
- * The Java sticker sits in the bottom-left corner, resting just above the brick footer.
- * Its `y` is resolved at draw time (see drawBadge) from where the tagline actually ends
- * — that row's height varies with the name/role/company text, so a fixed y risks either
- * overlapping the tagline (too high) or the brick strip (too low). The source art is
- * square.
+ * The Java sticker sits to the right of the portrait as in the reference badge.
  */
-const STICKER = { size: 120, x: 40 }
+const STICKER = { size: 220, x: 795, y: 390 }
 
 /**
- * Role chip typography. The two runs share one baseline, offset from the chip's
- * centre by roughly half the larger cap height so the pair sits optically centred.
+ * The role introduction uses a handwritten face like the supplied reference.
  */
-const CHIP_LEAD_FONT = '700 24px Roboto, sans-serif'
-const CHIP_MAIN_FONT = '700 38px Roboto, sans-serif'
-const CHIP_GAP = 16
-const CHIP_CY = 252
-const CHIP_BASELINE = CHIP_CY + 13
+const CHIP_LEAD_FONT = '400 78px Licorice, cursive'
 
 /**
- * The venue is the tentative one already published on /cfp/ — keep in sync with the
- * FACTS block in src/components/CFP.tsx when it is locked. The date is deliberately
- * not on the badge while it is still tentative.
+ * Event details kept in sync with the CFP page.
  */
 export const BADGE_EVENT_PLACE = 'Ahmedabad, India'
 export const BADGE_EVENT_YEAR = '2026'
@@ -65,12 +49,6 @@ export const BADGE_TAGLINE = "Gujarat's Biggest Java Community Conference"
  * same on every badge. Sizes are tried largest first so a long line shrinks rather
  * than losing its tail to an ellipsis.
  */
-const SLOGAN_SIZES = [52, 48, 44, 40]
-const sloganFont = (size: number) => `500 ${size}px Roboto, sans-serif`
-/** Vertical room the slogan takes in the text block. */
-const SLOGAN_SLOT = 74
-/** Vertical room the role/company line takes in the text block. */
-const SUB_SLOT = 58
 
 export interface BadgeRole {
   id: string
@@ -233,13 +211,15 @@ export function badgeSlogan(state: Pick<BadgeState, 'slogan' | 'role'>) {
 }
 
 export interface BadgeArt {
-  /** Community Day for Java wordmark, top-left. */
+  background: HTMLImageElement
   logo: HTMLImageElement
-  /** JUG Gujarat's round logo/favicon, top-right. */
-  jugLogo: HTMLImageElement
-  /** The Java sticker in the bottom-left corner. */
+  organizer: HTMLImageElement
+  roleSticker: HTMLImageElement
   sticker: HTMLImageElement
-  brick: HTMLImageElement
+  qr: HTMLImageElement
+  date: HTMLImageElement
+  venuePartner: HTMLImageElement
+  platinumSponsor: HTMLImageElement
 }
 
 export function loadImage(src: string): Promise<HTMLImageElement> {
@@ -252,15 +232,21 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
   })
 }
 
-/** All four site assets, kept same-origin so none of them ever taint the export canvas. */
+/** Load supplied same-origin badge artwork for the preview and exported PNG. */
 export async function loadBadgeArt(): Promise<BadgeArt> {
-  const [logo, jugLogo, sticker, brick] = await Promise.all([
-    loadImage(A['cd2b3de0-e87e-45cf-8bd3-459baf76597f']),
-    loadImage(A['48ee4d89-31eb-41e2-925d-db02be348059']),
-    loadImage('/assets/java-sticker.png'),
-    loadImage(A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']),
+  const root = '/assets/badge/'
+  const [background, logo, organizer, roleSticker, sticker, qr, date, venuePartner, platinumSponsor] = await Promise.all([
+    loadImage(`${root}bg-img.png`),
+    loadImage(`${root}cd4j-img.png`),
+    loadImage(`${root}logo.png`),
+    loadImage(`${root}crew sticker.png`),
+    loadImage(`${root}java sticker.png`),
+    loadImage(`${root}qr.png`),
+    loadImage(`${root}date.png`),
+    loadImage(`${root}vp.png`),
+    loadImage(`${root}ps.png`),
   ])
-  return { logo, jugLogo, sticker, brick }
+  return { background, logo, organizer, roleSticker, sticker, qr, date, venuePartner, platinumSponsor }
 }
 
 /**
@@ -268,8 +254,12 @@ export async function loadBadgeArt(): Promise<BadgeArt> {
  * so wait for the faces the badge actually uses before the first paint.
  */
 const FONT_SPECS = [
-  "700 82px 'Space Grotesk'",
-  "700 44px 'Space Grotesk'",
+  '700 126px Oswald',
+  '700 92px Oswald',
+  '400 78px Licorice',
+  '700 48px Oswald',
+  '700 30px Inter',
+  '700 42px Inter',
   '700 38px Roboto',
   '700 32px Roboto',
   '600 22px Roboto',
@@ -295,109 +285,12 @@ export async function loadBadgeFonts(): Promise<void> {
 
 type Ctx = CanvasRenderingContext2D
 
-function roundRectPath(ctx: Ctx, x: number, y: number, w: number, h: number, r: number) {
-  ctx.beginPath()
-  ctx.moveTo(x + r, y)
-  ctx.arcTo(x + w, y, x + w, y + h, r)
-  ctx.arcTo(x + w, y + h, x, y + h, r)
-  ctx.arcTo(x, y + h, x, y, r)
-  ctx.arcTo(x, y, x + w, y, r)
-  ctx.closePath()
-}
-
-/**
- * Letter-spaced text, drawn glyph by glyph. `ctx.letterSpacing` would be shorter but is
- * missing on older Safari, and the exported PNG has to look the same everywhere.
- */
-function trackedWidth(ctx: Ctx, text: string, tracking: number) {
-  const chars = Array.from(text)
-  if (!chars.length) return 0
-  let w = -tracking
-  for (const ch of chars) w += ctx.measureText(ch).width + tracking
-  return w
-}
-
-function fillTracked(ctx: Ctx, text: string, x: number, baseline: number, tracking: number) {
-  const align = ctx.textAlign
-  ctx.textAlign = 'left'
-  let cx = x
-  for (const ch of Array.from(text)) {
-    ctx.fillText(ch, cx, baseline)
-    cx += ctx.measureText(ch).width + tracking
-  }
-  ctx.textAlign = align
-}
-
-function fillTrackedCentered(ctx: Ctx, text: string, centerX: number, baseline: number, tracking: number) {
-  fillTracked(ctx, text, centerX - trackedWidth(ctx, text, tracking) / 2, baseline, tracking)
-}
-
-/**
- * Two runs on one line with a middle dot pinned at `centerX` — the dot's position
- * never shifts with how long either run is; `a` grows leftward from it, `b` grows
- * rightward, each with the same gap. Each side is independently clipped so a long
- * run can't push the dot off centre.
- */
-function fillDotPair(ctx: Ctx, a: string, b: string, centerX: number, baseline: number, gap: number, maxWidth: number) {
-  const dot = '·'
-  const dw = ctx.measureText(dot).width
-  const sideBudget = Math.max(0, maxWidth / 2 - gap - dw / 2)
-  const align = ctx.textAlign
-  ctx.textAlign = 'right'
-  ctx.fillText(clipText(ctx, a, sideBudget), centerX - dw / 2 - gap, baseline)
-  ctx.textAlign = 'center'
-  ctx.fillText(dot, centerX, baseline)
-  ctx.textAlign = 'left'
-  ctx.fillText(clipText(ctx, b, sideBudget), centerX + dw / 2 + gap, baseline)
-  ctx.textAlign = align
-}
-
 /** Truncate with an ellipsis so a very long single word never bleeds off the badge. */
 function clipText(ctx: Ctx, text: string, maxWidth: number) {
   if (ctx.measureText(text).width <= maxWidth) return text
   let out = text
   while (out.length > 1 && ctx.measureText(out + '…').width > maxWidth) out = out.slice(0, -1)
   return out + '…'
-}
-
-function greedyWrap(ctx: Ctx, text: string, maxWidth: number) {
-  const lines: string[] = []
-  let line = ''
-  for (const word of text.split(/\s+/).filter(Boolean)) {
-    const next = line ? `${line} ${word}` : word
-    if (line && ctx.measureText(next).width > maxWidth) {
-      lines.push(line)
-      line = word
-    } else {
-      line = next
-    }
-  }
-  if (line) lines.push(line)
-  return lines
-}
-
-const NAME_SIZES = [82, 74, 66, 58, 50, 44]
-
-/**
- * Largest size at which the name fits in at most two lines — and inside the height the
- * rest of the block (role/company, slogan, event lines) leaves for it.
- */
-function fitName(ctx: Ctx, name: string, maxWidth: number, maxHeight: number) {
-  for (const size of NAME_SIZES) {
-    ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
-    const lines = greedyWrap(ctx, name, maxWidth)
-    if (
-      lines.length <= 2 &&
-      lines.every((l) => ctx.measureText(l).width <= maxWidth) &&
-      lines.length * Math.round(size * 1.02) <= maxHeight
-    ) {
-      return { size, lines }
-    }
-  }
-  const size = NAME_SIZES[NAME_SIZES.length - 1]
-  ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
-  const lines = greedyWrap(ctx, name, maxWidth).slice(0, 2).map((l) => clipText(ctx, l, maxWidth))
-  return { size, lines: lines.length ? lines : [''] }
 }
 
 // ---- photo geometry ----
@@ -484,22 +377,22 @@ const ROLE_GRAPHIC: Record<string, string[]> = {
 }
 
 /**
- * Drawn large, off to the side of the portrait, before the logos/chip/photo/text —
- * so it reads as an actual graphic (like a mascot print), not a colour swap, while
- * still sitting behind everything that has to stay legible.
+ * The selected "How are you joining?" mark sits beside the portrait as a bold outline,
+ * like the ticket motif in the design reference. Drawing it before the portrait keeps
+ * the overlap clean while making the selected role recognizable at badge size.
  */
 function drawRoleGraphic(ctx: Ctx, role: BadgeRole) {
   const paths = ROLE_GRAPHIC[role.id]
   if (!paths) return
   ctx.save()
-  const size = 460
-  const cx = 230
-  const cy = 580
+  const size = 240
+  const cx = 205
+  const cy = 535
   ctx.translate(cx - size / 2, cy - size / 2)
   ctx.scale(size / 24, size / 24)
-  ctx.globalAlpha = 0.16
+  ctx.globalAlpha = 0.18
   ctx.strokeStyle = role.ink
-  ctx.lineWidth = 0.5
+  ctx.lineWidth = 0.8
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
   paths.forEach((d) => ctx.stroke(new Path2D(d)))
@@ -513,7 +406,7 @@ function drawRoleGraphic(ctx: Ctx, role: BadgeRole) {
  */
 function drawPhotoPlaceholder(ctx: Ctx) {
   ctx.save()
-  const size = 140
+  const size = 110
   ctx.translate(PHOTO.cx - size / 2, PHOTO.cy - size / 2 - 38)
   ctx.scale(size / 24, size / 24)
   ctx.strokeStyle = '#0D5CDB'
@@ -526,7 +419,7 @@ function drawPhotoPlaceholder(ctx: Ctx) {
   ctx.save()
   ctx.font = '700 24px Roboto, sans-serif'
   ctx.fillStyle = '#131C56'
-  ctx.fillText('Upload Your Photo Here', PHOTO.cx, PHOTO.cy + 100)
+  ctx.fillText('Upload Your Photo Here', PHOTO.cx, PHOTO.cy + 82)
   ctx.restore()
 }
 
@@ -536,179 +429,111 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.clearRect(0, 0, BADGE_W, BADGE_H)
   ctx.textBaseline = 'alphabetic'
   ctx.textAlign = 'center'
-
-  // Background — the hero's radial navy.
-  const bg = ctx.createRadialGradient(BADGE_W / 2, 54, 0, BADGE_W / 2, 54, 1180)
-  bg.addColorStop(0, '#20307a')
-  bg.addColorStop(0.5, '#131C56')
-  bg.addColorStop(1, '#0E1667')
-  ctx.fillStyle = bg
+  ctx.fillStyle = '#11194f'
   ctx.fillRect(0, 0, BADGE_W, BADGE_H)
+  if (art) ctx.drawImage(art.background, 0, 0, BADGE_W, BADGE_H)
 
-  drawRoleGraphic(ctx, role)
+  // Bright geometric footer peeks out behind the registration and partner cards.
+  ctx.fillStyle = '#00c978'
+  ctx.beginPath(); ctx.moveTo(0, 1210); ctx.lineTo(1080, 1210); ctx.lineTo(1080, 1296); ctx.lineTo(0, 1296); ctx.fill()
+  ctx.fillStyle = '#ff384b'
+  ctx.beginPath(); ctx.moveTo(0, 1210); ctx.lineTo(380, 1210); ctx.lineTo(300, 1296); ctx.lineTo(0, 1296); ctx.fill()
+  ctx.fillStyle = '#fec400'
+  ctx.beginPath(); ctx.moveTo(405, 1210); ctx.lineTo(810, 1210); ctx.lineTo(900, 1296); ctx.lineTo(330, 1296); ctx.fill()
+  ctx.fillStyle = '#0d5cdb'
+  ctx.beginPath(); ctx.moveTo(995, 1210); ctx.lineTo(1080, 1210); ctx.lineTo(1080, 1296); ctx.lineTo(930, 1296); ctx.fill()
 
   if (art) {
-    const w = (LOGO.h * art.logo.naturalWidth) / art.logo.naturalHeight
-    ctx.drawImage(art.logo, LOGO.x, LOGO.y, w, LOGO.h)
-    const jw = (JUG_LOGO.h * art.jugLogo.naturalWidth) / art.jugLogo.naturalHeight
-    ctx.drawImage(art.jugLogo, BADGE_W - JUG_LOGO.margin - jw, JUG_LOGO.y, jw, JUG_LOGO.h)
+    ctx.drawImage(art.logo, LOGO.x, LOGO.y, LOGO.w, LOGO.h)
+    ctx.drawImage(art.organizer, JUG_LOGO.x, JUG_LOGO.y, JUG_LOGO.w, JUG_LOGO.h)
+    ctx.drawImage(art.sticker, STICKER.x, STICKER.y, STICKER.size, STICKER.size * art.sticker.naturalHeight / art.sticker.naturalWidth)
+    ctx.drawImage(art.qr, 64, 1018, 254, 272)
+    ctx.drawImage(art.date, 510, 1034, 527, 74)
+    ctx.drawImage(art.venuePartner, 510, 1120, 255, 161)
+    ctx.drawImage(art.platinumSponsor, 780, 1120, 255, 161)
   }
 
-  // The edition year, under the logo — the badge's one statement of which year this is.
-  ctx.font = "700 44px 'Space Grotesk', sans-serif"
-  ctx.shadowColor = 'rgba(254,196,0,.5)'
-  ctx.shadowBlur = 22
-  ctx.fillStyle = '#FEC400'
-  fillTracked(ctx, BADGE_EVENT_YEAR, LOGO.x + 6, LOGO.y + LOGO.h + 46, 8)
-  ctx.shadowBlur = 0
-  ctx.shadowColor = 'transparent'
-
-  // Role chip, set at two sizes: the lead-in ("I'M ON THE") a step down from the word
-  // that actually says who the wearer is ("CREW"), so the chip reads at a glance
-  // instead of as one flat run of capitals. Both sit on a shared baseline.
-  const lead = role.chipLead.toUpperCase()
-  const main = role.chipMain.toUpperCase()
+  // Keep the reference's role-specific handwritten lead-in and tall condensed title.
+  const lead = role.id === 'crew' ? "I'm on" : role.chipLead.replace(/\s+the$/i, '')
+  const main = role.id === 'crew' ? 'THE CREW' : role.chipMain.toUpperCase()
+  ctx.fillStyle = '#fff'
   ctx.font = CHIP_LEAD_FONT
-  const leadW = trackedWidth(ctx, lead, 3)
-  ctx.font = CHIP_MAIN_FONT
-  const mainW = trackedWidth(ctx, main, 4)
-  const textW = leadW + CHIP_GAP + mainW
-  const chipW = textW + 76
-  const chipH = 72
-  roundRectPath(ctx, BADGE_W / 2 - chipW / 2, CHIP_CY - chipH / 2, chipW, chipH, chipH / 2)
-  ctx.fillStyle = '#131C56'
-  ctx.fill()
-  ctx.lineWidth = 2
-  ctx.strokeStyle = role.ink
-  ctx.stroke()
-  ctx.fillStyle = role.ink
-  const chipTextX = BADGE_W / 2 - textW / 2
-  ctx.font = CHIP_LEAD_FONT
-  fillTracked(ctx, lead, chipTextX, CHIP_BASELINE, 3)
-  ctx.font = CHIP_MAIN_FONT
-  fillTracked(ctx, main, chipTextX + leadW + CHIP_GAP, CHIP_BASELINE, 4)
+  ctx.fillText(lead, BADGE_W / 2, 226)
+  let titleSize = 126
+  ctx.font = `700 ${titleSize}px Oswald, sans-serif`
+  while (ctx.measureText(main.toUpperCase()).width > 850 && titleSize > 82) {
+    titleSize -= 4
+    ctx.font = `700 ${titleSize}px Oswald, sans-serif`
+  }
+  ctx.fillText(main.toUpperCase(), BADGE_W / 2, 360)
 
-  // Portrait
+  // A muted role emblem on the left and the Java sticker on the right frame the portrait.
+  if (art && role.id === 'crew') {
+    ctx.save()
+    ctx.globalAlpha = 0.2
+    ctx.drawImage(art.roleSticker, 110, 420, 190, 190)
+    ctx.restore()
+  } else {
+    drawRoleGraphic(ctx, role)
+  }
+
   ctx.save()
   ctx.beginPath()
   ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r, 0, Math.PI * 2)
-  ctx.clip()
-  // White while empty so the circle reads as a drop zone; navy once a photo lands.
-  ctx.fillStyle = state.photo ? '#111b52' : '#ffffff'
+  ctx.fillStyle = state.photo ? '#ffc400' : '#f8faff'
   ctx.fill()
   if (state.photo) {
+    ctx.clip()
     const f = photoFrame(state.photo, state.zoom, state.offset)
     ctx.drawImage(state.photo, f.dx, f.dy, f.dw, f.dh)
   } else {
     drawPhotoPlaceholder(ctx)
+    ctx.beginPath()
+    ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r - 7, 0, Math.PI * 2)
+    ctx.setLineDash([8, 8])
+    ctx.lineWidth = 3
+    ctx.strokeStyle = '#c7d6f4'
+    ctx.stroke()
+    ctx.setLineDash([])
   }
   ctx.restore()
 
   ctx.beginPath()
-  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r + 8, 0, Math.PI * 2)
+  ctx.arc(PHOTO.cx, PHOTO.cy, PHOTO.r + 1, 0, Math.PI * 2)
   ctx.lineWidth = 10
-  ctx.strokeStyle = role.ink
+  ctx.strokeStyle = '#ffc400'
   ctx.stroke()
 
-  // ---- text block, vertically centred between the portrait and the footer ----
-  const maxTextW = 820
-  const hasName = state.name.trim().length > 0
-  // Role and company share the line under the name — the block has no room for two,
-  // and they read as one credential anyway. Both are required, so the line always has
-  // its slot: while it is still empty it previews itself the way the name does.
-  const subTitle = state.title.trim()
-  const subCompany = state.company.trim()
-  const hasSub = subTitle.length > 0 || subCompany.length > 0
-  const subA = subTitle || 'Your role'
-  const subB = subCompany || 'Your company'
-
-  // The pride line, in quotes so it reads as the wearer speaking rather than as more
-  // event copy. Always present, and measured before the name, because the name is
-  // what gives up a size for it when the block runs out of room.
-  const quoted = `“${badgeSlogan(state)}”`
-  let sloganSize = SLOGAN_SIZES[SLOGAN_SIZES.length - 1]
-  for (const size of SLOGAN_SIZES) {
-    ctx.font = sloganFont(size)
-    if (ctx.measureText(quoted).width <= maxTextW) {
-      sloganSize = size
-      break
-    }
+  const name = (state.name.trim() || 'Your Name').toUpperCase()
+  let nameSize = 96
+  ctx.font = `700 ${nameSize}px Oswald, sans-serif`
+  while (ctx.measureText(name).width > 960 && nameSize > 48) {
+    nameSize -= 4
+    ctx.font = `700 ${nameSize}px Oswald, sans-serif`
   }
-  ctx.font = sloganFont(sloganSize)
-  const sloganText = clipText(ctx, quoted, maxTextW)
+  ctx.fillStyle = state.name.trim() ? '#fff' : 'rgba(255,255,255,.55)'
+  ctx.fillText(clipText(ctx, name, 960), BADGE_W / 2, 772)
 
-  const BLOCK_TOP = 756
-  const BLOCK_BOTTOM = 1218
-  // 120 = the fixed run under the name: gap + divider rule + place + tagline.
-  const nameBudget = BLOCK_BOTTOM - BLOCK_TOP - SUB_SLOT - SLOGAN_SLOT - 120
-  const { size, lines } = fitName(ctx, (state.name.trim() || 'Your Name').toUpperCase(), maxTextW, nameBudget)
-  const nameLH = Math.round(size * 1.02)
+  const credential = [state.title.trim() || 'Your role', state.company.trim() || 'Your company'].join(', ')
+  ctx.font = '700 30px Inter, sans-serif'
+  const credentialText = clipText(ctx, credential.toUpperCase(), 620)
+  const credentialWidth = Math.min(660, ctx.measureText(credentialText).width + 46)
+  ctx.strokeStyle = 'rgba(255,255,255,.9)'
+  ctx.lineWidth = 2
+  ctx.strokeRect(BADGE_W / 2 - credentialWidth / 2, 800, credentialWidth, 58)
+  ctx.fillStyle = state.title.trim() || state.company.trim() ? '#fff' : 'rgba(255,255,255,.55)'
+  ctx.font = '700 28px Inter, sans-serif'
+  ctx.fillText(clipText(ctx, credential.toUpperCase(), credentialWidth - 28), BADGE_W / 2, 839)
 
-  const blockH = lines.length * nameLH + SUB_SLOT + SLOGAN_SLOT + 14 + 40 + 44 + 42
-  let y = BLOCK_TOP + Math.max(0, (BLOCK_BOTTOM - BLOCK_TOP - blockH) / 2)
-
-  ctx.font = `700 ${size}px 'Space Grotesk', sans-serif`
-  ctx.fillStyle = hasName ? '#ffffff' : 'rgba(255,255,255,.32)'
-  lines.forEach((line, i) => ctx.fillText(line, BADGE_W / 2, y + size * 0.78 + i * nameLH))
-  y += lines.length * nameLH
-
-  ctx.font = '500 36px Roboto, sans-serif'
-  ctx.fillStyle = hasSub ? '#c9d0ef' : 'rgba(201,208,239,.35)'
-  fillDotPair(ctx, subA, subB, BADGE_W / 2, y + 36, 14, maxTextW)
-  y += SUB_SLOT
-
-  ctx.font = sloganFont(sloganSize)
-  ctx.shadowColor = 'rgba(254,196,0,.5)'
-  ctx.shadowBlur = 18
-  ctx.fillStyle = '#FEC400'
-  ctx.fillText(sloganText, BADGE_W / 2, y + 50)
-  ctx.shadowBlur = 0
-  ctx.shadowColor = 'transparent'
-  y += SLOGAN_SLOT
-
-  // Divider rule: the seam between the person (name, slogan) and the event (place,
-  // tagline). The year used to sit inside it; it now lives under the logo instead.
-  y += 14
-  ctx.fillStyle = 'rgba(255,255,255,.16)'
-  ctx.fillRect(BADGE_W / 2 - 260, y + 21, 520, 2)
-  y += 40
-
-  // Place, on one centred line
-  ctx.font = '700 32px Roboto, sans-serif'
-  ctx.fillStyle = '#ffffff'
-  fillTrackedCentered(ctx, BADGE_EVENT_PLACE.toUpperCase(), BADGE_W / 2, y + 32, 2)
-  y += 44
-
-  ctx.font = '600 22px Roboto, sans-serif'
-  ctx.fillStyle = 'rgba(201,208,239,.85)'
-  fillTrackedCentered(ctx, BADGE_TAGLINE.toUpperCase(), BADGE_W / 2, y + 22, 5)
-  // Bottom of the tagline's glyphs, with a little room for descenders — the sticker
-  // must never start above this or it will clip the tagline text.
-  const taglineBottom = y + 22 + 10
-
-  // ---- footer: site URL over the brick strip ----
-  const brickH = 64
-  if (art) {
-    const bw = (brickH * art.brick.naturalWidth) / art.brick.naturalHeight
-    for (let bx = 0; bx < BADGE_W; bx += bw) {
-      ctx.drawImage(art.brick, bx, BADGE_H - brickH, bw, brickH)
-    }
+  const slogan = badgeSlogan(state).toUpperCase()
+  let sloganSize = 42
+  ctx.font = `700 ${sloganSize}px Inter, sans-serif`
+  while (ctx.measureText(slogan).width > 965 && sloganSize > 30) {
+    sloganSize -= 2
+    ctx.font = `700 ${sloganSize}px Inter, sans-serif`
   }
-  ctx.font = '700 26px Roboto, sans-serif'
-  ctx.fillStyle = '#FEC400'
-  fillTrackedCentered(ctx, 'COMMUNITYDAYFORJAVA.COM', BADGE_W / 2, BADGE_H - brickH - 34, 4)
-
-  // The Java sticker, last, in the bottom-left corner. It rests flush against the top
-  // of the brick strip — unless the tagline above runs long enough to need more room,
-  // in which case it drops just below the tagline instead (and may then touch the
-  // bricks, which is the rarer case).
-  if (art) {
-    const sh = (STICKER.size * art.sticker.naturalHeight) / art.sticker.naturalWidth
-    const flushY = BADGE_H - brickH - sh
-    const stickerY = Math.max(flushY, taglineBottom)
-    ctx.drawImage(art.sticker, STICKER.x, stickerY, STICKER.size, sh)
-  }
-
+  ctx.fillStyle = '#fec400'
+  ctx.fillText(clipText(ctx, slogan, 965), BADGE_W / 2, 925)
   ctx.restore()
 }
 
