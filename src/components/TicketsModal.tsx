@@ -106,6 +106,14 @@ export default function TicketsModal({ onClose }: { onClose: () => void }) {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '10px' }}>
                     {plan.included.map((item) => <div key={item} style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
                   </div>
+                  {'excluded' in plan && (
+                    <div style={{ marginBottom: '10px' }}>
+                      <div style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '.5px', textTransform: 'uppercase', color: '#0E1667', marginBottom: '6px' }}>What's not included</div>
+                      <ul style={{ margin: 0, paddingLeft: '20px', color: '#42498a' }}>
+                        {plan.excluded?.map((item) => <li key={item} style={{ paddingLeft: '2px', marginBottom: '4px', fontSize: '12.5px', lineHeight: 1.5 }}>{item}</li>)}
+                      </ul>
+                    </div>
+                  )}
                   <div style={{ fontSize: '12px', lineHeight: 1.5, color: '#5a6299' }}>
                     <strong style={{ color: '#0E1667' }}>Perfect for:</strong> {plan.perfectFor}
                   </div>
