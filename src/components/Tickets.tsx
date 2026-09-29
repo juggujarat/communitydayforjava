@@ -97,12 +97,22 @@ export default function Tickets() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '20px' }}>
                 {plan.included.map((item) => <div key={item} style={{ fontSize: '14px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
               </div>
+              {'excluded' in plan && (
+                <>
+                  <div style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '.6px', textTransform: 'uppercase', color: '#0D5CDB', marginBottom: '12px' }}>What's Not Included</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '20px' }}>
+                    {plan.excluded.map((item) => <div key={item} style={{ fontSize: '14px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
+                  </div>
+                </>
+              )}
               <p style={{ margin: '0 0 18px', fontSize: '13.5px', lineHeight: 1.6, color: '#5a6299' }}>
                 <strong style={{ color: '#0E1667' }}>Perfect for:</strong> {plan.perfectFor}
               </p>
-              <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid rgba(14,22,103,.1)', fontSize: '12.5px', fontWeight: 700, color: '#5a6299' }}>
-                Available till {plan.availableTill}
-              </div>
+              {'availableTill' in plan && (
+                <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid rgba(14,22,103,.1)', fontSize: '12.5px', fontWeight: 700, color: '#5a6299' }}>
+                  Available till {plan.availableTill}
+                </div>
+              )}
             </div>
           ))}
         </div>

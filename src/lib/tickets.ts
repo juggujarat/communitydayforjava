@@ -42,6 +42,7 @@ export const KONFHUB_EVENT_URL = `https://konfhub.com/${KONFHUB_EVENT}`
  * fetch of https://konfhub.com/widget/community-day-for-java-2026 before trusting these.
  */
 export const KONFHUB_TICKET_IDS = [
+  122337, // Basic Ticket — INR 299
   118550, // Regular — INR 599
   118551, // Regular Plus Workshop — INR 799
   118552, // Community Supporter — INR 5000
@@ -55,6 +56,23 @@ export const KONFHUB_TICKET_IDS = [
  * inclusions change.
  */
 export const TICKET_PLANS = [
+  {
+    label: 'Basic Ticket',
+    price: '₹299',
+    accent: '#0D5CDB',
+    intro: [
+      'Your ticket to experience Community Day for Java 2026.',
+      'Spend the day learning from insightful Java talks, meeting fellow developers, and connecting with the growing Java community.',
+    ],
+    included: [
+      '🎤 Access to regular conference talks and sessions',
+      '🤝 Networking with Java developers, architects, students, and industry professionals',
+      '🍽️ Enjoy a delicious lunch during the event',
+      '☕ Community interactions and conversations',
+    ],
+    excluded: ['Goodies', 'Hands-on Workshop'],
+    perfectFor: 'Developers, Students, Learners, and Java enthusiasts who want to experience the conference, learn from industry speakers, and connect with the Java community.',
+  },
   {
     label: 'Regular Pass',
     price: '₹599',
