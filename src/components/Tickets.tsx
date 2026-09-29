@@ -101,7 +101,7 @@ export default function Tickets() {
                 <>
                   <div style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '.6px', textTransform: 'uppercase', color: '#0D5CDB', marginBottom: '12px' }}>What's Not Included</div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '20px' }}>
-                    {plan.excluded.map((item) => <div key={item} style={{ fontSize: '14px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
+                    {plan.excluded?.map((item) => <div key={item} style={{ fontSize: '14px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
                   </div>
                 </>
               )}
