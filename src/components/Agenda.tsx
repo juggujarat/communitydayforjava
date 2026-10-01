@@ -1,5 +1,4 @@
 import coffee from '../assets/icons/coffe.svg'
-import cloud from '../assets/icons/cloud.svg'
 import hammer from '../assets/icons/hammer.svg'
 
 // import { h } from '../lib/handlers'
@@ -42,27 +41,19 @@ export default function Agenda() {
   const tracks = [
     {
       icon: coffee,
-      label: 'Core Java',
+      label: 'Event Day Sessions',
       accent: '#FF384B',
       bg: 'rgba(255,56,75,.08)',
       border: 'rgba(255,56,75,.3)',
-      desc: 'Deep dives into the Java language, JVM internals, performance tuning, and the latest platform features.',
-    },
-    {
-      icon: cloud,
-      label: 'Enterprise & Cloud',
-      accent: '#0D5CDB',
-      bg: 'rgba(13,92,219,.08)',
-      border: 'rgba(13,92,219,.3)',
-      desc: 'Microservices, Spring, cloud-native architectures, Kubernetes, and production-grade Java at scale.',
+      desc: 'Join all conference talks and sessions on event day, 24 Oct 2026. One shared track covers Java, enterprise development, and cloud.',
     },
     {
       icon: hammer,
-      label: 'Workshops',
+      label: 'Pre-event Workshop',
       accent: '#02CF70',
       bg: 'rgba(2,207,112,.08)',
       border: 'rgba(2,207,112,.3)',
-      desc: 'Hands-on lab sessions where you write real code, solve challenges, and level up practical skills.',
+      desc: 'Take part in a separate hands-on workshop on 17 Oct 2026, one week before event day. Write real code, solve challenges, and build practical skills.',
     },
   ]
 
@@ -73,10 +64,10 @@ export default function Agenda() {
         {/* Heading */}
         <div data-reveal style={{ textAlign: 'center', marginBottom: '60px' }}>
           <h2 style={{ margin: 0, fontWeight: 700, fontSize: 'clamp(30px,4.8vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>
-            Three parallel <span style={{ color: '#0D5CDB' }}>tracks</span>
+            Main Track Sessions <span style={{ color: '#0D5CDB' }}>+ hands-on workshop</span>
           </h2>
           <p style={{ margin: '16px auto 0', maxWidth: '900px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>
-            A full-day technical immersive across Core Java, Enterprise and hands-on Workshops. <span style={{ whiteSpace: 'nowrap' }}>Sessions will be revealed with the 2026 lineup.</span>
+            Explore the event day sessions on 24 Oct 2026 and join the hands-on workshop a week earlier, on 17 Oct 2026.
           </p>
         </div>
 
