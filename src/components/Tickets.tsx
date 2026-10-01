@@ -62,8 +62,8 @@ export default function Tickets() {
           </p>
 
           <div id="tickets-facts" data-reveal data-reveal-d="100" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px', margin: '36px 0 0' }}>
-            {FACTS.map((f) => (
-              <div key={f.label} style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.12)', borderRadius: '20px', padding: '18px 16px' }}>
+            {FACTS.map((f, i) => (
+              <div key={f.label} style={{ ...(i === 2 ? { gridColumn: '1 / -1', justifySelf: 'center', width: 'calc(50% - 7px)' } : {}), background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.12)', borderRadius: '20px', padding: '18px 16px' }}>
                 <div style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '.6px', textTransform: 'uppercase', color: '#FEC400', marginBottom: '8px' }}>{f.label}</div>
                 {f.href ? (
                   <a href={f.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: '17px', fontWeight: 800, color: '#fff', textDecoration: 'underline', textUnderlineOffset: '3px' }}>{f.value}</a>
