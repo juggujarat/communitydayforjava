@@ -9,7 +9,6 @@ const TICKET_CTA_LABEL = 'Book Your Ticket →'
 const VENUE_MAP_URL = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('2GQW+F5V, University Area, Ahmedabad, Gujarat 380009, India')
 
 const FACTS = [
-  { label: 'Workshop date', value: '17 Oct 2026' },
   { label: '📅 Date', value: '24 Oct 2026' },
   { label: '📍 Venue', value: 'Centre For Professional Courses Department, Gujarat University, Ahmedabad', href: VENUE_MAP_URL },
 ]
@@ -60,6 +59,11 @@ export default function Tickets() {
           <p data-reveal data-reveal-d="60" style={{ margin: '18px auto 0', maxWidth: '640px', fontSize: '17px', lineHeight: 1.65, fontWeight: 500, color: '#c9d0ef' }}>
             Join developers, architects, and Java enthusiasts for a full day of Java, AI, and real-world engineering.
           </p>
+
+          <div data-reveal data-reveal-d="80" role="note" style={{ maxWidth: '760px', margin: '24px auto 0', padding: '16px 20px', borderRadius: '16px', background: 'rgba(254,196,0,.12)', border: '1px solid rgba(254,196,0,.55)', color: '#fff', fontSize: '15px', lineHeight: 1.6, textAlign: 'left' }}>
+            <strong style={{ display: 'block', marginBottom: '4px', color: '#FEC400', textTransform: 'uppercase', letterSpacing: '.5px' }}>Important notice</strong>
+            The workshop track will take place on <strong>17 Oct 2026</strong>, one week before the event. It will not be held on the event day, <strong>24 Oct 2026</strong>.
+          </div>
 
           <div id="tickets-facts" data-reveal data-reveal-d="100" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px', margin: '36px 0 0' }}>
             {FACTS.map((f, i) => (

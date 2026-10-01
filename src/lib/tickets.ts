@@ -95,7 +95,7 @@ export const TICKET_PLANS = [
     label: 'Regular + Workshop Pass',
     price: '₹799',
     accent: '#FF384B',
-    tagline: 'Includes the hands-on workshop on 17 Oct 2026',
+    tagline: 'Hands-on workshop session on 17 Oct 2026',
     intro: [
       'Go beyond the talks. Learn by doing.',
       'Get the complete Community Day for Java 2026 experience plus access to an exclusive hands-on workshop designed to take your learning a step further.',
