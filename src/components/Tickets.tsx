@@ -9,6 +9,7 @@ const TICKET_CTA_LABEL = 'Book Your Ticket →'
 const VENUE_MAP_URL = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('2GQW+F5V, University Area, Ahmedabad, Gujarat 380009, India')
 
 const FACTS = [
+  { label: 'Workshop date', value: '17 Oct 2026' },
   { label: '📅 Date', value: '24 Oct 2026' },
   { label: '📍 Venue', value: 'Centre For Professional Courses Department, Gujarat University, Ahmedabad', href: VENUE_MAP_URL },
 ]
