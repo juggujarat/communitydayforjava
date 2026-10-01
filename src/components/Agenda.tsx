@@ -36,7 +36,7 @@ import hammer from '../assets/icons/hammer.svg'
 //   letterSpacing: ls, ...(left ? { borderLeft: '1px solid rgba(255,255,255,.12)' } : { width: '150px' }),
 // })
 
-/** Agenda / three-tracks overview (#agenda). Shows track cards only — full timetable commented out above. */
+/** Agenda overview with the event day main track and pre-event workshop (#agenda). */
 export default function Agenda() {
   const tracks = [
     {
