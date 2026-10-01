@@ -95,7 +95,7 @@ export const TICKET_PLANS = [
     label: 'Regular + Workshop Pass',
     price: '₹799',
     accent: '#FF384B',
-    tagline: 'Workshop Pass = Everything in the Regular Pass + Hands-on Workshop',
+    tagline: 'Includes the hands-on workshop on 17 Oct 2026',
     intro: [
       'Go beyond the talks. Learn by doing.',
       'Get the complete Community Day for Java 2026 experience plus access to an exclusive hands-on workshop designed to take your learning a step further.',
@@ -109,7 +109,7 @@ export const TICKET_PLANS = [
       '📸 A full day of learning, hands-on experience, and community',
     ],
     perfectFor: 'Developers and Java enthusiasts who want to go beyond the talks and gain practical, hands-on experience.',
-    availableTill: '23rd Oct 2026, 06:00 PM (GMT+05:30)',
+    availableTill: '16th Oct 2026, 06:00 PM (GMT+05:30)',
   },
   {
     label: 'Community Supporter Pass',
