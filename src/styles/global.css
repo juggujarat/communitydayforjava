@@ -66,6 +66,7 @@
     #cfp-value-grid{ grid-template-columns:1fr!important; }
     #cfp-info-grid{ grid-template-columns:1fr!important; }
     #tickets-plans-grid{ grid-template-columns:1fr!important; }
+    #tickets-facts > div:last-child{ width:100%!important; }
     #top{ padding-top:130px!important; }
     #manifesto h2{ font-size:40px!important; letter-spacing:-1px!important; }
     #dc-root [style*="repeat(4, minmax(0px, 1fr)"]{ grid-template-columns:repeat(2,1fr)!important; }
