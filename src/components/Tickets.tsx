@@ -62,7 +62,7 @@ export default function Tickets() {
 
           <div data-reveal data-reveal-d="80" role="note" style={{ maxWidth: '760px', margin: '24px auto 0', padding: '16px 20px', borderRadius: '16px', background: 'rgba(254,196,0,.12)', border: '1px solid rgba(254,196,0,.55)', color: '#fff', fontSize: '15px', lineHeight: 1.6, textAlign: 'left' }}>
             <strong style={{ display: 'block', marginBottom: '4px', color: '#FEC400', textTransform: 'uppercase', letterSpacing: '.5px' }}>Important notice</strong>
-            The workshop track will take place on <strong>17 Oct 2026</strong>, one week before the event. It will not be held on the event day, <strong>24 Oct 2026</strong>.
+            The workshop track will take place on <strong>17 Oct 2026</strong>, one week before the event.
           </div>
 
           <div id="tickets-facts" data-reveal data-reveal-d="100" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px', margin: '36px 0 0' }}>
