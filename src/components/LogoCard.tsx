@@ -1,16 +1,16 @@
 /** Floating white logo tile used by the Partners / Community Partners grids. */
-export interface Logo { img?: string; alt?: string; dur: number; delay: string; padding: number; height: number; label?: string; href?: string; bg?: string }
+export interface Logo { img?: string; alt?: string; dur: number; delay: string; padding: number; height: number; label?: string; href?: string; bg?: string; zoom?: number }
 
-export default function LogoCard({ img, alt, dur, delay, padding, height, label = 'Logo', href, bg = '#fff' }: Logo) {
+export default function LogoCard({ img, alt, dur, delay, padding, height, label = 'Logo', href, bg = '#fff', zoom = 1 }: Logo) {
   return (
-    <div style={{ background: bg, border: '1px solid rgba(14,22,103,.08)', borderRadius: '14px', padding, height, display: 'flex', alignItems: 'center', justifyContent: 'center', animation: `cdj-logofloat ${dur}s ease-in-out ${delay} infinite`, willChange: 'transform' }}>
+    <div style={{ background: bg, border: '1px solid rgba(14,22,103,.08)', borderRadius: '14px', padding, height, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: zoom !== 1 ? 'hidden' : undefined, animation: `cdj-logofloat ${dur}s ease-in-out ${delay} infinite`, willChange: 'transform' }}>
       {img ? (
         href ? (
           <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt ?? label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <img src={img} alt={alt} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
+            <img src={img} alt={alt} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', display: 'block', transform: zoom !== 1 ? `scale(${zoom})` : undefined }} />
           </a>
         ) : (
-          <img src={img} alt={alt} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
+          <img src={img} alt={alt} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', display: 'block', transform: zoom !== 1 ? `scale(${zoom})` : undefined }} />
         )
       ) : (
         // Empty placeholder shown until a real logo is supplied.

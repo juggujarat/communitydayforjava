@@ -3,7 +3,7 @@ import LogoCard, { type Logo } from './LogoCard'
 const COMMUNITIES: Logo[] = [
   { img: '/assets/aws%20guj.png', alt: 'Ahmedabad Amazon AWS Cloud Meetup', href: 'https://www.meetup.com/ahmedabad-amazon-aws-cloud-meetup/', dur: 4.6, delay: '0s', padding: 24, height: 130 },
   { img: '/assets/devconf-in.svg', alt: 'DevConf India', href: 'https://www.devconf.info/in/', dur: 4.8, delay: '-0.7s', padding: 8, height: 130 },
-  { img: '/assets/binary%20brains.jpeg', alt: 'Binary Brains', href: 'https://www.instagram.com/binarybrains23?igsi=OWptbGNsMXNqaDNo', dur: 5, delay: '-1.2s', padding: 16, height: 130 },
+  { img: '/assets/binary%20brains.jpeg', alt: 'Binary Brains', href: 'https://www.instagram.com/binarybrains23?igsi=OWptbGNsMXNqaDNo', dur: 5, delay: '-1.2s', padding: 16, height: 130, zoom: 1.7 },
 ]
 
 /** Community partners — tech communities across Gujarat (#community-partners). */

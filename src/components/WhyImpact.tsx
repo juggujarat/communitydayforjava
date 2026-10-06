@@ -71,7 +71,7 @@ const marqueeSpan: React.CSSProperties = {
 /** By-the-numbers stat cards + rotating marquee + Why-attend impact grid (#why). */
 export default function WhyImpact() {
   return (
-    <section id="why" style={{ position: 'relative', padding: '78px 40px', background: '#0E1667', overflow: 'hidden' }}>
+    <section id="why" style={{ position: 'relative', padding: '24px 40px 78px', background: '#0E1667', overflow: 'hidden' }}>
       <div id="numbers" data-reveal style={{ textAlign: 'center', margin: '0 0 46px' }}>
         <h2 style={{ margin: 0, fontWeight: 600, fontSize: 'clamp(30px,4.4vw,52px)', lineHeight: 1, letterSpacing: '-1.5px', color: '#fff' }}>By the <span style={{ color: '#FEC400' }}>numbers</span></h2>
       </div>
