@@ -40,6 +40,7 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Dwij Pancholi', role: 'Student', org: 'SAL Institute of Technology and Engineering Research', img: '/assets/volunteer-dwij-pancholi-brand.jpg', bg: '#FEC400', pos: '50% 14%', socials: [li('Dwij Pancholi', 'https://www.linkedin.com/in/dwijpancholi')] },
   { name: 'Nirva Padaliya', role: 'Cloud Engineer', org: 'Hackberry Softech Private Limited', img: '/assets/volunteer-nirva-padaliya.png', bg: '#7D00BC', pos: '50% 14%', socials: [li('Nirva Padaliya', 'https://www.linkedin.com/in/nirva-padaliya'), { type: 'x', href: 'https://x.com/nirva_45', label: 'Nirva Padaliya on X' }, ig('Nirva Padaliya', 'https://www.instagram.com/nirva_45')] },
   { name: 'Vanshika Kamdar', role: 'Student', org: 'TechnoSpace Institute', img: '/assets/volunteer-vanshika-kamdar.png', bg: '#FF384B', pos: '50% 100%', zoom: true, origin: 'center top', socials: [li('Vanshika Kamdar', 'https://www.linkedin.com/in/vanshikakamdar/'), { type: 'x', href: 'https://x.com/vanshika_kamdar', label: 'Vanshika Kamdar on X' }, ig('Vanshika Kamdar', 'https://www.instagram.com/vanshika_kamdar_/')] },
+  { name: 'Prajesh Kapadiya', role: 'Sr UI Developer', org: 'Tatvasoft', img: '/assets/prajesh.png', bg: '#0D5CDB', pos: '50% 50%', zoom: true, origin: 'center center', socials: [li('Prajesh Kapadiya', 'https://www.linkedin.com/in/prajesh-kapadiya-600121142')] },
 ]
 
 /** Volunteers & organisers (#volunteers). */

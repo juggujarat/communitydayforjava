@@ -357,9 +357,6 @@ export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
     <section id="badge" style={{ position: 'relative', padding: '84px 40px', background: 'linear-gradient(180deg,#F4F1E8 0%,#fff8ee 100%)', color: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1180px', margin: '0 auto' }}>
         <div data-reveal style={{ marginBottom: '34px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(13,92,219,.08)', color: '#0D5CDB', padding: '9px 14px', borderRadius: '999px', fontSize: '12px', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '18px' }}>
-            Badge Builder
-          </div>
           <h2 id="badge-headline" style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.4vw,58px)', lineHeight: 1, letterSpacing: '-1.7px', whiteSpace: 'nowrap' }}>
             Tell the world you're <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 700, color: '#0D5CDB' }}>part of it</span>.
           </h2>
