@@ -97,26 +97,26 @@ export default function Agenda() {
               }}
             >
               {/* Icon bubble — SVG masked so it takes the track accent colour */}
-              <div style={{
-                width: '56px', height: '56px', borderRadius: '16px',
-                background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <span aria-hidden="true" style={{
-                  width: '30px', height: '30px', display: 'block', background: t.accent,
-                  WebkitMaskImage: `url(${t.icon})`, maskImage: `url(${t.icon})`,
-                  WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
-                  WebkitMaskPosition: 'center', maskPosition: 'center',
-                  WebkitMaskSize: 'contain', maskSize: 'contain',
-                }} />
-              </div>
-
-              {/* Track badge */}
-              <div style={{
-                display: 'inline-block', padding: '5px 14px', borderRadius: '30px',
-                background: t.bg, color: t.accent, fontWeight: 800, fontSize: '11px', letterSpacing: '2px',
-                textTransform: 'uppercase', width: 'fit-content',
-              }}>
-                {t.label}
+              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+                <div style={{
+                  width: '56px', height: '56px', borderRadius: '16px', flex: 'none',
+                  background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <span aria-hidden="true" style={{
+                    width: '30px', height: '30px', display: 'block', background: t.accent,
+                    WebkitMaskImage: `url(${t.icon})`, maskImage: `url(${t.icon})`,
+                    WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+                    WebkitMaskPosition: 'center', maskPosition: 'center',
+                    WebkitMaskSize: 'contain', maskSize: 'contain',
+                  }} />
+                </div>
+                <div style={{
+                  display: 'inline-block', padding: '5px 14px', borderRadius: '30px',
+                  background: t.bg, color: t.accent, fontWeight: 800, fontSize: '11px', letterSpacing: '2px',
+                  textTransform: 'uppercase', width: 'fit-content',
+                }}>
+                  {t.label}
+                </div>
               </div>
 
               {/* Description */}

@@ -82,6 +82,7 @@ export const BADGE_ROLES: BadgeRole[] = [
   { id: 'sponsor', label: 'Sponsor', chipLead: "I'm a", chipMain: 'sponsor', share: "We're sponsoring", accent: '#00B8B0', ink: '#4FE8E0' },
   { id: 'organizer', label: 'Organizer', chipLead: "I'm an", chipMain: 'organizer', share: "I'm helping organise", accent: '#7D00BC', ink: '#C88BFF' },
   { id: 'crew', label: 'Crew', chipLead: "I'm on the", chipMain: 'crew', share: "I'm on the crew at", accent: '#0D5CDB', ink: '#6FB6FF' },
+  { id: 'community-supporter', label: 'Community Supporter', chipLead: "I'm a", chipMain: 'community supporter', share: "I'm supporting", accent: '#FF384B', ink: '#FF7183' },
 ]
 
 /** Roles shown on the public /badge/ picker. */
@@ -92,9 +93,12 @@ export const PUBLIC_BADGE_ROLE_IDS = ['attendee', 'enthusiast']
  * PUBLIC_BADGE_ROLE_IDS. Attendee/Java Enthusiast stay off it; it's only for
  * Speaker/Sponsor/Organizer/Crew.
  */
-export const PRIVATE_BADGE_ROLE_IDS = BADGE_ROLES.map((r) => r.id).filter(
-  (id) => !PUBLIC_BADGE_ROLE_IDS.includes(id),
-)
+export const PRIVATE_BADGE_ROLE_IDS = [
+  'community-supporter',
+  ...BADGE_ROLES.map((r) => r.id).filter(
+    (id) => !PUBLIC_BADGE_ROLE_IDS.includes(id) && id !== 'community-supporter',
+  ),
+]
 
 /**
  * The slogan is a fixed set rather than a free-text field: the badge goes out under
@@ -145,6 +149,13 @@ export const SLOGAN_OPTIONS: Record<string, string[]> = {
     'Here to make the day run smooth',
     'See you in Ahmedabad!',
   ],
+  'community-supporter': [
+    'Proud to support the Java community',
+    'Together, we grow the Java community',
+    'Backing the next generation of Java developers',
+    'Community is what makes Java stronger',
+    'See you in Ahmedabad!',
+  ],
 }
 
 /**
@@ -182,6 +193,11 @@ export const CAPTION_OPTIONS: Record<string, string[]> = {
     "On the crew for Community Day for Java 2026 — here to make the day run smooth!",
     "Proud to be part of the crew at Community Day for Java 2026. Come find us on the day!",
     "Volunteering with the crew at Community Day for Java 2026 — Gujarat's biggest Java community conference.",
+  ],
+  'community-supporter': [
+    "Proud to support Community Day for Java 2026 and the Java community in Gujarat!",
+    "Backing the community at Community Day for Java 2026. See you in Ahmedabad!",
+    "Together, we're growing the Java community at Community Day for Java 2026.",
   ],
 }
 
@@ -375,6 +391,9 @@ const ROLE_GRAPHIC: Record<string, string[]> = {
   ],
   crew: [
     'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94Z',
+  ],
+  'community-supporter': [
+    'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z',
   ],
 }
 
