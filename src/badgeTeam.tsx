@@ -10,7 +10,8 @@ import { PRIVATE_BADGE_ROLE_IDS } from './lib/badge'
 import './styles/global.css'
 
 /**
- * Unlisted twin of /badge/ (src/badge.tsx) for Speaker/Sponsor/Organizer/Crew badges.
+ * Unlisted twin of /badge/ (src/badge.tsx) for Speaker/Sponsor/Organizer/Crew/
+ * Community Supporter badges.
  * Not linked from Nav, not in sitemap.xml, and disallowed in robots.txt — its only
  * distribution is the direct URL shared manually. Restricted to PRIVATE_BADGE_ROLE_IDS
  * so Attendee/Java Enthusiast (the public page's roles) don't also show up here.

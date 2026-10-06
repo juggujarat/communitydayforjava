@@ -132,7 +132,9 @@ type Status = { kind: 'ok' | 'err'; text: string } | null
 export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
   /** Public page passes PUBLIC_BADGE_ROLE_IDS to hide Speaker/Sponsor/Organizer/Crew;
    *  the unlisted team page passes nothing and gets every role. */
-  const roles = roleIds ? BADGE_ROLES.filter((r) => roleIds.includes(r.id)) : BADGE_ROLES
+  const roles = roleIds
+    ? roleIds.map((id) => BADGE_ROLES.find((r) => r.id === id)).filter((r): r is BadgeRole => Boolean(r))
+    : BADGE_ROLES
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
   /** Object URL backing the current photo; revoked only once it is replaced. */

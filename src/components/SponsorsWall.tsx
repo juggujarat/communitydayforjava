@@ -45,6 +45,13 @@ export default function SponsorsWall() {
               <Slot id="cdj-sp-1" label="Platinum logo" height={170} padding={28} img="/assets/jetbrains-logo.svg" alt="JetBrains" href="https://www.jetbrains.com/idea/" />
             </div>
           </div>
+          <div>
+            <div style={{ display: 'flex', width: 'fit-content', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', margin: '0 auto 18px' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#FEC400' }} />GOLD</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px', maxWidth: '680px', margin: '0 auto' }}>
+              <Slot id="cdj-gold-xynnity" label="Gold sponsor Xynnity" height={120} padding={20} img="/assets/xynnity.png" alt="Xynnity" href="https://www.xynnity.com/" />
+              <Slot id="cdj-gold-rezoomex" label="Gold sponsor Rezoomex" height={120} padding={20} img="/assets/rezoomex.png" alt="Rezoomex" href="https://rezoomex.com/" />
+            </div>
+          </div>
         </div>
       </div>
     </section>

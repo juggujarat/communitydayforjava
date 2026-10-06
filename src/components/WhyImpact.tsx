@@ -58,7 +58,7 @@ const IMPACT = [
 
 const STATS = [
   { rot: -5, bg: '#FF384B', img: A['02d899ea-fe63-40f8-a846-6f4036aea702'], alt: 'CDJ 2025 audience', num: '600+', numColor: '#fff', label: 'ATTENDEES', labelColor: 'rgba(255,255,255,.92)', d: 0, border: undefined as string | undefined },
-  { rot: 3, bg: '#FEC400', img: A['73ed873c-b127-4493-af6a-8c909c3d9a59'], alt: 'CDJ 2025 speaker', num: '15+', numColor: '#0E1667', label: 'SPEAKERS', labelColor: 'rgba(14,22,103,.85)', d: 90, border: undefined },
+  { rot: 3, bg: '#FEC400', img: A['73ed873c-b127-4493-af6a-8c909c3d9a59'], alt: 'CDJ 2025 speaker', num: '10+', numColor: '#0E1667', label: 'SPEAKERS', labelColor: 'rgba(14,22,103,.85)', d: 90, border: undefined },
 ]
 
 const MARQUEE_TXT =
