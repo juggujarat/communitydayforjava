@@ -42,7 +42,6 @@ export default function App() {
       <div style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#131C56' }}>
         <Nav />
         <Hero />
-        <BrickDivider id="why-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <WhyImpact />
         <Manifesto />
         <Agenda />
