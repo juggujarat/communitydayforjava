@@ -240,7 +240,7 @@ export async function loadBadgeArt(): Promise<BadgeArt> {
     loadImage(`${root}bg-img.png`),
     loadImage(`${root}cd4j-img.png`),
     loadImage(`${root}logo.png`),
-    loadImage(`${root}crew sticker.png`),
+    loadImage('/assets/crew.webp'),
     loadImage(`${root}java sticker.png`),
     loadImage(`${root}qr.png`),
     loadImage(`${root}date.png`),
@@ -419,9 +419,16 @@ function drawPhotoPlaceholder(ctx: Ctx) {
   ctx.restore()
 
   ctx.save()
-  ctx.font = '700 24px Roboto, sans-serif'
+  const label = 'Upload Your Photo Here'
+  const maxWidth = PHOTO.r * 1.55
+  let fontSize = 24
+  ctx.font = `700 ${fontSize}px Roboto, sans-serif`
+  while (ctx.measureText(label).width > maxWidth && fontSize > 1) {
+    fontSize -= 1
+    ctx.font = `700 ${fontSize}px Roboto, sans-serif`
+  }
   ctx.fillStyle = '#131C56'
-  ctx.fillText('Upload Your Photo Here', PHOTO.cx, PHOTO.cy + 82)
+  ctx.fillText(label, PHOTO.cx, PHOTO.cy + 82, maxWidth)
   ctx.restore()
 }
 
