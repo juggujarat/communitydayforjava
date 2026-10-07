@@ -99,10 +99,15 @@ export default function TicketsModal({ onClose }: { onClose: () => void }) {
 
           {showIncluded && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', margin: '12px 0 4px' }}>
+              <div style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#42498a' }}>Each pass includes everything in the pass before it.</div>
               {TICKET_PLANS.map((plan) => (
                 <div key={plan.label} style={{ background: '#F5F6FC', border: '1px solid #E4E7F5', borderRadius: '14px', padding: '16px' }}>
                   <div style={{ fontSize: '15px', fontWeight: 800, color: '#0E1667', marginBottom: '2px' }}>{plan.label}</div>
                   <div style={{ fontSize: '13px', fontWeight: 800, color: plan.accent, marginBottom: '12px' }}>{plan.price}</div>
+                  {'tagline' in plan && <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#02a35a', margin: '-6px 0 10px' }}>{plan.tagline}</div>}
+                  {'includesFrom' in plan && (
+                    <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0E1667', marginBottom: '6px' }}>✅ Everything in the {plan.includesFrom}, plus:</div>
+                  )}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '10px' }}>
                     {plan.included.map((item) => <div key={item} style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
                   </div>

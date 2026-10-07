@@ -34,17 +34,23 @@
   #layered-text:hover [data-lt]{ transform:translateY(-60px); }
   @keyframes cdj-kickglow{ 0%,100%{ opacity:.68; text-shadow:0 0 0 currentColor; } 50%{ opacity:1; text-shadow:0 0 16px currentColor; } }
   #dc-root [style*="letter-spacing: 5px"]{ animation:cdj-kickglow 2.8s ease-in-out infinite; }
-  /* Mobile menu: show the hamburger where the inline nav links hide (<=880px) */
-  @media (max-width:880px){
+  /* Floating glass nav: entrance spring + drifting colour blobs behind the glass */
+  @keyframes cdj-blob1{ 0%,100%{ transform:translate(0,0);} 50%{ transform:translate(90px,26px);} }
+  @keyframes cdj-blob2{ 0%,100%{ transform:translate(0,0);} 50%{ transform:translate(-110px,-22px);} }
+  @media (prefers-reduced-motion: reduce){
+    #cdj-nav, #cdj-nav-pill, #cdj-nav-pill *{ transition-duration:.01s!important; }
+    #cdj-nav-pill span[style*="cdj-blob"]{ animation:none!important; }
+  }
+  /* Mobile menu: show the hamburger where the inline nav links hide (<=1040px) */
+  @media (max-width:1040px){
     #cdj-burger{ display:inline-flex!important; }
-    /* Compact "Become Sponsor" CTA so it stays on one line next to the burger */
-    #cdj-nav > div{ gap:12px!important; }
+    /* Compact CTA so it stays on one line next to the burger */
+    #cdj-nav-pill > div{ gap:8px!important; }
     #cdj-nav [data-cta="1"]{ font-size:11px!important; letter-spacing:.5px!important; padding:9px 15px!important; white-space:nowrap!important; box-shadow:0 4px 14px rgba(255,56,75,.32)!important; }
   }
   @media (max-width:700px){
-    #speaker-page main > div > section:first-of-type{ grid-template-columns:1fr!important; gap:28px!important; }
-    #speaker-page main > div > section:first-of-type > div:first-child{ max-width:360px; margin:0 auto; }
-    #speaker-page main > div > section:not(:first-of-type){ padding:24px!important; }
+    #speaker-hero{ grid-template-columns:1fr!important; gap:28px!important; }
+    #speaker-hero > div:first-child{ max-width:360px; margin:0 auto; }
   }
   /* CFP tracks run 4-across on wide screens; step down before the cards get too narrow */
   @media (max-width:1100px){
@@ -53,13 +59,29 @@
     /* #dc-root prefix so these outrank the generic [style*=...] grid rules below */
     #dc-root #cfp-facts{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
   }
+  /* Sponsors: side-by-side grid on desktop (2 rows of 2), single column below 900px */
+  @media (max-width:900px){
+    #sponsor-tiers{ grid-template-columns:1fr!important; gap:14px!important; }
+    #sponsor-tiers > *{ grid-column:1 / -1!important; }
+  }
+  @media (max-width:560px){
+    /* keep the size hierarchy on phones too */
+    #sponsor-tiers [data-tier="platinum"] [data-logo]{ height:130px!important; }
+    #sponsor-tiers [data-tier="gold"] [data-logo]{ height:105px!important; }
+    #sponsor-tiers [data-tier="venue"] [data-logo], #sponsor-tiers [data-tier="patreon"] [data-logo]{ height:84px!important; }
+  }
   @media (max-width:768px){
     #dc-root #manifesto-proofs{ display:grid!important; grid-template-columns:1fr!important; grid-auto-flow:row!important; grid-auto-columns:auto!important; overflow-x:visible!important; scroll-snap-type:none!important; }
-    #dc-root nav{ padding-left:16px!important; padding-right:16px!important; }
-    #dc-root nav img{ height:46px!important; }
+    #dc-root #cdj-nav[data-scrolled="true"]{ padding-left:12px!important; padding-right:12px!important; }
+    #dc-root #cdj-nav[data-scrolled="false"]{ padding-left:0!important; padding-right:0!important; }
+    #dc-root #cdj-nav-pill{ gap:10px!important; }
+    #dc-root #cdj-nav-pill[data-scrolled="true"]{ padding:8px 8px 8px 16px!important; }
+    #dc-root #cdj-nav-pill[data-scrolled="false"]{ padding:12px 16px!important; }
+    #dc-root #cdj-nav-pill[data-scrolled="true"] img{ height:34px!important; }
+    #dc-root #cdj-nav-pill[data-scrolled="false"] img{ height:46px!important; }
     /* Nav logo shrinks to 46px here, so the CFP/Tickets pages' spacer for the fixed nav shrinks too */
     #cfp-page{ padding-top:86px!important; }
-    #speaker-page{ padding-top:86px!important; }
+    #program-page{ padding-top:86px!important; }
     #tickets-page{ padding-top:86px!important; }
     #dc-root section{ padding-left:18px!important; padding-right:18px!important; }
     #dc-root footer{ padding-left:18px!important; padding-right:18px!important; }
@@ -157,8 +179,6 @@
     /* Hero stats line: allow it to wrap on mobile so it isn't cut off */
     #hero-stats{ white-space:normal!important; }
     #hero-stats-tracks{ display:block; }
-    /* Trim the navy spacer below the hero marquee (110px -> 55px, halved) */
-    #top [style*="height: 110px"]{ height:55px!important; }
     /* Close the 1px sub-pixel seam under the brick divider above #why (and the
        matching ones above #venue, #speakers, #sponsor and #volunteers, same
        asset): scale the pattern to 48px (container stays 44px) so it crops
@@ -192,11 +212,6 @@
        of the horizontal swipe-slider so nothing is cropped at the edge. */
     #dc-root #manifesto-proofs{ display:grid!important; grid-template-columns:1fr!important; grid-auto-flow:row!important; grid-auto-columns:auto!important; overflow-x:visible!important; scroll-snap-type:none!important; padding-bottom:0!important; gap:24px!important; }
     #dc-root span[style*="cdj-float1"], #dc-root span[style*="cdj-float2"]{ display:none!important; }
-    #top [style*="cdj-marquee 38s"]{ width:100vw!important; margin-left:calc(50% - 50vw)!important; }
-    /* Java watermark: reposition for mobile only (desktop untouched) so it
-       sits in the empty column to the left of "Gujarat's Biggest / Java
-       Community", just below the nav — size unchanged from desktop */
-    #hero-java-mark{ top:25%!important; left:20%!important; }
     /* Sticky "Register now" bar removed on mobile */
     #cdj-sticky-cta{ display:none!important; }
     #dc-root footer{ padding-left:22px!important; padding-right:22px!important; padding-top:40px!important; }

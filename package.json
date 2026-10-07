@@ -6,9 +6,10 @@
   "description": "Community Day for Java (CDJ 2026) website — React + Vite",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && vite build --ssr src/prerender.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync:sessionize": "node scripts/sync-sessionize.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

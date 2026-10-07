@@ -1,0 +1,128 @@
+{
+  "eventId": "8gzqf0q3",
+  "fetchedAt": "2026-10-07T15:46:26.493Z",
+  "sessions": [
+    {
+      "id": "1351496",
+      "title": "AI Can Generate Code. Who Enforces the Boundaries? - Spring Modulith in Production",
+      "slug": "ai-can-generate-code-who-enforces-the-boundaries-spring",
+      "description": "AI-assisted development is dramatically increasing the speed at which we can create and modify software. But faster code generation doesn't remove architectural concerns such as coupling, dependency direction, domain boundaries, transactions, consistency, or maintainability.\n\nIf anything, as more code is produced with the help of coding agents, making architectural intent explicit—and verifiable—becomes increasingly valuable.\n\nThis is where a modular architecture becomes particularly interesting.\n\nSpring Modulith allows us to organize a Spring Boot application around explicit business modules, define their exposed APIs and permitted dependencies, and verify those architectural boundaries automatically.\n\nThat gives both developers and AI-assisted development workflows something important: a codebase where architectural rules aren't merely documented—they can be tested.\n\nIn this masterclass, we'll explore what that means in practice. We'll design module boundaries, establish communication patterns, work with events and transactions, enforce dependency rules, and examine how these decisions hold up when the application reaches production.\n\nWe'll also explore how modern AI coding workflows can work within these boundaries—and what happens when generated code violates them.\n\nThe goal isn't to claim that modular monoliths replace microservices in the AI era.\n\nIt's to answer a more important question:\n\nWhen writing code is becoming easier than ever, how do we make sure our architecture doesn't become easier to break?",
+      "speakerIds": [
+        "24e68ff9-20f7-49f1-b5ad-4a9b5e99a3bb"
+      ]
+    },
+    {
+      "id": "1305730",
+      "title": "Engineering Production-Scale RAG for Enterprise Java Applications",
+      "slug": "engineering-production-scale-rag-for-enterprise-java",
+      "description": "Your RAG prototype works. Now what?\n\nThe engineering challenge begins when the system needs to handle millions of documents, maintain retrieval quality, survive failures, control latency, manage cost, and operate reliably in production.\n\nThis session is a practical deep-dive into the engineering techniques that can take RAG beyond a prototype.\n\nWe will talk about\n- query expansion,\n- cross-encoder re-ranking,\n- metadata filtering,\n- prompt compression\n\nAnd in a world increasingly focused on Agentic AI, we will take a step back and look at an equally important question: how far can we take a well-engineered RAG system before we actually need an AI agent?",
+      "speakerIds": [
+        "6120290c-b371-4cc3-8b9f-401c392c435e"
+      ]
+    },
+    {
+      "id": "1333086",
+      "title": "From REST APIs to AI Agents: Designing AI-Native Enterprise Systems in Java",
+      "slug": "from-rest-apis-to-ai-agents-designing-ai-native-enterprise",
+      "description": "Track - Enterprise Java\nDuration - 45 mins\n\nAbstract -\nSo far we have been building enterprise Java based systems that assumed one thing - client already knows exactly what to ask for and that too in exactly what order. REST allowed us to have clean contracts, predictable calls, and a REST client did the orchestration of the workflow. But with AI, enterprise workflow doesn't fit that mold anymore.\n\nThis talk explains what an \"AI agent\" actually is - a reasoning engine, a set of tools, memory, and a plan-act-observe loop with due respect to architectural standards that we as Java community members hold ourself responsible for.\n\nKey Takeaways -\n- What an AI agent exactly is and how it differs from a REST endpoint\n- Reference architecture for building AI native systems on JVM\n- Non-negotiable architectural considerations for running agents in real enterprise systems",
+      "speakerIds": [
+        "db822701-517e-4cb3-8b9d-13516fb73e77"
+      ]
+    },
+    {
+      "id": "1333056",
+      "title": "Give Your JVM an AI Assistant: JFR, JDK Mission Control and MCP for Production Performance",
+      "slug": "give-your-jvm-an-ai-assistant-jfr-jdk-mission-control-and-mcp",
+      "description": "Your Java application is slow. What do you do next?\n\nProduction JVM performance investigations often begin with the same symptoms: rising latency, high CPU, increased allocation, GC activity, blocked threads, or unexpected throughput degradation. The challenge is not collecting telemetry—it is connecting the evidence quickly enough to identify the real bottleneck.\n\nIn this session, we explore a practical approach to giving your JVM an AI assistant by combining JDK Flight Recorder (JFR), JDK Mission Control (JMC), AI, and Model Context Protocol (MCP).\n\nJFR provides rich runtime evidence from the JVM, while JMC provides powerful capabilities for analyzing CPU usage, memory allocation, garbage collection, threads, locks, and application behavior. MCP provides a way to expose these diagnostic capabilities as tools that an AI assistant can interact with.\n\nRather than asking an LLM to guess what is wrong, we will give the AI access to real JVM evidence and let it investigate a production-style incident. Through a hands-on Spring Boot scenario, we will move from an initial performance symptom to JFR capture, JMC analysis, AI-assisted investigation, root-cause hypothesis, remediation, and finally a second JFR recording to validate the improvement.\n\nWe will investigate common JVM problems including CPU hotspots, excessive object allocation, GC pressure, thread contention, locking, and latency. We will also demonstrate how MCP can turn JVM diagnostics into actionable tools for an AI assistant—allowing developers to ask questions such as “Why is this service slow?”, “What is consuming the CPU?”, “Are threads blocked?”, and “Did our performance fix actually work?”\n\nThe goal is not to replace JVM engineers with AI. It is to demonstrate a new evidence-driven performance engineering workflow, where JFR provides the facts, AI helps navigate and correlate those facts, and engineers remain responsible for validating the diagnosis and deciding what changes should reach production.\n\nThe key idea is simple: don't ask AI to guess why your Java application is slow. Give it the JVM evidence.",
+      "speakerIds": [
+        "cbdf7aa5-92fa-4f26-b29a-536e715043a8"
+      ]
+    },
+    {
+      "id": "1333755",
+      "title": "Sustainable Software Engineering in the Age of AI",
+      "slug": "sustainable-software-engineering-in-the-age-of-ai",
+      "description": "AI coding agents have fundamentally changed how we build software. We can generate code faster than ever, but faster coding doesn't necessarily mean sustainable software development. This session explores the less-discussed challenges of AI-assisted development: increasing code volume, context switching, comprehension debt, over-reliance on AI, inconsistent quality, and the pressure to continuously keep up with rapidly evolving tools.\n\nShould we review AI-generated code? Absolutely! But reviewing everything line-by-line isn't sustainable either. We'll explore a pragmatic approach to maintaining quality without turning developers into full-time AI-code reviewers:\n\n* What should always be reviewed?\n* How much trust should we place in AI-generated code?\n* How can tests, static analysis, architecture rules, and automated verification act as quality gates?\n* How can specification-driven development and smaller, verifiable changes keep AI agents under control?\n\nFinally, we'll look beyond code quality at developer sustainability. If AI makes writing code cheaper, it can also make producing and reviewing more code the default. We'll discuss practical strategies for avoiding burnout, review fatigue, and AI-induced cognitive overload—so that AI becomes a force multiplier rather than another source of pressure.",
+      "speakerIds": [
+        "99eeeebe-9dae-4b4f-9fc9-b695a15f6ea6"
+      ]
+    },
+    {
+      "id": "1345089",
+      "title": "Zero Trust Authorization for AI Workloads",
+      "slug": "zero-trust-authorization-for-ai-workloads",
+      "description": "Participants will build an end-to-end, zero-trust security infrastructure for AI Agents.\n\nParticipants will learn:\n\nHow to use dynamic client registration to enroll agents\n\nHow to use `on-behalf-of` tokens to create a chain of identity from human-to-agents\n\nUse policy-as-code paradigm for modern authorization\n\nDeploy embeddable policy decision point to implement zero trust authorization at different layers of agentic application\n\nHow to deploy and attach authorization in agent gateway\n\nHow to protect MCP tools using agent authorization\n\nHow to deploy separate PDP service that uses AuthZEN APIs to protect backend spring-boot java service\n\nHow participants will build it:\n\nParticipants will install docker based components and configure them to connect with each other.\n\nParticipants will build a small spring-boot java app that exposes APIs. Some of these will support MCP tools.\n\nFor reference, a step-by-step README will be provided.",
+      "speakerIds": [
+        "4de67683-1f31-4bba-a6a7-c4fa05110fae"
+      ]
+    }
+  ],
+  "speakers": [
+    {
+      "id": "4de67683-1f31-4bba-a6a7-c4fa05110fae",
+      "name": "Dhaval Desai",
+      "slug": "dhaval-desai",
+      "tagline": "Community Manager at Gluu.Inc",
+      "bio": "- Currently building open-source identity, access, and governance software for agentic systems\n- 22 years of industry experience across telecom R&D, Global banking and IAM",
+      "photo": "https://cdn.sessionize.com/image/f329-200o200o2-RDKEGUswHfKgj8gWW1bkmn.jpg",
+      "sessionIds": [
+        "1345089"
+      ]
+    },
+    {
+      "id": "db822701-517e-4cb3-8b9d-13516fb73e77",
+      "name": "Dhaval Shah",
+      "slug": "dhaval-shah",
+      "tagline": "Cloud Native Architect | Fintech Platforms at Scale",
+      "bio": "I design and scale high-throughput, low-latency fintech platforms in highly regulated environments. With 21+ years, I've built cloud-native systems on Azure and Kubernetes using Java 21, Spring Boot, Reactive Programming, Kafka, and Redis - with a strong focus on event-driven architecture. I combine deep hands-on engineering with technical leadership to help teams build platforms that are fast, resilient, and compliant.",
+      "photo": "https://cdn.sessionize.com/image/e995-200o200o2-EXp1V51a4RPo6U8HEWPZnB.png",
+      "sessionIds": [
+        "1333086"
+      ]
+    },
+    {
+      "id": "6120290c-b371-4cc3-8b9f-401c392c435e",
+      "name": "Nikhilesh Tayal",
+      "slug": "nikhilesh-tayal",
+      "tagline": "Google Developer Expert for AI. Founder - \"AI ML etc.\" (an educational platform for Senior IT professionals to learn AI). 70+ speaking assignments.",
+      "bio": "Nikhilesh is an entrepreneur, teacher and tech nerd\nHe is an IIT Kharagpur alumnus. He is also a Google Developer Expert in AI and has over 18,000 followers on LinkedIn.\nCurrently, he runs \"AI ML etc.\" - an AI-enabled educational platform for senior IT professionals to learn AI. He has spoken at 70+ tech events across the globe.\nRecently, he was felicitated by the Chief Minister of Rajasthan for his contribution to education.",
+      "photo": "https://cdn.sessionize.com/image/1a89-200o200o2-UgzUzicajmV82xdjmDEung.jpg",
+      "sessionIds": [
+        "1305730"
+      ]
+    },
+    {
+      "id": "cbdf7aa5-92fa-4f26-b29a-536e715043a8",
+      "name": "Ravi Soni",
+      "slug": "ravi-soni",
+      "tagline": "The CodeFather",
+      "bio": "AWS Certified, Java & Cloud-Native architect with 15+ years of professional experience in the Design, Development, Maintenance, and Migration of Java, JavaEE, Spring boot, Kafka, and Kubernetes-based distributed & microservice applications.",
+      "photo": "https://cdn.sessionize.com/image/aee6-200o200o2-Hn8GGnjWinR45VHuFcE6Kj.jpg",
+      "sessionIds": [
+        "1333056"
+      ]
+    },
+    {
+      "id": "99eeeebe-9dae-4b4f-9fc9-b695a15f6ea6",
+      "name": "Siva Prasad Reddy Katamreddy",
+      "slug": "siva-prasad-reddy",
+      "tagline": "Developer Advocate at JetBrains",
+      "bio": "Siva is a Developer Advocate at JetBrains with over 19 years of experience building scalable, distributed enterprise systems. His career spans hands-on software development, architecture, and cloud-native system design across domains such as banking and e-commerce.\n\nHe has deep expertise in the Java ecosystem and modern backend development using monolithic, microservices, and event-driven architectures, with strong emphasis on code quality and scalability.\n\nIn his role as a Developer Advocate, Siva focuses on empowering developers by simplifying complex concepts, creating educational content, and bridging the gap between engineering and developer communities. He actively shares practical insights through his blog (https://sivalabs.in) and YouTube channel (https://youtube.com/sivalabs).\n\nSiva is the author of Beginning Spring Boot (Apress), PrimeFaces Beginners Guide (Packt), and Java Persistence with MyBatis 3. He has spoken at international and local conferences, sharing insights on cloud-native architectures, modern Java development, and developer productivity.",
+      "photo": "https://cdn.sessionize.com/image/9b0e-200o200o2-J5d8MLqRPAVjVu62Dfdj7n.jpg",
+      "sessionIds": [
+        "1333755"
+      ]
+    },
+    {
+      "id": "24e68ff9-20f7-49f1-b5ad-4a9b5e99a3bb",
+      "name": "Vikas Rajput",
+      "slug": "vikas-rajput",
+      "tagline": "Founder @ Techxplore | Co-organizer @ Gujarat JUG",
+      "bio": "Vikas Rajput is a Java Architect, technology consultant, speaker, and Founder of Techxplore IT Solutions, with over 11 years of experience designing and building enterprise-grade software systems.\n\nHis expertise spans Java, Spring Boot, enterprise architecture, cloud-native development, and the design of scalable, secure, and maintainable applications. Throughout his career, he has worked on complex systems across multiple domains, helping teams modernize legacy applications, define strong architectural boundaries, and make pragmatic technology decisions for real-world production environments.\n\nIn the age of AI-assisted software development, Vikas is particularly interested in the evolving role of software architecture and engineering judgment. While AI is transforming how quickly software can be written, he believes that decisions around architecture, modularity, scalability, security, performance, and long-term maintainability are becoming even more important. His work explores how developers and architects can combine AI-assisted development with sound engineering principles to build systems that remain structured, understandable, and resilient as they evolve.\n\nBeyond his professional work, Vikas leads the Java User Group Gujarat (Gujarat JUG), where he actively contributes to the developer ecosystem through technical meetups, conferences, and knowledge-sharing initiatives.\n\nAs a speaker, he enjoys sharing practical experiences around Java, modern software architecture, AI-assisted engineering, scalability, and the lessons learned when architectural ideas meet the realities of production.",
+      "photo": "https://cdn.sessionize.com/image/3f6e-200o200o2-7MQ1qqEzdzpYcetBXXu8fF.png",
+      "sessionIds": [
+        "1351496"
+      ]
+    }
+  ]
+}

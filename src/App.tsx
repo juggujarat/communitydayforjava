@@ -13,14 +13,12 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Manifesto from './components/Manifesto'
 import Venue from './components/Venue'
-import CommunitySupporter from './components/CommunitySupporter'
 import Agenda from './components/Agenda'
 import WhyImpact from './components/WhyImpact'
 import Gallery from './components/Gallery'
 import Speakers from './components/Speakers'
 import SponsorsWall from './components/SponsorsWall'
-import VenuePartner from './components/VenuePartner'
-import CommunityContributor from './components/CommunityContributor'
+import CommunitySupporter from './components/CommunitySupporter'
 import Sponsor from './components/Sponsor'
 import Partners from './components/Partners'
 import CommunityPartners from './components/CommunityPartners'
@@ -52,9 +50,7 @@ export default function App() {
         <BrickDivider id="speakers-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <Speakers />
         <SponsorsWall />
-        <VenuePartner />
         <CommunitySupporter />
-        <CommunityContributor />
         <BrickDivider id="sponsor-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <Sponsor />
         <Partners />
