@@ -41,6 +41,11 @@
     #cdj-nav > div{ gap:12px!important; }
     #cdj-nav [data-cta="1"]{ font-size:11px!important; letter-spacing:.5px!important; padding:9px 15px!important; white-space:nowrap!important; box-shadow:0 4px 14px rgba(255,56,75,.32)!important; }
   }
+  @media (max-width:700px){
+    #speaker-page main > div > section:first-of-type{ grid-template-columns:1fr!important; gap:28px!important; }
+    #speaker-page main > div > section:first-of-type > div:first-child{ max-width:360px; margin:0 auto; }
+    #speaker-page main > div > section:not(:first-of-type){ padding:24px!important; }
+  }
   /* CFP tracks run 4-across on wide screens; step down before the cards get too narrow */
   @media (max-width:1100px){
     #cfp-tracks{ grid-template-columns:repeat(2,minmax(0,1fr))!important; }
@@ -53,6 +58,7 @@
     #dc-root nav img{ height:46px!important; }
     /* Nav logo shrinks to 46px here, so the CFP/Tickets pages' spacer for the fixed nav shrinks too */
     #cfp-page{ padding-top:86px!important; }
+    #speaker-page{ padding-top:86px!important; }
     #tickets-page{ padding-top:86px!important; }
     #dc-root section{ padding-left:18px!important; padding-right:18px!important; }
     #dc-root footer{ padding-left:18px!important; padding-right:18px!important; }
