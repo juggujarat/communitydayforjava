@@ -18,6 +18,8 @@ export default defineConfig({
         dhavalSpeaker: 'speakers/dhaval-shah/index.html',
         raviSpeaker: 'speakers/ravi-soni/index.html',
         nikhileshSpeaker: 'speakers/nikhilesh-tayal/index.html',
+        dhavalDesaiSpeaker: 'speakers/dhaval-desai/index.html',
+        vikasSpeaker: 'speakers/vikas-rajput/index.html',
         badgeTeam: '3d31280d-b523-4db7-a5b2-8cfda001b544/index.html',
         tickets: 'tickets.html',
       },

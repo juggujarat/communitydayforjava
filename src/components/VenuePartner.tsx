@@ -1,5 +1,3 @@
-import PartnerTag from './PartnerTag'
-
 /** Venue sponsor — the host institution (#venue-partner). */
 export default function VenuePartner() {
   return (
@@ -11,7 +9,6 @@ export default function VenuePartner() {
           <p style={{ margin: '16px auto 0', maxWidth: '720px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>Hosting us at the Centre For Professional Courses Department, Gujarat University.</p>
         </div>
         <div data-reveal data-reveal-d="80" style={{ maxWidth: '260px', margin: '0 auto' }}>
-          <PartnerTag>VENUE SPONSOR</PartnerTag>
           <a
             href="https://gucpc.in/"
             target="_blank"
