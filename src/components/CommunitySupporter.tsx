@@ -1,4 +1,5 @@
 import { SocialLink } from '../lib/icons'
+import PartnerTag from './PartnerTag'
 
 /** Community supporter profile shown below the venue section. */
 export default function CommunitySupporter() {
@@ -6,9 +7,7 @@ export default function CommunitySupporter() {
     <section id="community-supporter" style={{ position: 'relative', padding: '40px 40px 56px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '24px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>
-            Community <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>supporter</span>
-          </h2>
+          <PartnerTag>COMMUNITY SUPPORTER</PartnerTag>
         </div>
         <div data-reveal data-reveal-d="80" style={{ maxWidth: '220px', margin: '0 auto', textAlign: 'left' }}>
           <div style={{ aspectRatio: '1', marginBottom: '14px', borderRadius: '22px', overflow: 'hidden', background: '#fff', boxShadow: '0 16px 34px rgba(14,22,103,.12)', position: 'relative' }}>

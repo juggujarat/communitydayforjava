@@ -1,3 +1,5 @@
+import PartnerTag from './PartnerTag'
+
 const PATRONS: { name: string; logo: string; href: string; scale?: number }[] = [
   { name: 'JobRunr', logo: '/assets/jobrunner%20community%20contributor.jfif', href: 'https://www.jobrunr.io/en/', scale: 1.4 },
   { name: 'Techxplore', logo: '/assets/techxplore%20logo.png', href: 'https://www.techxplore.io/', scale: 0.78 },
@@ -9,9 +11,7 @@ export default function CommunityContributor() {
     <section id="community-contributor" style={{ position: 'relative', padding: '40px 40px 72px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '36px' }}>
-          <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>
-            Community <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>Patreon</span>
-          </h2>
+          <PartnerTag>COMMUNITY PATREON</PartnerTag>
         </div>
         <div data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 220px))', justifyContent: 'center', gap: '14px' }}>
           {PATRONS.map((patron) => (
