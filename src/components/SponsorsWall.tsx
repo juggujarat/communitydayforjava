@@ -42,7 +42,7 @@ export default function SponsorsWall() {
           <div style={{ marginBottom: '40px' }}>
             <div style={{ display: 'flex', width: 'fit-content', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', margin: '0 auto 18px' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#FEC400' }} />PLATINUM</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'min(100%, 460px)', justifyContent: 'center', gap: '16px' }}>
-              <Slot id="cdj-sp-1" label="Platinum logo" height={170} padding={28} img="/assets/jetbrains-logo.svg" alt="JetBrains" href="https://www.jetbrains.com/idea/" />
+              <Slot id="cdj-sp-1" label="Platinum logo" height={170} padding={28} img="/assets/jetbrains-logo.svg" alt="JetBrains" href="https://www.jetbrains.com/" />
             </div>
           </div>
           <div>

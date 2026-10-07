@@ -18,11 +18,11 @@ const VOLUNTEERS: Volunteer[] = [
   { name: 'Malhar Gupte', role: 'AI Data Engineer', org: 'ProductSquads', img: A['4bbd6e58-8d6f-4db9-8a4c-9827262260fd'], bg: '#02CF70', pos: '50% 8%', socials: [li('Malhar Gupte', 'https://www.linkedin.com/in/malhargupte/')] },
   { name: 'Harshvardhan Parmar', role: "LFX'25 Mentee", org: 'Microcks', img: A['0b80d07f-cdc9-45ab-a226-7bfd34ce3991'], bg: '#FEC400', pos: '50% 14%', socials: [li('Harshvardhan Parmar', 'https://www.linkedin.com/in/harshvardhan-parmar')] },
   // was: socials: [] — LinkedIn icon added for alignment; replace '#' with the real profile URL
-  { name: 'Deep Shah', role: 'Java FullStack Developer', org: 'Techxplore', img: '/assets/deep-shah-photo.png', bg: '#FF384B', pos: '50% 12%', socials: [li('Deep Shah', 'https://www.linkedin.com/in/deepshah-java-developer'), ig('Deep Shah', 'https://www.instagram.com/ishahdeep')] },
+  { name: 'Deep Shah', role: 'Java FullStack Developer', org: 'Techxplore', img: '/assets/deep-shah-photo.png', bg: '#FF384B', pos: '50% 12%', socials: [li('Deep Shah', 'https://www.linkedin.com/in/deepshah-java-developer'), ig('Deep Shah', 'https://www.instagram.com/iamdeepshah16')] },
   { name: 'Divyesh Prajapati', role: 'Java Technical Lead', org: 'Tata Consultancy Services', img: '/assets/divyesh-prajapati.webp', bg: '#0D5CDB', pos: '50% 0%', scale: 1.8, origin: 'center top', socials: [li('Divyesh Prajapati', 'https://www.linkedin.com/in/divyeshprajapati1010/')] },
   { name: 'Tanvir Dhanani', role: 'Backend Developer', org: 'IBM', img: '/assets/dhanani-tanvir.webp', bg: '#02CF70', pos: '50% 22%', scale: 1.9, origin: 'center center', socials: [li('Dhanani Tanvir', 'https://www.linkedin.com/in/tanvirdhanani')] },
   { name: 'Harshit Gajjar', role: 'Content Creator', org: 'Freelancer', img: '/assets/harshit-gajjar.webp', bg: '#FEC400', pos: '50% 50%', socials: [li('Harshit Gajjar', 'https://www.linkedin.com/in/harshit-gajjar-79b51a296/')] },
-  { name: 'Ashish Vaghela', role: 'Frontend Developer', org: 'Nelkinda Software Craft', img: '/assets/volunteer-ashish-vaghela-brand.jpg', bg: '#FF384B', pos: '50% 14%', socials: [li('Ashish Vaghela', 'https://linkedin.com/in/ashish-codejourney')] },
+  { name: 'Ashish Vaghela', role: 'Frontend Developer', org: 'Nelkinda Software Craft', img: '/assets/volunteer-ashish-vaghela-brand.jpg', bg: '#FF384B', pos: '50% 14%', socials: [li('Ashish Vaghela', 'https://linkedin.com/in/ashish-codejourney'), ig('Ashish Vaghela', 'https://www.instagram.com/heyyy_ashish/')] },
   { name: 'Romin Kevadiya', role: 'Student', org: 'LJIET', img: '/assets/volunteer-romin-kevadiya-brand.jpg', bg: '#0D5CDB', pos: '50% 14%', socials: [li('Romin Kevadiya', 'https://linkedin.com/in/rominkevadiya')] },
   { name: 'Margi Shah', role: 'Java Developer', org: 'IBM', img: '/assets/volunteer-margi-shah-brand.jpg', bg: '#02CF70', pos: '50% 14%', socials: [li('Margi Shah', 'https://www.linkedin.com/in/margi212')] },
   { name: 'Ankit Dabhi', role: 'Frontend Developer', org: 'Prama.ai', img: '/assets/volunteer-ankit-dabhi-brand.jpg', bg: '#FEC400', pos: '50% 14%', zoom: true, socials: [li('Ankit Dabhi', 'https://www.linkedin.com/in/theankitdabhi')] },
@@ -58,9 +58,9 @@ export default function Volunteers() {
             <div key={i} style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ aspectRatio: '1', margin: '0 auto 16px', width: '100%', borderRadius: '22px', overflow: 'hidden', background: v.bg, boxShadow: '0 16px 34px rgba(0,0,0,.34)', position: 'relative' }}>
                 <img src={v.img} alt={v.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: v.pos, display: 'block', ...((v.scale ?? (v.zoom ? 1.45 : 1)) !== 1 ? { transform: `scale(${v.scale ?? 1.45})`, transformOrigin: v.origin ?? 'center top' } : {}) }} />
-                {v.socials.find((s) => s.type === 'linkedin') && (
-                  <div style={{ position: 'absolute', left: '12px', bottom: '12px', zIndex: 2 }}>
-                    <SocialLink social={v.socials.find((s) => s.type === 'linkedin')!} variant="dark" />
+                {v.socials.some((s) => s.type === 'linkedin' || s.type === 'instagram') && (
+                  <div style={{ position: 'absolute', left: '12px', bottom: '12px', zIndex: 2, display: 'flex', gap: '8px' }}>
+                    {v.socials.filter((s) => s.type === 'linkedin' || s.type === 'instagram').map((social) => <SocialLink key={social.type} social={social} variant="dark" />)}
                   </div>
                 )}
               </div>

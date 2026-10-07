@@ -1,12 +1,12 @@
 import { A } from '../lib/assets'
 import { SocialLink, type Social } from '../lib/icons'
 
-interface Organizer { name: string; role: string; org: string; img: string; grad: string; linkedin?: string }
+interface Organizer { name: string; role: string; org: string; orgHref?: string; img: string; grad: string; linkedin?: string }
 
 const ORGANIZERS: Organizer[] = [
-  { name: 'Dhaval Gajjar', role: 'System Architect', org: 'Staunchsys IT Services', img: A['6966fdb6-41ad-44ae-a9ac-c106a39f43c8'], grad: 'linear-gradient(160deg,#FF384B,#c42233)', linkedin: 'https://www.linkedin.com/in/dhavalgajjarin/' },
-  { name: 'Vikas Rajput', role: 'Founder', org: 'TechXplore', img: A['c7e0ec15-621a-484b-994f-e4f1f100b8a5'], grad: 'linear-gradient(160deg,#0D5CDB,#0a47a8)', linkedin: 'https://linkedin.com/in/vikasrajputin' },
-  { name: 'Bharat Ranpariya', role: 'Engineering Manager', org: 'DataOrb', img: A['13a9f265-6945-4618-bbdc-b6a3b040e3c8'], grad: 'linear-gradient(160deg,#02CF70,#0a8f4f)', linkedin: 'https://www.linkedin.com/in/bharat-ranpariya/' },
+  { name: 'Dhaval Gajjar', role: 'System Architect', org: 'Staunchsys IT Services', orgHref: 'https://www.staunchsys.com/', img: A['6966fdb6-41ad-44ae-a9ac-c106a39f43c8'], grad: 'linear-gradient(160deg,#FF384B,#c42233)', linkedin: 'https://www.linkedin.com/in/dhavalgajjarin/' },
+  { name: 'Vikas Rajput', role: 'Founder', org: 'TechXplore', orgHref: 'https://www.techxplore.io/', img: A['c7e0ec15-621a-484b-994f-e4f1f100b8a5'], grad: 'linear-gradient(160deg,#0D5CDB,#0a47a8)', linkedin: 'https://linkedin.com/in/vikasrajputin' },
+  { name: 'Bharat Ranpariya', role: 'Engineering Manager', org: 'DataOrb', orgHref: 'https://www.dataorb.ai/', img: A['13a9f265-6945-4618-bbdc-b6a3b040e3c8'], grad: 'linear-gradient(160deg,#02CF70,#0a8f4f)', linkedin: 'https://www.linkedin.com/in/bharat-ranpariya/' },
 ]
 
 const socials = (o: Organizer): Social[] => [
@@ -39,7 +39,7 @@ export default function Organizers() {
               <div style={{ padding: '24px 24px 28px', textAlign: 'left', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '22px', color: '#0E1667' }}>{o.name}</div>
                 <div style={{ fontSize: '14px', color: '#FF384B', fontWeight: 700, marginTop: '6px' }}>{o.role}</div>
-                <div style={{ fontSize: '13px', color: '#6b73a8', marginTop: '4px' }}>{o.org}</div>
+                <div style={{ fontSize: '13px', color: '#6b73a8', marginTop: '4px' }}>{o.orgHref ? <a href={o.orgHref} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{o.org}</a> : o.org}</div>
               </div>
             </div>
           ))}
