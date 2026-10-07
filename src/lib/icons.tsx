@@ -52,8 +52,7 @@ export interface Social {
 }
 
 /** Round social chip. `variant` sets the resting colors (dark cards vs light cards). */
-export function SocialLink({ social, variant = 'dark' }: { social: Social; variant?: 'dark' | 'light' }) {
-  const dark = variant === 'dark'
+export function SocialLink({ social }: { social: Social; variant?: 'dark' | 'light' }) {
   return (
     <a
       href={social.href}
@@ -62,8 +61,8 @@ export function SocialLink({ social, variant = 'dark' }: { social: Social; varia
       aria-label={social.label}
       style={{
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 32, height: 32,
-        borderRadius: '50%', background: dark ? 'rgba(255,255,255,.08)' : 'rgba(14,22,103,.06)',
-        color: dark ? '#cdd3f0' : '#5a628f', textDecoration: 'none',
+        borderRadius: '50%', background: '#0E1667', border: '1px solid rgba(255,255,255,.7)',
+        color: '#fff', textDecoration: 'none', boxShadow: '0 3px 10px rgba(0,0,0,.3)',
         transition: 'background .25s ease, color .25s ease, transform .25s ease',
       }}
       onMouseEnter={h.socOn}

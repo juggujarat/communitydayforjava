@@ -1,4 +1,5 @@
 import LogoCard, { type Logo } from './LogoCard'
+import PartnerTag from './PartnerTag'
 
 const COMMUNITIES: Logo[] = [
   { img: '/assets/aws%20guj.png', alt: 'Ahmedabad Amazon AWS Cloud Meetup', href: 'https://www.meetup.com/ahmedabad-amazon-aws-cloud-meetup/', dur: 4.6, delay: '0s', padding: 24, height: 130 },
@@ -19,6 +20,7 @@ export default function CommunityPartners() {
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Community <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#02CF70' }}>partners</span></h2>
           <p style={{ margin: '16px auto 0', maxWidth: '720px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>Tech communities across Gujarat joining hands to power the day.</p>
         </div>
+        <PartnerTag>COMMUNITY PARTNERS</PartnerTag>
         <div data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px, 220px))', justifyContent: 'center', gap: '14px' }}>
           {COMMUNITIES.map((l, i) => <LogoCard key={i} {...l} />)}
         </div>
