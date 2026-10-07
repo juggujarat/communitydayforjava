@@ -97,8 +97,8 @@ export default function Agenda() {
               }}
             >
               {/* Icon bubble — SVG masked so it takes the track accent colour */}
-              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-                <div style={{
+              <div data-track-header="1" style={{ display: 'grid', gridTemplateColumns: '56px max-content', alignItems: 'center', columnGap: '16px' }}>
+                <div data-track-label="1" style={{
                   width: '56px', height: '56px', borderRadius: '16px', flex: 'none',
                   background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
@@ -113,7 +113,7 @@ export default function Agenda() {
                 <div style={{
                   display: 'inline-block', padding: '5px 14px', borderRadius: '30px',
                   background: t.bg, color: t.accent, fontWeight: 800, fontSize: '11px', letterSpacing: '2px',
-                  textTransform: 'uppercase', width: 'fit-content',
+                  textTransform: 'uppercase', width: 'fit-content', whiteSpace: 'nowrap',
                 }}>
                   {t.label}
                 </div>
