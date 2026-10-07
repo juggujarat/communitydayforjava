@@ -32,8 +32,8 @@ function NikhileshSpeakerPage() {
               <div data-reveal>
                 <div style={{ marginBottom: '12px', color: '#FEC400', fontSize: '14px', fontWeight: 800, letterSpacing: '2px' }}>COMMUNITY DAY FOR JAVA 2026 SPEAKER</div>
                 <h1 style={{ margin: '0 0 14px', fontSize: 'clamp(34px,5vw,58px)', lineHeight: 1.05, color: '#fff' }}>Nikhilesh Tayal</h1>
-                <p style={{ margin: '0 0 20px', color: '#c4caf0', fontSize: '20px', fontWeight: 600 }}>Google Developer Expert for AI</p>
-                <p style={{ margin: '0 0 26px', color: '#d8dcf5', fontSize: '17px', lineHeight: 1.7 }}>Founder of AI ML etc., an educational platform helping senior IT professionals learn AI.</p>
+                <p style={{ margin: '0 0 20px', color: '#c4caf0', fontSize: '20px', fontWeight: 600 }}>Founder &amp; Teacher at AI ML etc.</p>
+                <p style={{ margin: '0 0 26px', color: '#d8dcf5', fontSize: '17px', lineHeight: 1.7 }}>Google Developer Expert in AI, IIT Kharagpur alumnus, and founder of an AI-enabled educational platform for senior IT professionals.</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                   {['Artificial Intelligence', 'AI education', '70+ speaking assignments'].map((topic) => <span key={topic} style={{ padding: '9px 14px', border: '1px solid rgba(254,196,0,.42)', borderRadius: '30px', background: 'rgba(254,196,0,.1)', color: '#ffe27a', fontSize: '14px', fontWeight: 600 }}>{topic}</span>)}
                 </div>
