@@ -42,8 +42,8 @@ export const h = {
   },
   socOff: (e: ME) => {
     const t = el(e)
-    t.style.background = 'rgba(255,255,255,.08)'
-    t.style.color = '#cdd3f0'
+    t.style.background = '#0E1667'
+    t.style.color = '#fff'
     t.style.transform = 'none'
   },
   cardOn: (e: ME) => {
