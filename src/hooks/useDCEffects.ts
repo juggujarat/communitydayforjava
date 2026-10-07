@@ -63,17 +63,6 @@ export function useDCEffects() {
         const r = el.getBoundingClientRect()
         if (r.top < vh * 0.85 && r.bottom > 0) animateCount(el)
       })
-      const nav = document.getElementById('cdj-nav')
-      const y = window.scrollY || window.pageYOffset
-      if (nav) {
-        if (y > 40) {
-          nav.style.background = 'rgba(13,19,70,.88)'; nav.style.backdropFilter = 'blur(12px)'
-          nav.style.boxShadow = '0 8px 30px rgba(0,0,0,.28)'; nav.style.padding = '12px 40px'
-        } else {
-          nav.style.background = 'transparent'; nav.style.backdropFilter = 'none'
-          nav.style.boxShadow = 'none'; nav.style.padding = '18px 40px'
-        }
-      }
       document.querySelectorAll<HTMLElement>('[data-zoom]').forEach((wrap) => {
         const img = wrap.querySelector('img') as HTMLElement | null
         if (!img) return
@@ -106,7 +95,7 @@ export function useDCEffects() {
 
     const setNav = () => {
       const links = document.getElementById('cdj-nav-links')
-      if (links) links.style.display = window.innerWidth > 880 ? 'flex' : 'none'
+      if (links) links.style.display = window.innerWidth > 1040 ? 'flex' : 'none'
     }
 
     let lightboxInit = false

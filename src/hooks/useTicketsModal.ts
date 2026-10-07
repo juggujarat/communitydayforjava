@@ -69,5 +69,6 @@ export function useTicketsOpen() {
       return () => listeners.delete(cb)
     },
     () => open,
+    () => false, // server snapshot: the popup is never open in prerendered HTML
   )
 }

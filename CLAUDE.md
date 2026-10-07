@@ -93,14 +93,92 @@ the exported PNG is identical across browsers. Notes for changing it:
   `components/CFP.tsx` — update both together. The event date is intentionally left off
   the badge while it is tentative.
 
+## Programme pages (agenda + speakers) — generated, prerendered
+
+`/agenda/`, `/agenda/<session>/`, `/speakers/` and `/speakers/<speaker>/` are **generated
+from data**, not hand-written entries. The sessions are the sales pitch (the speakers are
+not household names), so every card leads with the *outcome* the attendee takes away, the
+real talk title second, and the speaker as a small supporting line.
+
+- **Data:** `scripts/sync-sessionize.mjs` (`npm run sync:sessionize`) pulls Sessionize
+  event `8gzqf0q3` into the committed snapshot `src/data/sessionize.json`. That endpoint is
+  an *embed* (HTML), so the script parses markup and fails loudly if it changes. The build
+  never calls Sessionize — it reads the snapshot. Sessionize has **no day/format/category
+  data**, so `src/data/program.ts` layers that on: `SESSION_EXTRAS` (keyed by Sessionize
+  session id: day, kind, outcome headline, takeaways, audience, tags, slug) and
+  `SPEAKER_EXTRAS` (curated bio, links, cutout image/bg). A session with no
+  `SESSION_EXTRAS` entry throws at build — add one when a session appears in Sessionize.
+- **Two days, one system:** `DAYS` in `program.ts` — Workshop (17 Oct, green `#02CF70`,
+  "Build") and Conference (24 Oct, red `#FF384B`, "Learn"). `DayChip` / `SessionCard` /
+  `DayLegend` / `TicketBand` in `components/program/parts.tsx` are the only places a day
+  is styled; never add a third colour per day. Ticket copy there references the "Regular +
+  Workshop Pass" (see `TICKET_PLANS`) — keep in step if KonfHub tiers change.
+- **Timetable + venue:** `SCHEDULE` in `program.ts` is the rough running order per day (24h
+  `HH:MM`, IST; the conference has a 5-min changeover between 30-min sessions; `tbc` slots render
+  as "To be announced" — the keynote and Sessions 6–8 are unassigned). `VENUE` holds each day's venue: the two days are at **different venues** — workshop at smartSense,
+  GIFT One, GIFT City, Gandhinagar (venue partner logo `public/assets/smartsense-logo.svg`), conference at
+  the Gujarat University Centre for Professional Courses, Ahmedabad. Each entry carries the venue partner
+  (logo + site) and Google Maps links built from a text query; the agenda page shows both days up front
+  with a `VenueCard` (partner logo, address, map buttons, embedded map) under each day header. Never
+  assume "Ahmedabad" for a workshop page — use `VENUE[day].city` / `.short`. A session's page, cards and JSON-LD times all come from its `SCHEDULE` slot
+  via `slotOf()`. The agenda page's ticket cards render `TICKET_PLANS` verbatim, so don't
+  hand-copy inclusions there.
+- **Speaker line-up:** `LINEUP` in `program.ts` drives both the home "Meet the speakers" grid and
+  `/speakers/`: conference speakers in running order, then the workshop's, then every unconfirmed slot
+  last as a "revealed soon" placeholder (`components/program/Mystery.tsx`: blurred silhouette + light
+  sweep, shimmering name bars). Confirming a slot (adding its session) promotes it automatically.
+- **Sponsors:** `SponsorsWall` (#sponsors-wall, the nav's "Sponsor" target) is ONE side-by-side grid, two rows of
+  two with mirrored widths so it stays symmetric: Platinum (wider, biggest logo) | Gold, then Venue Sponsor |
+  Community Patreon (smaller logos), each with a colour-coded label and top edge. It collapses to a single
+  column below 900px (`#sponsor-tiers` + `data-tier` in `global.css`), keeping the size steps. **Community
+  Supporter is NOT a sponsorship** (an individual's contribution), so it is its own section,
+  `CommunitySupporter.tsx`, right below. Keep new sponsors in the right tier.
+- **Routes/SEO:** `src/data/routes.ts` builds title/description/canonical/OG/JSON-LD
+  (`EducationEvent` per session, `ProfilePage`/`Person` per speaker, breadcrumbs) and the
+  sitemap, from the same data. `src/routes.tsx` maps path → page (`src/pages/*`).
+  Everything shares one entry: `page.html` → `src/page.tsx`.
+- **Build:** `npm run build` = typecheck → `vite build` → `vite build --ssr
+  src/prerender.tsx` → `scripts/prerender.mjs`, which stamps the built `dist/page.html`
+  into `dist/<route>/index.html` with real `<head>` tags and server-rendered body (so
+  LinkedIn/WhatsApp/X previews and non-JS crawlers see content), writes `dist/sitemap.xml`
+  (there is no `public/sitemap.xml` any more) and deletes the template. The client then
+  mounts over it with `createRoot`. Dev serves the same routes via the
+  `programmePages` plugin in `vite.config.ts` (client-rendered, no SSR).
+- **SSR rules for these pages:** no `window`/`document` at render time, no module asset
+  imports (use `/assets/...` public paths or inline SVG), no `<section>`/`<nav>` elements
+  (`global.css` styles `#dc-root section|nav` globally — use `div`/`role="navigation"`),
+  and avoid grid strings matched by the `[style*="minmax(180|220|260|320px, 1fr)"]`
+  mobile rules (use `minmax(min(100%, Npx), 1fr)`).
+- The old per-speaker entry files (`speakers/*/index.html`, `src/*-speaker.tsx`) are gone;
+  speaker URLs are unchanged. The home `Agenda`/`Speakers` sections are glances that link
+  into these pages. Nav "Agenda"/"Speakers" go to `/agenda/` and `/speakers/`.
+
+## Navigation (floating glass nav)
+
+`components/Nav.tsx` is one element (`#cdj-nav-pill`, inside a click-through fixed wrapper
+`#cdj-nav`) that morphs between two states on scroll (>40px, tracked in Nav itself; both carry
+`data-scrolled` and `global.css` keys the mobile overrides off it):
+
+- **Top of page:** the original look — full-width, transparent, 74px logo, plain links
+  (yellow on hover), red Register CTA.
+- **Scrolled:** a centred frosted-glass pill (backdrop blur, red/yellow blobs drifting behind the
+  glass, a highlight that slides to the hovered link and rests on the current page's link via
+  `activeKey`). Every property transitions, so the change is smooth.
+
+`useDCEffects` only toggles `#cdj-nav-links` by viewport width — it shows them above **1040px**
+(the burger rule in `global.css` uses the same breakpoint; change both together). The mobile
+menu panel and `#cdj-sticky-cta` are unchanged. Fixed-nav spacers (`#program-page`,
+`#cfp-page`, hero) assume the ~110px top-state bar.
+
 ## Commands
 
 ```bash
-npm install        # first-time setup
-npm run dev        # Vite dev server (hot reload) — primary local workflow
-npm run build      # tsc --noEmit (typecheck) then vite build -> dist/
-npm run preview    # serve the production build from dist/
-npm run typecheck  # tsc --noEmit only
+npm install            # first-time setup
+npm run dev            # Vite dev server (hot reload) — primary local workflow
+npm run build          # typecheck, vite build, SSR build, prerender -> dist/
+npm run preview        # serve the production build from dist/
+npm run typecheck      # tsc --noEmit only
+npm run sync:sessionize  # refresh src/data/sessionize.json from Sessionize
 ```
 
 There is no test suite and no linter. TypeScript is `strict` with `noUnusedLocals` /
