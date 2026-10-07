@@ -227,8 +227,10 @@
     /* Agenda track cards: same info as desktop but at 1/3 the padding + icon
        size, so a card doesn't take most of the viewport height on mobile */
     #agenda-tracks > div{ padding:22px 20px!important; gap:12px!important; }
-    #agenda-tracks > div > div:first-child{ width:44px!important; height:44px!important; border-radius:12px!important; }
-    #agenda-tracks > div > div:first-child > span{ width:22px!important; height:22px!important; }
+    #agenda-tracks [data-track-header]{ grid-template-columns:44px minmax(0,1fr)!important; column-gap:12px!important; }
+    #agenda-tracks [data-track-header] > div:first-child{ width:44px!important; height:44px!important; border-radius:12px!important; }
+    #agenda-tracks [data-track-header] > div:first-child > span{ width:22px!important; height:22px!important; }
+    #agenda-tracks [data-track-label]{ font-size:10px!important; letter-spacing:.8px!important; padding:5px 10px!important; }
     /* Gallery: uniform 2-up grid instead of the masonry "big" tile towering
        over the rest — consistent card sizes on small screens */
     #gallery-grid{ grid-template-columns:repeat(2,1fr)!important; grid-auto-rows:150px!important; }
