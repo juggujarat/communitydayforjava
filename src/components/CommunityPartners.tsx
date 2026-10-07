@@ -4,6 +4,9 @@ const COMMUNITIES: Logo[] = [
   { img: '/assets/aws%20guj.png', alt: 'Ahmedabad Amazon AWS Cloud Meetup', href: 'https://www.meetup.com/ahmedabad-amazon-aws-cloud-meetup/', dur: 4.6, delay: '0s', padding: 24, height: 130 },
   { img: '/assets/devconf-in.svg', alt: 'DevConf India', href: 'https://www.devconf.info/in/', dur: 4.8, delay: '-0.7s', padding: 8, height: 130 },
   { img: '/assets/binary-brains-transparent.png', alt: 'Binary Brains', href: 'https://www.instagram.com/binarybrains23?igsi=OWptbGNsMXNqaDNo', dur: 5, delay: '-1.2s', padding: 16, height: 130, zoom: 1.7 },
+  { img: '/assets/gujarat%20it%20jobs.jpeg', alt: 'Gujarat IT Jobs', href: 'https://chat.whatsapp.com/FxGJQD5vR4xDSFPLEqq8dQ', dur: 4.7, delay: '-1.8s', padding: 16, height: 130 },
+  { img: '/assets/AWS%20Student%20Builder%20Group_RGB_Program%20Icon_White%20-%20AWS%20CLOUDCLUB.png', alt: 'AWS Student Builder Group at Parul University', href: 'https://www.linkedin.com/company/aws-student-builder-group-parul-university/?viewAsMember=true', dur: 4.9, delay: '-2.4s', padding: 16, height: 130, bg: '#fff' },
+  { img: '/assets/OSW.jpeg', alt: 'Open Source Weekend', href: 'https://opensourceweekend.org/', dur: 4.5, delay: '-3s', padding: 16, height: 130 },
 ]
 
 /** Community partners — tech communities across Gujarat (#community-partners). */
