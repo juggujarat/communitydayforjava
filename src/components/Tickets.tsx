@@ -84,6 +84,7 @@ export default function Tickets() {
         <div data-reveal style={{ maxWidth: '1140px', margin: '0 auto 36px', textAlign: 'center' }}>
           <div style={eyebrowStyle}>Choose Your Pass</div>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(26px,3.6vw,40px)', letterSpacing: '-1px' }}>Ticket Details</h2>
+          <p style={{ margin: '12px auto 0', maxWidth: '620px', fontSize: '15px', lineHeight: 1.65, color: '#5a6299' }}>Each pass includes everything in the pass before it, so you only pick what you want to add.</p>
         </div>
         <div id="tickets-plans-grid" style={{ maxWidth: '1140px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '24px', alignItems: 'stretch' }}>
           {TICKET_PLANS.map((plan, i) => (
@@ -99,6 +100,9 @@ export default function Tickets() {
                 {plan.intro.map((p) => <p key={p} style={{ margin: 0, fontSize: '14px', lineHeight: 1.65, color: '#42498a' }}>{p}</p>)}
               </div>
               <div style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '.6px', textTransform: 'uppercase', color: '#0D5CDB', marginBottom: '12px' }}>What's Included</div>
+              {'includesFrom' in plan && (
+                <div style={{ marginBottom: '10px', fontSize: '14px', fontWeight: 800, color: '#0E1667' }}>✅ Everything in the {plan.includesFrom}, plus:</div>
+              )}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '20px' }}>
                 {plan.included.map((item) => <div key={item} style={{ fontSize: '14px', lineHeight: 1.5, color: '#42498a' }}>{item}</div>)}
               </div>

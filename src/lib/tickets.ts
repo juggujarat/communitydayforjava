@@ -56,6 +56,9 @@ export const KONFHUB_TICKET_IDS = [
  * inclusions change.
  */
 export const TICKET_PLANS = [
+  // NOTE: the tiers are cumulative. A plan with `includesFrom` gets everything in that pass
+  // and `included` lists only what it ADDS; every display renders "Everything in <pass>, plus:"
+  // above that list. Keep new tiers in this style or the copy contradicts itself.
   {
     label: 'Basic Ticket',
     price: '₹299',
@@ -81,13 +84,11 @@ export const TICKET_PLANS = [
       'Your ticket to the complete Community Day for Java 2026 experience.',
       "Spend the day learning from insightful Java talks, connecting with fellow developers and industry professionals, and being part of Gujarat's growing Java community.",
     ],
+    includesFrom: 'Basic Ticket',
     included: [
-      '🎤 Access to all regular conference talks and sessions',
-      '🤝 Networking with Java developers, architects, students, and industry professionals',
       '🎁 Exclusive Community Day for Java goodies',
-      '☕ Community interactions and networking',
-      '📸 A full day of learning, conversations, and community',
     ],
+    excluded: ['Hands-on Workshop'],
     perfectFor: 'Anyone who wants to experience the conference, learn from the speakers, and connect with the Java community.',
     availableTill: '23rd Oct 2026, 06:00 PM (GMT+05:30)',
   },
@@ -100,13 +101,9 @@ export const TICKET_PLANS = [
       'Go beyond the talks. Learn by doing.',
       'Get the complete Community Day for Java 2026 experience plus access to an exclusive hands-on workshop designed to take your learning a step further.',
     ],
+    includesFrom: 'Regular Pass',
     included: [
-      '🛠️ Access to the exclusive hands-on workshop',
-      '🎤 Access to all regular conference talks and sessions',
-      '🤝 Networking with Java developers, architects, students, and industry professionals',
-      '🎁 Exclusive Community Day for Java goodies',
-      '☕ Community interactions and networking',
-      '📸 A full day of learning, hands-on experience, and community',
+      '🛠️ Access to the exclusive hands-on workshop on 17 Oct 2026',
     ],
     perfectFor: 'Developers and Java enthusiasts who want to go beyond the talks and gain practical, hands-on experience.',
     availableTill: '16th Oct 2026, 06:00 PM (GMT+05:30)',
@@ -115,16 +112,17 @@ export const TICKET_PLANS = [
     label: 'Community Supporter Pass',
     price: '₹5000',
     accent: '#FEC400',
+    tagline: 'Includes the hands-on workshop on 17 Oct 2026',
     intro: [
       'Support the Java community and help us create more opportunities for learning, networking, and knowledge sharing.',
       'This pass includes exclusive supporter benefits and recognition throughout the event.',
     ],
+    includesFrom: 'Regular + Workshop Pass',
     included: [
       '📢 Social media recognition',
       '⭐ VIP seating and networking experience',
       '🍽️ Special lunch with speakers and Java experts',
       '🎤 Recognition on stage',
-      '🎁 Exclusive goodies',
     ],
     perfectFor: 'Individuals and organizations who want to give back to the Java community and be recognized as a supporter.',
     availableTill: '23rd Oct 2026, 06:00 PM (GMT+05:30)',

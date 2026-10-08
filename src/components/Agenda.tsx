@@ -1,175 +1,80 @@
-import coffee from '../assets/icons/coffe.svg'
-import hammer from '../assets/icons/hammer.svg'
+import { DAYS, DAY_ORDER, SCHEDULE, SESSIONS, VENUE, sessionsOnDay, type DayId } from '../data/program'
+import { DayChip, DayIcon, SessionCard } from './program/parts'
+import TicketsCta from './TicketsCta'
 
-// import { h } from '../lib/handlers'
+/** Placeholder for a session slot whose speaker/topic isn't confirmed yet (same footprint as SessionCard). */
+function TbaCard({ day, title }: { day: DayId; title: string }) {
+  const d = DAYS[day]
+  return (
+    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '14px', height: '100%', minHeight: '190px', padding: '24px', borderRadius: '20px', overflow: 'hidden', background: `${d.accent}0f`, border: `1.5px dashed ${d.accent}99` }}>
+      <span aria-hidden="true" style={{ position: 'absolute', right: '-6px', bottom: '-18px', fontSize: '84px', fontWeight: 800, letterSpacing: '-3px', lineHeight: 1, textTransform: 'uppercase', color: d.accent, opacity: 0.07, pointerEvents: 'none', userSelect: 'none' }}>{d.verb}</span>
+      <div><DayChip day={day} kind={title.startsWith('Keynote') ? 'Keynote' : 'Session'} /></div>
+      <h3 style={{ margin: 0, fontSize: '20px', lineHeight: 1.28, fontWeight: 700, color: '#fff', letterSpacing: '-.2px', textTransform: 'none' }}>{title}</h3>
+      <p style={{ margin: 'auto 0 0', fontSize: '15px', fontWeight: 700, color: d.accent }}>To be announced soon</p>
+    </div>
+  )
+}
 
-// const BB = '1px solid rgba(14,22,103,.08)'
-// const BL = '1px solid rgba(14,22,103,.08)'
-
-// const TABS = [
-//   { tab: '-1', acc: '#0E1667', label: 'All tracks', active: true },
-//   { tab: '0', acc: '#FF384B', label: 'Core Java', active: false },
-//   { tab: '1', acc: '#0D5CDB', label: 'Enterprise & Cloud', active: false },
-//   { tab: '2', acc: '#02CF70', label: 'Workshops', active: false },
-// ]
-
-// type Row =
-//   | { time: string; span: { text: string; bg: string; color: string }; last?: boolean }
-//   | { time: string; cells: [string, string, string]; last?: boolean }
-
-// const ROWS: Row[] = [
-//   { time: '08:30 – 09:30', span: { text: 'Registration & Breakfast', bg: '#FAF6EC', color: '#0E1667' } },
-//   { time: '09:30 – 10:30', span: { text: 'Opening Keynote', bg: '#FF384B', color: '#fff' } },
-//   { time: '10:45 – 11:30', cells: ['To be announced', 'To be announced', 'Workshop lab'] },
-//   { time: '11:45 – 12:30', cells: ['To be announced', 'To be announced', 'Workshop lab'] },
-//   { time: '12:30 – 13:45', span: { text: 'Lunch & Networking', bg: '#FAF6EC', color: '#0E1667' } },
-//   { time: '13:45 – 14:30', cells: ['To be announced', 'To be announced', 'Workshop lab'] },
-//   { time: '14:45 – 15:30', cells: ['To be announced', 'To be announced', 'Workshop lab'] },
-//   { time: '15:30 – 16:00', span: { text: 'Tea & Networking Break', bg: '#FAF6EC', color: '#0E1667' } },
-//   { time: '16:00 – 16:45', cells: ['To be announced', 'To be announced', 'Workshop lab'] },
-//   { time: '17:00 – 17:45', span: { text: 'Closing Note & Community Photo', bg: '#0E1667', color: '#fff' }, last: true },
-// ]
-
-// const CELL_LABELS = ['Core Java', 'Enterprise & Cloud', 'Workshops']
-// const th = (color: string, ls: string, left: boolean): React.CSSProperties => ({
-//   textAlign: 'left', padding: '20px 26px', background: '#0E1667', color, fontSize: '15px',
-//   letterSpacing: ls, ...(left ? { borderLeft: '1px solid rgba(255,255,255,.12)' } : { width: '150px' }),
-// })
-
-/** Agenda overview with the event day main track and pre-event workshop (#agenda). */
+/**
+ * Home-page agenda strip (#agenda): the sessions, topic first. The workshop and the
+ * conference are different days at different venues, so they are shown as two separate
+ * groups — each with its own date + venue header — never mixed in one grid. A glance only:
+ * every card, and the links below, go to /agenda/. Card/day styling lives in
+ * components/program/parts.tsx so the home page and the standalone pages can't drift apart.
+ */
 export default function Agenda() {
-  const tracks = [
-    {
-      icon: coffee,
-      label: 'Event Day Sessions',
-      accent: '#FF384B',
-      bg: 'rgba(255,56,75,.08)',
-      border: 'rgba(255,56,75,.3)',
-      desc: 'Join all conference talks and sessions on event day, 24 Oct 2026. One shared track covers Java, enterprise development, and cloud.',
-    },
-    {
-      icon: hammer,
-      label: 'Pre-event Workshop',
-      accent: '#02CF70',
-      bg: 'rgba(2,207,112,.08)',
-      border: 'rgba(2,207,112,.3)',
-      desc: 'Take part in a separate hands-on workshop on 17 Oct 2026, one week before event day. Write real code, solve challenges, and build practical skills.',
-    },
-  ]
-
+  const sessions = { workshop: new Map(sessionsOnDay('workshop').map((s) => [s.id, s])), conference: new Map(sessionsOnDay('conference').map((s) => [s.id, s])) }
   return (
     <section id="agenda" style={{ position: 'relative', padding: '66px 40px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
-      <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto' }}>
-
-        {/* Heading */}
-        <div data-reveal style={{ textAlign: 'center', marginBottom: '60px' }}>
+      <div style={{ position: 'relative', zIndex: 3, maxWidth: '1180px', margin: '0 auto' }}>
+        <div data-reveal style={{ textAlign: 'center', marginBottom: '44px' }}>
           <h2 style={{ margin: 0, fontWeight: 700, fontSize: 'clamp(30px,4.8vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>
-            Main Track Sessions <span style={{ color: '#0D5CDB' }}>+ hands-on workshop</span>
+            What you'll <span style={{ color: '#FF384B' }}>take back</span> to your team
           </h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '900px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>
-            Explore the event day sessions on 24 Oct 2026 and join the hands-on workshop a week earlier, on 17 Oct 2026.
+          <p style={{ margin: '16px auto 0', maxWidth: '820px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>
+            {SESSIONS.length} sessions announced so far across two separate days at two different venues: a hands-on workshop and the main conference, with more to come.
           </p>
         </div>
 
-        {/* Track cards */}
-        <div id="agenda-tracks" data-reveal data-reveal-d="80" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-          {tracks.map((t) => (
-            <div
-              key={t.label}
-              style={{
-                padding: '36px 32px',
-                borderRadius: '24px',
-                background: '#fff',
-                border: `1.5px solid ${t.border}`,
-                boxShadow: '0 8px 32px rgba(14,22,103,.07)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '16px',
-                transition: 'transform .25s ease, box-shadow .25s ease',
-              }}
-              onMouseEnter={e => {
-                ;(e.currentTarget as HTMLDivElement).style.transform = 'translateY(-6px)'
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 16px 40px rgba(14,22,103,.13)'
-              }}
-              onMouseLeave={e => {
-                ;(e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 32px rgba(14,22,103,.07)'
-              }}
-            >
-              {/* Icon bubble — SVG masked so it takes the track accent colour */}
-              <div data-track-header="1" style={{ display: 'grid', gridTemplateColumns: '56px max-content', alignItems: 'center', columnGap: '16px' }}>
-                <div data-track-label="1" style={{
-                  width: '56px', height: '56px', borderRadius: '16px', flex: 'none',
-                  background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <span aria-hidden="true" style={{
-                    width: '30px', height: '30px', display: 'block', background: t.accent,
-                    WebkitMaskImage: `url(${t.icon})`, maskImage: `url(${t.icon})`,
-                    WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
-                    WebkitMaskPosition: 'center', maskPosition: 'center',
-                    WebkitMaskSize: 'contain', maskSize: 'contain',
-                  }} />
+        <div style={{ padding: 'clamp(18px,3vw,32px)', borderRadius: '30px', background: 'radial-gradient(120% 100% at 80% 0%,#1a2670,#0E1667 72%)', boxShadow: '0 24px 60px rgba(14,22,103,.25)' }}>
+          {DAY_ORDER.map((id, i) => {
+            const d = DAYS[id]
+            const v = VENUE[id]
+            return (
+              <div key={id} id={`agenda-${id}`} style={{ marginTop: i ? '44px' : 0, paddingTop: i ? '40px' : 0, borderTop: i ? '1px solid rgba(255,255,255,.14)' : 'none' }}>
+                {/* Day header: which day, which date, which venue. */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '16px 20px', padding: '18px 22px', marginBottom: '22px', borderRadius: '18px', background: `linear-gradient(120deg, ${d.accent}33, rgba(255,255,255,.03))`, border: `1px solid ${d.accent}77` }}>
+                  <span style={{ flex: 'none', width: '52px', height: '52px', borderRadius: '15px', background: d.accent, color: d.onAccent, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><DayIcon day={id} size={26} /></span>
+                  <div style={{ flex: '1 1 300px', minWidth: 0 }}>
+                    <div style={{ color: d.accent, fontSize: '11px', fontWeight: 800, letterSpacing: '1.5px', textTransform: 'uppercase' }}>{d.label} · {d.format}</div>
+                    <h3 style={{ margin: '3px 0 6px', fontSize: 'clamp(20px,2.6vw,28px)', lineHeight: 1.15, color: '#fff', textTransform: 'none' }}>{d.weekday}, {d.date}</h3>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '7px', color: '#c4caf0', fontSize: '14.5px', lineHeight: 1.45, fontWeight: 600 }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flex: 'none', marginTop: '2px' }}><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></svg>
+                      <span>{v.name}, {v.city}</span>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 18px' }}>
+                    <a href={`/agenda/#venue-${id}`} style={{ color: d.accent, fontSize: '13px', fontWeight: 800, textDecoration: 'none' }}>Venue &amp; map →</a>
+                    <a href={`/agenda/#${id}`} style={{ color: d.accent, fontSize: '13px', fontWeight: 800, textDecoration: 'none' }}>Full {d.label.toLowerCase()} timetable →</a>
+                  </div>
                 </div>
-                <div style={{
-                  display: 'inline-block', padding: '5px 14px', borderRadius: '30px',
-                  background: t.bg, color: t.accent, fontWeight: 800, fontSize: '11px', letterSpacing: '2px',
-                  textTransform: 'uppercase', width: 'fit-content', whiteSpace: 'nowrap',
-                }}>
-                  {t.label}
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 330px), 1fr))', gap: '20px' }}>
+                  {/* Follows the running order: confirmed talks as cards, open slots as "to be announced soon". */}
+                  {SCHEDULE[id].filter((slot) => slot.kind === 'session').map((slot) => {
+                    const session = slot.sessionId ? sessions[id].get(slot.sessionId) : undefined
+                    return session ? <SessionCard key={slot.start} session={session} /> : <TbaCard key={slot.start} day={id} title={slot.title} />
+                  })}
                 </div>
               </div>
+            )
+          })}
 
-              {/* Description */}
-              <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.6, color: '#42498a', fontWeight: 500 }}>
-                {t.desc}
-              </p>
-
-              {/* Coming soon pill */}
-              <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '13px', fontWeight: 600, color: t.accent }}>Sessions announced soon</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* ── OLD TIMETABLE (commented out) ──────────────────────────────────── */}
-        {/*
-        <div data-reveal data-reveal-d="80" style={{ display: 'flex', justifyContent: 'center', margin: '46px 0 32px' }}>
-          <div id="track-tabs" style={{ display: 'inline-flex', flexWrap: 'wrap', justifyContent: 'center', gap: '4px', background: '#fff', border: '1px solid rgba(14,22,103,.1)', borderRadius: '46px', padding: '5px', boxShadow: '0 10px 28px rgba(14,22,103,.09)' }}>
-            {TABS.map((t) => (
-              <button key={t.tab} data-tab={t.tab} data-acc={t.acc} onClick={h.trackTab} style={{ cursor: 'pointer', fontFamily: "'Roboto',sans-serif", fontWeight: 700, fontSize: '12.5px', letterSpacing: '.5px', textTransform: 'uppercase', padding: '12px 22px', borderRadius: '40px', border: 'none', background: t.active ? t.acc : 'transparent', color: t.active ? '#fff' : '#5a6299', transition: 'background .25s ease, color .25s ease' }}>{t.label}</button>
-            ))}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px 22px', alignItems: 'center', justifyContent: 'center', marginTop: '36px' }}>
+            <a href="/agenda/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 26px', borderRadius: '46px', border: '1.5px solid #FEC400', color: '#FEC400', fontSize: '14px', fontWeight: 800, letterSpacing: '.8px', textTransform: 'uppercase', textDecoration: 'none' }}>See the full agenda →</a>
+            <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', fontWeight: 500, textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 30px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} />
           </div>
         </div>
-
-        <div id="schedule-wrap" data-reveal data-reveal-d="140" style={{ overflowX: 'auto', borderRadius: '16px', boxShadow: '0 14px 40px rgba(14,22,103,.1)' }}>
-          <table id="schedule-table" style={{ width: '100%', minWidth: '720px', borderCollapse: 'collapse', background: '#fff', fontSize: '15px' }}>
-            <thead>
-              <tr>
-                <th style={th('#fff', '1.5px', false)}>TIME</th>
-                <th style={th('#FF6675', '1px', true)}>CORE JAVA</th>
-                <th style={th('#5BA0FF', '1px', true)}>ENTERPRISE &amp; CLOUD</th>
-                <th style={th('#3FE090', '1px', true)}>WORKSHOPS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ROWS.map((r, i) => (
-                <tr key={i}>
-                  <td data-label="Time" style={{ padding: '22px 26px', fontWeight: 700, color: '#0E1667', whiteSpace: 'nowrap', borderBottom: r.last ? undefined : BB }}>{r.time}</td>
-                  {'span' in r ? (
-                    <td colSpan={3} style={{ padding: '22px 26px', textAlign: 'center', fontWeight: 700, color: r.span.color, background: r.span.bg, borderBottom: r.last ? undefined : BB }}>{r.span.text}</td>
-                  ) : (
-                    r.cells.map((c, ci) => (
-                      <td key={ci} data-label={CELL_LABELS[ci]} style={{ padding: '22px 26px', color: '#1A2266', fontWeight: 600, borderLeft: BL, borderBottom: r.last ? undefined : BB }}>{c}</td>
-                    ))
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        */}
-
       </div>
     </section>
   )
