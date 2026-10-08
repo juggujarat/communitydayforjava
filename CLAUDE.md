@@ -12,9 +12,11 @@ red `#FF384B`, yellow `#FEC400`.
 Two pages, two Rollup entries (see `vite.config.ts`):
 
 - `/` — `index.html` → `src/main.tsx` → `src/App.tsx`: the long single-page marketing site.
-  Section order is `Nav → Hero → Manifesto → Venue → Agenda → WhyImpact → Gallery →
-  Speakers → SponsorsWall → Sponsor → Partners → CommunityPartners → Organizers →
-  Committee → Volunteers → Footer`, with `BrickDivider` separators between several of
+  Section order is `Nav → Hero → WhyImpact → Agenda → Gallery →
+  Speakers → SponsorsWall → Partners → CommunityPartners → Footer` (kept deliberately lean: the Venue
+  section and the sponsorship deck were removed; the deck, `components/Sponsor.tsx`, lives only on
+  `/sponsors/`, and `Organizers` / `Committee` / `Volunteers` live on `/team/` (`pages/TeamPage.tsx`),
+  which the nav "Team" link opens), with `BrickDivider` separators between several of
   them, plus a fixed `ScrollButtons` overlay.
 - `/cfp/` — `cfp/index.html` → `src/cfp.tsx`: a standalone Call-for-Papers page that
   reuses `Nav` / `Footer` / `BrickDivider` around `components/CFP.tsx`. Adding another
@@ -27,7 +29,7 @@ in-page anchors (`#venue` → `/#venue`) for standalone pages, and
 exists on `/`.
 
 **Ticketing runs on KonfHub, embedded in the popup.** Every ticket CTA is a
-`<TicketsCta>` (Nav sticky bar, Hero, Manifesto, Footer) that opens `TicketsModal`: a
+`<TicketsCta>` (Nav sticky bar, Hero, Footer) that opens `TicketsModal`: a
 popup whose body is an iframe of KonfHub's checkout **widget**
 (`konfhub.com/widget/<slug>`, built by `widgetUrl()` in `lib/tickets.ts`). Ticket list,
 quantities, discount code, attendee form and payment all happen in-frame so the visitor
@@ -108,14 +110,20 @@ real talk title second, and the speaker as a small supporting line.
   session id: day, kind, outcome headline, takeaways, audience, tags, slug) and
   `SPEAKER_EXTRAS` (curated bio, links, cutout image/bg). A session with no
   `SESSION_EXTRAS` entry throws at build — add one when a session appears in Sessionize.
+  Speakers **not** in the embed (Mala Gupta's invited keynote; Harshvardhan Parmar, accepted but
+  not yet published there) live in `LOCAL_SPEAKERS` / `LOCAL_SESSIONS`. `SPEAKER_ORDER` lists every
+  speaker slug (local ones included). If a local speaker later shows up in the snapshot, move them
+  to the `*_EXTRAS` maps and delete the local entry, or they appear twice.
 - **Two days, one system:** `DAYS` in `program.ts` — Workshop (17 Oct, green `#02CF70`,
-  "Build") and Conference (24 Oct, red `#FF384B`, "Learn"). `DayChip` / `SessionCard` /
+  "Build") and Conference (24 Oct, yellow `#FEC400`, "Learn"). `DayChip` / `SessionCard` /
   `DayLegend` / `TicketBand` in `components/program/parts.tsx` are the only places a day
   is styled; never add a third colour per day. Ticket copy there references the "Regular +
   Workshop Pass" (see `TICKET_PLANS`) — keep in step if KonfHub tiers change.
-- **Timetable + venue:** `SCHEDULE` in `program.ts` is the rough running order per day (24h
-  `HH:MM`, IST; the conference has a 5-min changeover between 30-min sessions; `tbc` slots render
-  as "To be announced" — the keynote and Sessions 6–8 are unassigned). `VENUE` holds each day's venue: the two days are at **different venues** — workshop at smartSense,
+- **Timetable + venue:** `SCHEDULE` in `program.ts` is the organisers' running order per day (24h
+  `HH:MM`, IST). Conference: 8:00 AM to 6:00 PM, back-to-back 30-min talks; the 2:00–3:00 PM slot is
+  `tbc` ("Session to be revealed soon"). Non-session slots get an icon + one-line explanation from
+  `SLOT_INFO` in `components/program/Timetable.tsx`, keyed by the slot **title** — rename a slot in
+  both places. Welcome/closing notes carry `hosts` (keys into `HOSTS`, organiser photos). `VENUE` holds each day's venue: the two days are at **different venues** — workshop at smartSense,
   GIFT One, GIFT City, Gandhinagar (venue partner logo `public/assets/smartsense-logo.svg`), conference at
   the Gujarat University Centre for Professional Courses, Ahmedabad. Each entry carries the venue partner
   (logo + site) and Google Maps links built from a text query; the agenda page shows both days up front
@@ -129,10 +137,11 @@ real talk title second, and the speaker as a small supporting line.
   sweep, shimmering name bars). Confirming a slot (adding its session) promotes it automatically.
 - **Sponsors:** `SponsorsWall` (#sponsors-wall, the nav's "Sponsor" target) is ONE side-by-side grid, two rows of
   two with mirrored widths so it stays symmetric: Platinum (wider, biggest logo) | Gold, then Venue Sponsor |
-  Community Patreon (smaller logos), each with a colour-coded label and top edge. It collapses to a single
-  column below 900px (`#sponsor-tiers` + `data-tier` in `global.css`), keeping the size steps. **Community
-  Supporter is NOT a sponsorship** (an individual's contribution), so it is its own section,
-  `CommunitySupporter.tsx`, right below. Keep new sponsors in the right tier.
+  Community Patreon (smaller logos), each with a colour-coded label and top edge, then a full-width
+  **Community Supporter** row (an individual's contribution, a person card instead of a logo; the old
+  standalone `CommunitySupporter` section is gone). It collapses to a single column below 900px
+  (`#sponsor-tiers` + `data-tier` in `global.css`), keeping the size steps. Keep new sponsors in the right tier.
+- **Sponsors pages:** `/sponsors/` is a short list (logo, tier, one line); each sponsor has a detail page `/sponsors/<slug>/` with about, products & services and a "Connect" section (website, public email or contact page, social profiles; no phone numbers or addresses, by request). All generated from `src/data/sponsors.ts` (`SponsorsPage.tsx`, `SponsorPage.tsx`; meta/JSON-LD/sitemap rows in `data/routes.ts`). The logo wall tiles link to the detail pages; keep the data in step with the tiers in `SponsorsWall.tsx`.
 - **Routes/SEO:** `src/data/routes.ts` builds title/description/canonical/OG/JSON-LD
   (`EducationEvent` per session, `ProfilePage`/`Person` per speaker, breadcrumbs) and the
   sitemap, from the same data. `src/routes.tsx` maps path → page (`src/pages/*`).

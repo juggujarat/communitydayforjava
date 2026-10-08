@@ -12,6 +12,7 @@ import {
   type DayId,
   type Session, type Speaker,
 } from './program'
+import { SPONSORS, sponsorPath } from './sponsors'
 
 export const SITE = 'https://www.communitydayforjava.com'
 const EVENT_NAME = 'Community Day for Java 2026'
@@ -83,7 +84,7 @@ export function getRoutes(): RouteMeta[] {
     {
       path: '/agenda/',
       title: `Agenda & Sessions | ${EVENT_NAME}, Ahmedabad`,
-      description: `Full timetable, venue map and ticket details for ${EVENT_NAME}: a hands-on workshop (${DAYS.workshop.date}, ${VENUE.workshop.short}) and the main conference (${DAYS.conference.date}, ${VENUE.conference.short}). ${SESSIONS.length} sessions on AI agents, production RAG, JVM performance, Spring Modulith and zero-trust security.`,
+      description: `Full timetable, venue map and ticket details for ${EVENT_NAME}: a hands-on workshop (${DAYS.workshop.date}, ${VENUE.workshop.short}) and the main conference (${DAYS.conference.date}, ${VENUE.conference.short}). A keynote on Java in the AI era and sessions on AI agents, production RAG, JVM performance, contract-driven AI APIs, Spring Modulith and zero-trust security.`,
       image: OG_IMAGE, ogType: 'website', ...base, priority: 0.9,
       jsonLd: [
         crumbs([['Home', '/'], ['Agenda', '/agenda/']]),
@@ -98,7 +99,7 @@ export function getRoutes(): RouteMeta[] {
     {
       path: '/speakers/',
       title: `Speakers | ${EVENT_NAME}, Ahmedabad`,
-      description: `Meet the ${SPEAKERS.length} speakers of ${EVENT_NAME}: engineers, architects and developer advocates teaching AI agents, RAG, JVM performance, Spring Modulith and zero-trust security.`,
+      description: `Meet the speakers of ${EVENT_NAME}: a Java Champion keynote on Java in the AI era, plus engineers, architects and developer advocates teaching AI agents, RAG, JVM performance, contract-driven AI APIs, Spring Modulith and zero-trust security.`,
       image: OG_IMAGE, ogType: 'website', ...base, priority: 0.8,
       jsonLd: [
         crumbs([['Home', '/'], ['Speakers', '/speakers/']]),
@@ -110,7 +111,47 @@ export function getRoutes(): RouteMeta[] {
         },
       ],
     },
+    {
+      path: '/team/',
+      title: `Team | ${EVENT_NAME}, Ahmedabad`,
+      description: `Meet the people behind ${EVENT_NAME}: the core organizers from Java User Group Gujarat, the CFP review committee that curated the talks, and the volunteers who run the day.`,
+      image: OG_IMAGE, ogType: 'website', ...base, priority: 0.6,
+      jsonLd: [crumbs([['Home', '/'], ['Team', '/team/']])],
+    },
+    {
+      path: '/sponsors/',
+      title: `Sponsors | ${EVENT_NAME}, Ahmedabad`,
+      description: `Meet the sponsors and supporters of ${EVENT_NAME}:${SPONSORS.map((s) => s.name).join(', ')}. What they build and offer.`,
+      image: OG_IMAGE, ogType: 'website', ...base, priority: 0.7,
+      jsonLd: [
+        crumbs([['Home', '/'], ['Sponsors', '/sponsors/']]),
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: `${EVENT_NAME} sponsors`,
+          itemListElement: SPONSORS.map((s, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: abs(sponsorPath(s)),
+            name: s.name,
+          })),
+        },
+      ],
+    },
   ]
+
+  for (const sp of SPONSORS) {
+    routes.push({
+      path: sponsorPath(sp),
+      title: `${sp.name} | ${sp.tier} at ${EVENT_NAME}`,
+      description: `${sp.tagline} ${sp.about[0].slice(0, 110).replace(/\s+\S*$/, '')}…`,
+      image: OG_IMAGE, ogType: 'website', ...base, priority: 0.6,
+      jsonLd: [
+        crumbs([['Home', '/'], ['Sponsors', '/sponsors/'], [sp.name, sponsorPath(sp)]]),
+        { '@context': 'https://schema.org', '@type': sp.person ? 'Person' : 'Organization', name: sp.name, url: sp.website, description: sp.tagline, image: absImage(sp.logo), sameAs: sp.socials.map((l) => l.href) },
+      ],
+    })
+  }
 
   for (const s of SESSIONS) {
     const day = DAYS[s.day]

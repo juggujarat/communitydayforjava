@@ -12,9 +12,11 @@ red `#FF384B`, yellow `#FEC400`.
 Two pages, two Rollup entries (see `vite.config.ts`):
 
 - `/` — `index.html` → `src/main.tsx` → `src/App.tsx`: the long single-page marketing site.
-  Section order is `Nav → Hero → Manifesto → Venue → Agenda → WhyImpact → Gallery →
-  Speakers → SponsorsWall → Sponsor → Partners → CommunityPartners → Organizers →
-  Committee → Volunteers → Footer`, with `BrickDivider` separators between several of
+  Section order is `Nav → Hero → WhyImpact → Agenda → Gallery →
+  Speakers → SponsorsWall → Partners → CommunityPartners → Footer` (kept deliberately lean: the Venue
+  section and the sponsorship deck were removed; the deck, `components/Sponsor.tsx`, lives only on
+  `/sponsors/`, and `Organizers` / `Committee` / `Volunteers` live on `/team/` (`pages/TeamPage.tsx`),
+  which the nav "Team" link opens), with `BrickDivider` separators between several of
   them, plus a fixed `ScrollButtons` overlay.
 - `/cfp/` — `cfp/index.html` → `src/cfp.tsx`: a standalone Call-for-Papers page that
   reuses `Nav` / `Footer` / `BrickDivider` around `components/CFP.tsx`. Adding another
@@ -27,7 +29,7 @@ in-page anchors (`#venue` → `/#venue`) for standalone pages, and
 exists on `/`.
 
 **Ticketing runs on KonfHub, embedded in the popup.** Every ticket CTA is a
-`<TicketsCta>` (Nav sticky bar, Hero, Manifesto, Footer) that opens `TicketsModal`: a
+`<TicketsCta>` (Nav sticky bar, Hero, Footer) that opens `TicketsModal`: a
 popup whose body is an iframe of KonfHub's checkout **widget**
 (`konfhub.com/widget/<slug>`, built by `widgetUrl()` in `lib/tickets.ts`). Ticket list,
 quantities, discount code, attendee form and payment all happen in-frame so the visitor

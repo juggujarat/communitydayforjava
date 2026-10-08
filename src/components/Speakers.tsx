@@ -36,6 +36,8 @@ export default function Speakers() {
                   <img src={e.speaker.image} alt={e.speaker.name} loading="lazy" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center bottom' }} />
                 </div>
                 <div style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>{e.speaker.name}</div>
+                <div style={{ marginTop: '3px', fontSize: '12.5px', fontWeight: 600, lineHeight: 1.4, color: '#9aa3d6' }}>{e.speaker.role}</div>
+                <div style={{ marginTop: '6px', fontSize: '12.5px', lineHeight: 1.45, color: '#c4caf0' }}>{e.speaker.tagline}</div>
                 <div style={{ marginTop: '10px' }}><DayChip day={e.day} style={{ fontSize: '10px', padding: '4px 10px' }} /></div>
                 <div style={{ fontSize: '13px', lineHeight: 1.45, color: '#c4caf0', marginTop: '8px' }}>{e.session.title}</div>
               </a>

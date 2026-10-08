@@ -22,7 +22,7 @@ export default function Sponsor() {
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1080px', margin: '0 auto' }}>
         <div data-reveal style={{ textAlign: 'center', marginBottom: '56px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(32px,5vw,64px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Sponsorship <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#02CF70' }}>opportunities</span></h2>
-          <p style={{ margin: '18px auto 0', maxWidth: '560px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>Connect, showcase and engage top talent at Gujarat's largest Java gathering: 600+ engaged, high-intent attendees.</p>
+          <p style={{ margin: '18px auto 0', maxWidth: '560px', fontSize: '18px', fontWeight: 500, color: '#a8b0e0' }}>Connect, showcase and engage top talent at Gujarat's largest Java gathering: engaged, high-intent attendees.</p>
         </div>
 
         {/* Google Slides deck — responsive 16:9 embed */}

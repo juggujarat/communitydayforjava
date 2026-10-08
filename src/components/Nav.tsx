@@ -6,8 +6,8 @@ const MENU_LINKS = [
   { href: '/agenda/', label: 'Agenda' },
   { href: '/badge/', label: 'Badge' },
   { href: '/speakers/', label: 'Speakers' },
-  { href: '#sponsors-wall', label: 'Sponsor' },
-  { href: '#organizers', label: 'Team' },
+  { href: '/sponsors/', label: 'Sponsor' },
+  { href: '/team/', label: 'Team' },
 ]
 
 /** Which top-level link a URL path belongs to — drives the resting position of the glass highlight. */
