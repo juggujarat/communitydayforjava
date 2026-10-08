@@ -8,15 +8,9 @@ import PartnerTag from './PartnerTag'
  */
 export default function CommunitySupporter() {
   return (
-<<<<<<< HEAD
-    <section id="community-supporter" style={{ position: 'relative', padding: '0 40px 56px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
-      <div style={{ position: 'relative', zIndex: 3, maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
-        <div data-reveal style={{ marginBottom: '24px' }}>
-=======
     <section id="community-supporter" style={{ position: 'relative', padding: '8px 40px 64px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '760px', margin: '0 auto', textAlign: 'center', paddingTop: '40px', borderTop: '1px solid rgba(14,22,103,.12)' }}>
         <div data-reveal style={{ marginBottom: '8px' }}>
->>>>>>> f26f9c0bcd83f569095558d728e153644610e60b
           <PartnerTag>COMMUNITY SUPPORTER</PartnerTag>
           <p style={{ margin: '0 auto', maxWidth: '520px', fontSize: '15.5px', fontWeight: 500, lineHeight: 1.55, color: '#42498a' }}>Backing the Java community with their time and effort.</p>
         </div>

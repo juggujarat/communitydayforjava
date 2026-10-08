@@ -55,13 +55,6 @@ export default function SponsorsWall() {
         <div data-reveal style={{ textAlign: 'center', marginBottom: '32px' }}>
           <h2 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,56px)', lineHeight: 1, letterSpacing: '-1.5px' }}>Our <span style={{ color: '#0D5CDB' }}>Esteemed</span> <span style={{ fontFamily: "'Roboto',sans-serif", fontWeight: 600, color: '#0D5CDB' }}>Sponsors</span></h2>
         </div>
-<<<<<<< HEAD
-        <div data-reveal data-reveal-d="80" style={{ maxWidth: '920px', margin: '0 auto', textAlign: 'left' }}>
-          <div style={{ marginBottom: '40px' }}>
-            <div style={{ display: 'flex', width: 'fit-content', alignItems: 'center', gap: '8px', background: '#0E1667', color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '2px', padding: '7px 16px', borderRadius: '30px', margin: '0 auto 18px' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#FEC400' }} />PLATINUM</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'min(100%, 460px)', justifyContent: 'center', gap: '16px' }}>
-              <Slot id="cdj-sp-1" label="Platinum logo" height={170} padding={28} img="/assets/jetbrains-logo.svg" alt="JetBrains" href="https://www.jetbrains.com/" />
-=======
 
         <div id="sponsor-tiers" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, minmax(0, 1fr))', gap: '16px' }}>
           {/* Apex: Platinum — widest card, biggest logo */}
@@ -80,7 +73,6 @@ export default function SponsorsWall() {
           <Tier id="patreon" label="COMMUNITY PATREON" accent="#FF384B" column="span 7" size={1}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '12px' }}>
               {PATRONS.map((p) => <LogoTile key={p.name} logo={p} height={100} padding={8} />)}
->>>>>>> f26f9c0bcd83f569095558d728e153644610e60b
             </div>
           </Tier>
         </div>
