@@ -3,7 +3,7 @@ import PartnerTag from './PartnerTag'
 /** Venue sponsor — the host institution (#venue-partner). */
 export default function VenuePartner() {
   return (
-    <section id="venue-partner" style={{ position: 'relative', padding: '40px 40px 72px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="venue-partner" style={{ position: 'relative', padding: '40px 40px 0', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <span style={{ position: 'absolute', top: '18%', right: '9%', width: '26px', height: '26px', borderRadius: '50%', background: '#0D5CDB', animation: 'cdj-float1 9s ease-in-out infinite', opacity: 0.8 }} />
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '28px' }}>

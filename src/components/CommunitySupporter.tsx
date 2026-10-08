@@ -4,7 +4,7 @@ import PartnerTag from './PartnerTag'
 /** Community supporter profile shown below the venue section. */
 export default function CommunitySupporter() {
   return (
-    <section id="community-supporter" style={{ position: 'relative', padding: '40px 40px 56px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
+    <section id="community-supporter" style={{ position: 'relative', padding: '0 40px 56px', background: '#F4F1E8', color: '#0E1667', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 3, maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
         <div data-reveal style={{ marginBottom: '24px' }}>
           <PartnerTag>COMMUNITY SUPPORTER</PartnerTag>
