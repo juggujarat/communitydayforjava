@@ -1,5 +1,4 @@
 import { h } from '../lib/handlers'
-import { A } from '../lib/assets'
 
 /** Impact cards — icon markup is ported verbatim from the original bundle. */
 const IMPACT = [
@@ -56,11 +55,6 @@ const IMPACT = [
   },
 ]
 
-const STATS = [
-  { rot: -5, bg: '#FF384B', img: A['02d899ea-fe63-40f8-a846-6f4036aea702'], alt: 'CDJ 2025 audience', num: '600+', numColor: '#fff', label: 'ATTENDEES', labelColor: 'rgba(255,255,255,.92)', d: 0, border: undefined as string | undefined },
-  { rot: 3, bg: '#FEC400', img: A['73ed873c-b127-4493-af6a-8c909c3d9a59'], alt: 'CDJ 2025 speaker', num: '10+', numColor: '#0E1667', label: 'SPEAKERS', labelColor: 'rgba(14,22,103,.85)', d: 90, border: undefined },
-]
-
 const MARQUEE_TXT =
   'Community Day for Java 2026  •  Ahmedabad  •  24 Oct 2026  •  '
 const marqueeSpan: React.CSSProperties = {
@@ -68,27 +62,10 @@ const marqueeSpan: React.CSSProperties = {
   letterSpacing: '1px', color: '#0E1667', textTransform: 'uppercase', paddingRight: '36px',
 }
 
-/** By-the-numbers stat cards + rotating marquee + Why-attend impact grid (#why). */
+/** Rotating marquee + Why-attend impact grid (#why). */
 export default function WhyImpact() {
   return (
     <section id="why" style={{ position: 'relative', padding: '24px 40px 78px', background: '#0E1667', overflow: 'hidden' }}>
-      <div id="numbers" data-reveal style={{ textAlign: 'center', margin: '0 0 46px' }}>
-        <h2 style={{ margin: 0, fontWeight: 600, fontSize: 'clamp(30px,4.4vw,52px)', lineHeight: 1, letterSpacing: '-1.5px', color: '#fff' }}>By the <span style={{ color: '#FEC400' }}>numbers</span></h2>
-      </div>
-      <div id="numbers-grid" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-        {STATS.map((s, i) => (
-          <div key={i} data-reveal data-reveal-d={String(s.d)} style={{ padding: '6px', marginLeft: i === 0 ? undefined : '-20px' }}>
-            <div data-rot={String(s.rot)} onMouseEnter={h.statOn} onMouseLeave={h.statOff} style={{ flex: 'none', width: '312px', background: s.bg, border: s.border, borderRadius: '7px', padding: '14px', boxShadow: '0 26px 52px rgba(0,0,0,.55)', transform: `rotate(${s.rot}deg)`, transition: 'transform .35s cubic-bezier(.2,.7,.2,1)' }}>
-              <div style={{ borderRadius: '3px', overflow: 'hidden', height: '300px', marginBottom: '18px' }}>
-                <img src={s.img} alt={s.alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'grayscale(1) contrast(1.05)', display: 'block' }} />
-              </div>
-              <div style={{ fontWeight: 800, fontSize: 'clamp(50px,4.6vw,70px)', lineHeight: 0.88, color: s.numColor }}>{s.num}</div>
-              <div style={{ marginTop: '11px', fontWeight: 700, fontSize: '14.5px', letterSpacing: '1.5px', color: s.labelColor }}>{s.label}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-
       <div style={{ position: 'relative', zIndex: 5, margin: '64px 0 24px' }}>
         <div style={{ transform: 'rotate(-3deg)', background: '#FEC400', padding: '15px 0', width: '120%', marginLeft: '-10%', overflow: 'hidden' }}>
           <div style={{ display: 'inline-flex', whiteSpace: 'nowrap', animation: 'cdj-marquee 28s linear infinite', willChange: 'transform' }}>

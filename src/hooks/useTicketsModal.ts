@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react'
 
 /**
  * Shared open/close state for the tickets popup, so every `<TicketsCta>` instance
- * (Nav, Hero, Manifesto, Footer) opens the same single modal instance and the browser
+ * (Nav, Hero, Footer) opens the same single modal instance and the browser
  * URL reflects it as `/register` — without turning this into a real route: the popup
  * still renders in place, this only pushes/restores the address bar.
  *

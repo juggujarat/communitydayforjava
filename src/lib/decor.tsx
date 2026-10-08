@@ -138,7 +138,7 @@ export const NotifyShapes = () => shapeLayer(<>
 </>)
 
 export function Ticker() {
-  const items = ['ONE DAY', '600+ INNOVATORS', 'THE FUTURE OF JAVA', '3 PARALLEL TRACKS', '20+ SPEAKERS', 'HANDS-ON LABS', 'AHMEDABAD 2026']
+  const items = ['ONE DAY', 'INNOVATORS', 'THE FUTURE OF JAVA', 'PARALLEL TRACKS', 'EXPERT SPEAKERS', 'HANDS-ON LABS', 'AHMEDABAD 2026']
   const seq: React.ReactNode[] = []
   items.concat(items).forEach((t, i) => {
     seq.push(<span key={'ti' + i} style={{ fontWeight: 900, fontSize: 18, letterSpacing: '-.5px', textTransform: 'uppercase' }}>{t}</span>)

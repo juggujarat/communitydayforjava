@@ -55,9 +55,7 @@ export function VenueCard({ day }: { day: DayId }) {
         <p style={{ margin: '0 0 4px', color: '#c4caf0', fontSize: '15.5px', lineHeight: 1.6 }}>{v.address}</p>
         {v.plusCode && <p style={{ margin: 0, color: '#8890c8', fontSize: '13.5px' }}>Plus code: {v.plusCode}</p>}
         <p style={{ margin: '14px 0 20px', color: '#fff', fontSize: '15px', fontWeight: 700 }}>
-          {d.weekday}, {d.date} · {fmtTime(programmeStart(day))} to {fmtTime(dayEnd(day))}
-          {day === 'conference' && <span style={{ fontWeight: 600, color: '#c4caf0' }}> (check-in from 8:00 AM)</span>}
-        </p>
+          {d.weekday}, {d.date} · {fmtTime(programmeStart(day))} to {fmtTime(dayEnd(day))}        </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
           <a href={v.mapUrl} target="_blank" rel="noopener noreferrer" style={{ ...ghostBtn, background: d.accent, color: d.onAccent }}>Open in Google Maps</a>
           <a href={v.directionsUrl} target="_blank" rel="noopener noreferrer" style={{ ...ghostBtn, border: `1.5px solid ${d.accent}`, color: d.accent }}>Get directions</a>
@@ -130,7 +128,6 @@ export function TicketsInfo() {
 
       <div style={{ marginTop: '28px', textAlign: 'center' }}>
         <TicketsCta style={{ display: 'inline-flex', alignItems: 'center', fontWeight: 500, textTransform: 'uppercase', fontSize: '15px', letterSpacing: '1px', padding: '16px 34px', borderRadius: '46px', boxShadow: '0 14px 36px rgba(255,56,75,.36)' }} />
-        <p style={{ margin: '12px 0 0', fontSize: '13px', color: '#8890c8' }}>Prices and availability are live in the checkout.</p>
       </div>
     </div>
   )

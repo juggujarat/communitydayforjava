@@ -92,7 +92,11 @@ export function SessionCard({ session, hideDay = false }: { session: Session; hi
         <span style={{ display: 'inline-flex' }}>
           {people.map((p, i) => <span key={p.id} style={{ marginLeft: i ? '-10px' : 0 }}><SpeakerAvatar speaker={p} size={34} /></span>)}
         </span>
-        <span style={{ fontSize: '13px', fontWeight: 600, color: '#c4caf0', minWidth: 0, flex: 1 }}>{people.map((p) => p.name).join(' & ')}</span>
+        <span style={{ minWidth: 0, flex: 1 }}>
+          <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#c4caf0' }}>{people.map((p) => p.name).join(' & ')}</span>
+          <span style={{ display: 'block', marginTop: '2px', fontSize: '11.5px', fontWeight: 500, lineHeight: 1.35, color: '#8890c8' }}>{people.map((p) => p.role).join(' · ')}</span>
+          {people.map((p) => <span key={p.id} style={{ display: 'block', marginTop: '5px', fontSize: '12px', fontWeight: 500, lineHeight: 1.45, color: '#b6bde6' }}>{p.tagline}</span>)}
+        </span>
         <span aria-hidden="true" style={{ color: day.accent, fontWeight: 800, fontSize: '13px', whiteSpace: 'nowrap' }}>Details →</span>
       </div>
     </a>

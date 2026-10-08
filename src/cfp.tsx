@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Nav from './components/Nav'
 import CFP from './components/CFP'
 import Footer from './components/Footer'
+import ScrollButtons from './components/ScrollButtons'
 import BrickDivider from './components/BrickDivider'
 import { useDCEffects } from './hooks/useDCEffects'
 import { A } from './lib/assets'
@@ -22,6 +23,7 @@ function CFPPage() {
         <BrickDivider src={A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']} />
         <Footer />
       </div>
+      <ScrollButtons />
     </div>
   )
 }

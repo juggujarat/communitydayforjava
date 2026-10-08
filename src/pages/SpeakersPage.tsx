@@ -54,6 +54,7 @@ export default function SpeakersPage() {
                 <div>
                   <h2 style={{ margin: 0, fontSize: '22px', lineHeight: 1.2, color: '#fff', textTransform: 'none' }}><a href={speakerPath(sp)} style={{ color: 'inherit', textDecoration: 'none' }}>{sp.name}</a></h2>
                   <p style={{ margin: '4px 0 0', fontSize: '13.5px', color: '#9aa3d6' }}>{sp.role}</p>
+                  <p style={{ margin: '8px 0 0', fontSize: '14px', lineHeight: 1.5, color: '#d8dcf5' }}>{sp.tagline}</p>
                 </div>
                 <a href={sessionPath(s)} style={{ display: 'block', padding: '12px 14px', borderRadius: '14px', background: 'rgba(14,22,103,.55)', border: '1px solid rgba(255,255,255,.12)', textDecoration: 'none', color: '#fff' }}>
                   <DayChip day={s.day} kind={s.kind} style={{ fontSize: '10px', padding: '4px 10px' }} />

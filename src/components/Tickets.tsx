@@ -50,7 +50,7 @@ const cardStyle = {
 export default function Tickets() {
   return (
     <>
-      <section id="tickets-hero" style={{ position: 'relative', padding: '84px 40px 76px', background: 'linear-gradient(150deg,#1a2670,#0E1667)', color: '#fff', overflow: 'hidden' }}>
+      <section id="tickets-hero" style={{ position: 'relative', padding: '84px 40px 76px', background: '#131C56', color: '#fff', overflow: 'hidden' }}>
         <CFPShapes />
         <div style={{ position: 'relative', zIndex: 3, maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <h1 data-reveal style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(30px,4.6vw,58px)', lineHeight: 1.05, letterSpacing: '-1.7px' }}>

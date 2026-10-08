@@ -22,7 +22,8 @@ export default function SpeakerPage({ speaker }: { speaker: Speaker }) {
         <div data-reveal>
           <div style={{ marginBottom: '12px', color: '#FEC400', fontSize: '14px', fontWeight: 800, letterSpacing: '2px' }}>COMMUNITY DAY FOR JAVA 2026 SPEAKER</div>
           <h1 style={{ margin: '0 0 14px', fontSize: 'clamp(34px,5vw,58px)', lineHeight: 1.05, color: '#fff' }}>{speaker.name}</h1>
-          <p style={{ margin: '0 0 26px', color: '#c4caf0', fontSize: '20px', fontWeight: 600 }}>{speaker.role}</p>
+          <p style={{ margin: '0 0 10px', color: '#c4caf0', fontSize: '20px', fontWeight: 600 }}>{speaker.role}</p>
+          <p style={{ margin: '0 0 26px', color: '#d8dcf5', fontSize: '17px', lineHeight: 1.6, maxWidth: '640px' }}>{speaker.tagline}</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
             {speaker.topics.map((topic) => <span key={topic} style={{ padding: '9px 14px', border: '1px solid rgba(254,196,0,.42)', borderRadius: '30px', background: 'rgba(254,196,0,.1)', color: '#ffe27a', fontSize: '14px', fontWeight: 600 }}>{topic}</span>)}
           </div>

@@ -26,7 +26,7 @@ export default function SessionPage({ session }: { session: Session }) {
           <DayChip day={session.day} kind={session.kind} />
           <h1 style={{ margin: '18px 0 14px', maxWidth: '900px', fontSize: 'clamp(28px,4.2vw,48px)', lineHeight: 1.12, letterSpacing: '-1px', color: '#fff', textTransform: 'none' }}>{session.title}</h1>
           <p style={{ margin: '0 0 22px', maxWidth: '760px', fontSize: 'clamp(17px,2vw,21px)', lineHeight: 1.5, fontWeight: 600, color: '#fff' }}>
-            <span style={{ color: day.accent }}>You'll walk away able to: </span>{session.outcome[0].toLowerCase() + session.outcome.slice(1)}.
+            <span style={{ color: day.accent }}>You’ll learn: </span>{session.outcome[0].toLowerCase() + session.outcome.slice(1)}.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px 28px', alignItems: 'center', marginBottom: '26px', color: '#c4caf0', fontSize: '15px', fontWeight: 600 }}>
@@ -94,7 +94,8 @@ export default function SessionPage({ session }: { session: Session }) {
           <div style={{ flex: '1 1 320px', minWidth: 0 }}>
             <div style={label}>Your speaker</div>
             <h2 style={{ margin: '6px 0 4px', fontSize: '26px', color: '#fff', textTransform: 'none' }}>{p.name}</h2>
-            <p style={{ margin: '0 0 10px', color: '#ffe27a', fontWeight: 600, fontSize: '15px' }}>{p.role}</p>
+            <p style={{ margin: '0 0 6px', color: '#ffe27a', fontWeight: 600, fontSize: '15px' }}>{p.role}</p>
+            <p style={{ margin: '0 0 10px', color: '#d8dcf5', fontWeight: 600, fontSize: '14.5px', lineHeight: 1.5 }}>{p.tagline}</p>
             <p style={{ margin: '0 0 12px', color: '#c4caf0', fontSize: '15.5px', lineHeight: 1.65 }}>{p.bio[0]}</p>
             <a href={speakerPath(p)} style={{ color: '#FEC400', fontWeight: 800, fontSize: '14px', textDecoration: 'none' }}>Full profile →</a>
           </div>

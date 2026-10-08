@@ -11,20 +11,13 @@
  */
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import Manifesto from './components/Manifesto'
-import Venue from './components/Venue'
 import Agenda from './components/Agenda'
 import WhyImpact from './components/WhyImpact'
 import Gallery from './components/Gallery'
 import Speakers from './components/Speakers'
 import SponsorsWall from './components/SponsorsWall'
-import CommunitySupporter from './components/CommunitySupporter'
-import Sponsor from './components/Sponsor'
 import Partners from './components/Partners'
 import CommunityPartners from './components/CommunityPartners'
-import Organizers from './components/Organizers'
-import Committee from './components/Committee'
-import Volunteers from './components/Volunteers'
 import Footer from './components/Footer'
 import BrickDivider from './components/BrickDivider'
 import ScrollButtons from './components/ScrollButtons'
@@ -42,24 +35,15 @@ export default function App() {
         <Nav />
         <Hero />
         <WhyImpact />
-        <Manifesto />
         <Agenda />
         <BrickDivider id="venue-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
-        <Venue />
         <Gallery />
         <BrickDivider id="speakers-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
         <Speakers />
         <SponsorsWall />
-        <CommunitySupporter />
         <BrickDivider id="sponsor-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
-        <Sponsor />
         <Partners />
         <CommunityPartners />
-        <BrickDivider src={A['8cb11cf6-f516-467b-8a0f-27f4125d339f']} />
-        <Organizers />
-        <Committee />
-        <BrickDivider id="volunteers-divider" src={A['eb39f299-12ce-4961-a7ca-fd4eb4bad829']} />
-        <Volunteers />
         <BrickDivider src={A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']} />
         <Footer />
       </div>

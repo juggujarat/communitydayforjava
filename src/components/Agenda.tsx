@@ -1,4 +1,4 @@
-import { DAYS, DAY_ORDER, SCHEDULE, SESSIONS, VENUE, sessionsOnDay, type DayId } from '../data/program'
+import { DAYS, DAY_ORDER, SCHEDULE, VENUE, sessionsOnDay, type DayId } from '../data/program'
 import { DayChip, DayIcon, SessionCard } from './program/parts'
 import TicketsCta from './TicketsCta'
 
@@ -31,9 +31,6 @@ export default function Agenda() {
           <h2 style={{ margin: 0, fontWeight: 700, fontSize: 'clamp(30px,4.8vw,58px)', lineHeight: 1.02, letterSpacing: '-1.5px' }}>
             What you'll <span style={{ color: '#FF384B' }}>take back</span> to your team
           </h2>
-          <p style={{ margin: '16px auto 0', maxWidth: '820px', fontSize: '18px', fontWeight: 500, color: '#42498a' }}>
-            {SESSIONS.length} sessions announced so far across two separate days at two different venues: a hands-on workshop and the main conference, with more to come.
-          </p>
         </div>
 
         <div style={{ padding: 'clamp(18px,3vw,32px)', borderRadius: '30px', background: 'radial-gradient(120% 100% at 80% 0%,#1a2670,#0E1667 72%)', boxShadow: '0 24px 60px rgba(14,22,103,.25)' }}>

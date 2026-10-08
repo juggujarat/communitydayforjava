@@ -8,28 +8,28 @@ import type { ReactNode } from 'react'
  *        [    PLATINUM (7)     ] [   GOLD (5)   ]      main sponsors, biggest logos
  *        [ VENUE SPONSOR (5) ] [ COMMUNITY PATREON (7) ]   smaller logos
  *
- * Each tier keeps a colour-coded label + top edge. (Community Supporter is an individual's
- * contribution, not a sponsorship, so it lives in its own section: CommunitySupporter.tsx.)
+ * Each tier keeps a colour-coded label + top edge. Community Supporter (an individual's
+ * contribution) is the last row, full width. Every tile links to /sponsors/<slug>/.
  * The grid collapses on small screens — see #sponsor-tiers in global.css, which keys off the
  * data-tier attributes below.
  */
 
 const NAVY = '#0E1667'
 
-interface Logo { name: string; src: string; href: string; scale?: number }
+interface Logo { name: string; src: string; slug: string; scale?: number }
 
-const PLATINUM: Logo = { name: 'JetBrains', src: '/assets/jetbrains-logo.svg', href: 'https://www.jetbrains.com/idea/' }
-const GOLD: Logo = { name: 'Xynnity', src: '/assets/xynnity.png', href: 'https://www.xynnity.com/' }
-const VENUE: Logo = { name: 'Gujarat University Centre For Professional Courses', src: '/assets/cpc%20gu%20logo.png', href: 'https://gucpc.in/' }
+const PLATINUM: Logo = { name: 'JetBrains', src: '/assets/jetbrains-logo.svg', slug: 'jetbrains' }
+const GOLD: Logo = { name: 'Xynnity', src: '/assets/xynnity.png', slug: 'xynnity' }
+const VENUE: Logo = { name: 'Gujarat University Centre For Professional Courses', src: '/assets/cpc%20gu%20logo.png', slug: 'gujarat-university-cpc' }
 const PATRONS: Logo[] = [
-  { name: 'JobRunr', src: '/assets/jobrunner%20community%20contributor.jfif', href: 'https://www.jobrunr.io/en/', scale: 1.4 },
-  { name: 'Techxplore', src: '/assets/techxplore%20logo.png', href: 'https://www.techxplore.io/', scale: 0.78 },
+  { name: 'JobRunr', src: '/assets/jobrunner%20community%20contributor.jfif', slug: 'jobrunr', scale: 1.4 },
+  { name: 'Techxplore', src: '/assets/techxplore%20logo.png', slug: 'techxplore', scale: 0.78 },
 ]
 
-/** Clickable white logo tile. */
+/** Clickable white logo tile; opens the sponsor's detail page. */
 function LogoTile({ logo, height, padding = 14 }: { logo: Logo; height: number; padding?: number }) {
   return (
-    <a data-logo="1" href={logo.href} target="_blank" rel="noopener noreferrer" aria-label={`${logo.name} (opens in a new tab)`} style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', height, padding, boxSizing: 'border-box', overflow: 'hidden', background: '#fff', border: '1px solid rgba(14,22,103,.08)', borderRadius: '12px', boxShadow: '0 4px 14px rgba(14,22,103,.06)' }}>
+    <a data-logo="1" href={`/sponsors/${logo.slug}/`} aria-label={`${logo.name}: view sponsor details`} style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', height, padding, boxSizing: 'border-box', overflow: 'hidden', background: '#fff', border: '1px solid rgba(14,22,103,.08)', borderRadius: '12px', boxShadow: '0 4px 14px rgba(14,22,103,.06)' }}>
       <img src={logo.src} alt={logo.name} loading="lazy" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block', transform: logo.scale ? `scale(${logo.scale})` : undefined }} />
     </a>
   )
@@ -75,6 +75,24 @@ export default function SponsorsWall() {
               {PATRONS.map((p) => <LogoTile key={p.name} logo={p} height={100} padding={8} />)}
             </div>
           </Tier>
+
+          {/* Row 3: an individual's contribution, so a person card instead of a logo */}
+          <Tier id="supporter" label="COMMUNITY SUPPORTER" accent="#02CF70" column="span 12" size={1}>
+            <a href="/sponsors/dhaval-desai/" aria-label="Dhaval Desai: view supporter details" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '18px', textAlign: 'left', textDecoration: 'none', color: NAVY }}>
+              <span style={{ flex: 'none', width: '84px', height: '84px', borderRadius: '14px', overflow: 'hidden', background: '#F4F1E8', display: 'block' }}>
+                <img src="/assets/dhaval%20desai.jpg" alt="Dhaval Desai" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 18%', display: 'block' }} />
+              </span>
+              <span>
+                <span style={{ display: 'block', fontWeight: 700, fontSize: '18px' }}>Dhaval Desai</span>
+                <span style={{ display: 'block', fontSize: '14px', color: '#42498a', marginTop: '3px' }}>Product Manager - Maintainer</span>
+                <span style={{ display: 'block', fontSize: '13.5px', fontWeight: 700, color: '#0D5CDB', marginTop: '4px' }}>Gluu</span>
+              </span>
+            </a>
+          </Tier>
+        </div>
+
+        <div data-reveal style={{ marginTop: '28px' }}>
+          <a href="/sponsors/" style={{ display: 'inline-block', padding: '13px 28px', borderRadius: '46px', background: NAVY, color: '#fff', fontSize: '14px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', textDecoration: 'none' }}>Meet our sponsors →</a>
         </div>
       </div>
     </section>

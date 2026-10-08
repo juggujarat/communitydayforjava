@@ -38,8 +38,8 @@ export const DAYS: Record<DayId, Day> = {
   conference: {
     id: 'conference', label: 'Conference', verb: 'Learn', format: 'Talk',
     date: '24 Oct 2026', iso: '2026-10-24', weekday: 'Saturday',
-    accent: '#FF384B', onAccent: '#ffffff',
-    blurb: 'The main event day: expert talks on Java, AI and cloud-native engineering, with 600+ developers.',
+    accent: '#FEC400', onAccent: '#0E1667',
+    blurb: 'The main event day: expert talks on Java, AI and cloud-native engineering, with developers from across the community.',
     path: '/agenda/#conference',
   },
 }
@@ -50,7 +50,7 @@ export interface Speaker {
   slug: string
   name: string
   role: string
-  /** One-line credential shown under the name on cards. */
+  /** One-line introduction (the achievement that makes you want to hear them), shown under name + role. Curated, not from Sessionize. */
   tagline: string
   bio: string[]
   image: string
@@ -181,14 +181,15 @@ const SESSION_EXTRAS: Record<string, SessionExtra> = {
   },
 }
 
-type SpeakerExtra = Pick<Speaker, 'role' | 'bio' | 'image' | 'bg' | 'topics' | 'links'>
+type SpeakerExtra = Pick<Speaker, 'role' | 'tagline' | 'bio' | 'image' | 'bg' | 'topics' | 'links'>
 
 /** Display order on /speakers/: conference speakers in running order, then the workshop's. */
-const SPEAKER_ORDER = ['siva-prasad-reddy', 'dhaval-shah', 'ravi-soni', 'nikhilesh-tayal', 'vikas-rajput', 'dhaval-desai']
+const SPEAKER_ORDER = ['mala-gupta', 'siva-prasad-reddy', 'dhaval-shah', 'nikhilesh-tayal', 'harshvardhan-parmar', 'ravi-soni', 'dhaval-desai', 'vikas-rajput']
 
 const SPEAKER_EXTRAS: Record<string, SpeakerExtra> = {
   'nikhilesh-tayal': {
-    role: 'Founder & Teacher · AI ML',
+    role: 'IIT Kharagpur alumnus · Google Developer Expert in AI',
+    tagline: 'Founder of AI ML etc. who has spoken at 70+ tech events worldwide and was felicitated by the Chief Minister of Rajasthan for his work in education.',
     image: '/assets/speaker-nikhilesh-cutout.png', bg: '#FF384B',
     topics: ['Production RAG', 'Enterprise Java', 'Generative AI'],
     bio: [
@@ -204,11 +205,12 @@ const SPEAKER_EXTRAS: Record<string, SpeakerExtra> = {
     ],
   },
   'ravi-soni': {
-    role: 'The CodeFather · Java & Cloud-Native Architect',
-    image: '/assets/ravi_soni-removebg-preview.png', bg: '#7D00BC',
+    role: 'AWS Certified Java & Cloud-Native Architect',
+    tagline: 'AWS Community Builder, known as The CodeFather, with 15+ years building Java, Spring Boot, Kafka and Kubernetes microservices.',
+    image: '/assets/ravi_soni-removebg-preview.png', bg: '#050505',
     topics: ['JVM performance', 'JFR & JDK Mission Control', 'AI & MCP', 'Production diagnostics'],
     bio: [
-      'Ravi Soni, known as The CodeFather, is AWS Certified and a Java and cloud-native architect with 15+ years of professional experience in the design, development, maintenance, and migration of Java, JavaEE, Spring Boot, Kafka, and Kubernetes-based distributed and microservice applications.',
+      'Ravi Soni, known as The CodeFather, is an AWS Certified AWS Community Builder and a Java and cloud-native architect with 15+ years of professional experience in the design, development, maintenance, and migration of Java, JavaEE, Spring Boot, Kafka, and Kubernetes-based distributed and microservice applications.',
     ],
     links: [
       { type: 'email', label: 'Email', href: 'mailto:my.ravisoni@gmail.com' },
@@ -220,13 +222,14 @@ const SPEAKER_EXTRAS: Record<string, SpeakerExtra> = {
   },
   'siva-prasad-reddy': {
     role: 'Developer Advocate at JetBrains',
+    tagline: 'Author of Beginning Spring Boot who has spoken at Spring I/O, GIDS and JavaFest, with 19 years building scalable enterprise systems.',
     image: '/assets/speaker-siva-cutout.png', bg: '#0D5CDB',
     topics: ['Modern Java', 'Cloud-native architecture', 'Developer productivity'],
     bio: [
       'Siva is a Developer Advocate at JetBrains with over 19 years of experience building scalable, distributed enterprise systems. His career spans hands-on software development, architecture, and cloud-native system design across domains such as banking and e-commerce.',
       'He has deep expertise in the Java ecosystem and modern backend development using monolithic, microservices, and event-driven architectures, with a strong emphasis on code quality and scalability.',
       'In his role as a Developer Advocate, Siva focuses on empowering developers by simplifying complex concepts, creating educational content, and bridging the gap between engineering and developer communities.',
-      'Siva is the author of Beginning Spring Boot (Apress), PrimeFaces Beginners Guide (Packt), and Java Persistence with MyBatis 3. He has spoken at international and local conferences, sharing insights on cloud-native architectures, modern Java development, and developer productivity.',
+      'Siva is the author of Beginning Spring Boot (Apress), PrimeFaces Beginners Guide (Packt), and Java Persistence with MyBatis 3. He has spoken at international conferences such as Spring I/O, GIDS and JavaFest, sharing insights on cloud-native architectures, modern Java development, and developer productivity.',
     ],
     links: [
       { type: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/ksivaprasadreddy/' },
@@ -239,6 +242,7 @@ const SPEAKER_EXTRAS: Record<string, SpeakerExtra> = {
   },
   'dhaval-shah': {
     role: 'Principal Cloud Native Architect',
+    tagline: '21+ years designing high-throughput, low-latency fintech platforms on Java 21, Spring Boot, Kafka and Kubernetes.',
     image: '/assets/speaker-dhaval-cutout.png', bg: '#02CF70',
     topics: ['Cloud-native architecture', 'Java 21 & Spring Boot', 'Reactive systems', 'Kafka & event-driven systems', 'Azure & Kubernetes'],
     bio: [
@@ -253,6 +257,7 @@ const SPEAKER_EXTRAS: Record<string, SpeakerExtra> = {
   },
   'dhaval-desai': {
     role: 'Community Manager at Gluu Inc.',
+    tagline: '22 years across telecom R&D, global banking and IAM, now building open-source identity and governance for AI agents.',
     image: '/assets/speaker-dhaval-desai-cutout.png', bg: '#FEC400',
     topics: ['Zero Trust', 'AI agent authorization', 'MCP security', 'Identity & access'],
     bio: [
@@ -262,7 +267,8 @@ const SPEAKER_EXTRAS: Record<string, SpeakerExtra> = {
     links: [{ type: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/dhavaltdesai/' }],
   },
   'vikas-rajput': {
-    role: 'Founder @ Techxplore | Co-organizer @ Gujarat JUG',
+    role: 'Founder at Techxplore · Co-organizer at Gujarat JUG',
+    tagline: 'Java architect with 11+ years building enterprise systems who leads Java User Group Gujarat, the community behind this conference.',
     image: '/assets/vikas%20rajput.png', bg: '#0D5CDB',
     topics: ['Spring Modulith', 'Modular architecture', 'AI-assisted engineering', 'Production systems'],
     bio: [
@@ -282,6 +288,99 @@ const SPEAKER_EXTRAS: Record<string, SpeakerExtra> = {
   },
 }
 
+/**
+ * Speakers who are not in the Sessionize embed (invited keynotes, or accepted sessions not yet
+ * published there). They are merged into SPEAKERS / SESSIONS below, so `npm run
+ * sync:sessionize` never touches them. When one appears in the snapshot, delete it here and
+ * add SESSION_EXTRAS / SPEAKER_EXTRAS instead, or it will show up twice.
+ */
+const LOCAL_SPEAKERS: Speaker[] = [
+  {
+    id: 'local-mala-gupta', slug: 'mala-gupta', name: 'Mala Gupta',
+    role: 'Java Champion · Author · Speaker',
+    tagline: "Asia's first woman Oracle Java Champion, best-selling Manning author, and speaker at JavaOne, Oracle Code One, DevNexus and GIDS.",
+    image: '/assets/speaker-mala-gupta-cutout.png', bg: '#7D00BC',
+    topics: ['Java in the AI era', 'Modern Java', 'Java community', 'Java certification'],
+    bio: [
+      'Mala Gupta is the first woman in Asia to be recognised as an Oracle Java Champion, an internationally recognised Java author, speaker and technology leader, and the author of four best-selling Java books published by Manning Publications.',
+      'For over two decades she has been shaping the global Java ecosystem as an author, speaker, technology leader and community builder. She has spoken at leading conferences including JavaOne, Oracle Code One, DevNexus, JBCN, JDConf, GIDS and Eclipse Day, and at Java User Groups and universities around the world.',
+      'She conceived and led flagship developer programmes including JetBrains Technology Day for Java, IntelliJ IDEA Conf and the IntelliJ IDEA Livestreams, and has served on the programme committees of JavaOne and JakartaOne.',
+      'Mala co-leads the Delhi Java User Group, one of the most active Java communities in India, and co-founded KaagZevar.com, a platform for nurturing creativity as an essential life skill.',
+    ],
+    links: [
+      { type: 'website', label: 'Website', href: 'https://malagupta.github.io/' },
+      { type: 'x', label: 'X · @eMalaGupta', href: 'https://twitter.com/eMalaGupta' },
+    ],
+    sessionIds: ['local-keynote-java-ai-era'],
+  },
+  {
+    // Accepted, but not yet published in the Sessionize embed the sync reads. Talk + bio as
+    // supplied by the organisers; links from sessionize.com/harshvardhan-parmar.
+    id: 'local-harshvardhan-parmar', slug: 'harshvardhan-parmar', name: 'Harshvardhan Parmar',
+    role: 'Maintainer @Microcks',
+    tagline: 'Maintainer of Microcks, a CNCF Sandbox project, Google Summer of Code 2024 alumnus and LFX mentee who leads Microcks-CLI.',
+    image: '/assets/speaker-harshvardhan-cutout.png', bg: '#F26B1D',
+    topics: ['Spec-driven development', 'API contracts', 'Spring Boot', 'AI coding agents', 'Open source'],
+    bio: [
+      'Harshvardhan is an enthusiastic open-source contributor, a passionate advocate for cloud-native technologies and a maintainer of Microcks, an open-source CNCF Sandbox project.',
+      'He was a Google Summer of Code (GSoC) 2024 student and an LFX mentee in 2025 under Microcks, and he leads Microcks-CLI, a CLI tool for managing Microcks.',
+    ],
+    links: [
+      { type: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/harshvardhan-parmar/' },
+      { type: 'x', label: 'X · @Harsh_4902', href: 'https://x.com/Harsh_4902' },
+      { type: 'github', label: 'GitHub', href: 'https://github.com/Harsh4902' },
+      { type: 'website', label: 'Sessionize', href: 'https://sessionize.com/harshvardhan-parmar' },
+    ],
+    sessionIds: ['local-ai-spring-boot-api-contract'],
+  },
+]
+
+const LOCAL_SESSIONS: Session[] = [
+  {
+    id: 'local-keynote-java-ai-era', slug: 'java-in-the-ai-era',
+    title: 'Java in the AI Era',
+    day: 'conference', kind: 'Keynote',
+    outcome: 'See how Java is growing with AI, and where your skills fit in the years ahead',
+    summary: 'An opening keynote on how Java is evolving to power AI-enabled applications, the platform advances behind it, and the opportunities this opens up for Java developers.',
+    takeaways: [
+      'How the role of Java is expanding as AI becomes part of everyday applications',
+      'The platform advances that power AI, cloud-native and high-performance workloads: Vector API, structured concurrency, Project Leyden and a continually evolving JVM',
+      'A fresh way to see yourself: not just a user of AI tools, but a builder of AI-enabled products and services',
+      'Where Java sits among the wider AI ecosystem, and the skills worth investing in next',
+    ],
+    audience: 'Every Java developer, architect and tech lead. A broad, forward-looking session to set the tone for the day.',
+    tags: ['Java', 'AI', 'JVM', 'Future of Java'],
+    description: [
+      'Java has powered enterprise software for decades, and the AI era is opening its next chapter. This keynote explores how the language and the JVM are growing alongside AI, and why the community is so well placed to lead.',
+      'Rather than diving into a single framework, we take a wide view: the expanding role of Java in AI-enabled systems, the strengths that make it a trusted base for large-scale, reliable applications, and the platform advances shaping what comes next, from the Vector API and structured concurrency to Project Leyden and ahead-of-time improvements.',
+      'It is also an invitation to think bigger. Java developers can go beyond using AI coding tools to building the AI-powered applications and services themselves. We close with how Java works alongside newer AI technologies and frameworks, and the skills worth developing over the next few years.',
+    ],
+    speakerIds: ['local-mala-gupta'],
+  },
+  {
+    id: 'local-ai-spring-boot-api-contract', slug: 'ai-writes-the-spring-boot-api-the-contract-keeps-it-honest',
+    title: 'AI Writes the Spring Boot API, the Contract Keeps It Honest',
+    day: 'conference', kind: 'Talk',
+    outcome: 'Let AI build your Spring Boot APIs while the contract catches every drift from the design',
+    summary: 'A spec-driven workflow that uses the API contract to guide AI-built Spring Boot services and repairs implementation drift through continuous validation.',
+    takeaways: [
+      'Keep a reviewed API specification as the single source of truth while an AI agent writes the code',
+      'Spot drift that compiles and passes generated tests: wrong fields, enum values, status codes, validation rules and response behaviour',
+      'Continuously validate the running Spring Boot service against its contract',
+      'Feed contract failures back to the coding agent in an iterative repair loop until the API behaves as designed',
+    ],
+    audience: 'Spring Boot developers and API designers using AI coding agents who want generated services they can trust.',
+    tags: ['Spec-driven development', 'API contracts', 'Spring Boot', 'AI agents'],
+    description: [
+      'AI coding agents can now generate Spring Boot APIs incredibly quickly. But speed creates a new problem: how do we know the generated implementation actually matches the API we designed?',
+      'A service can compile, start successfully, and even pass generated tests while still drifting from its contract through incorrect fields, enum values, status codes, validation rules, or response behaviour.',
+      'In this session, we’ll explore a spec-driven development workflow where the API contract remains the source of truth. We’ll start with a reviewed API specification, use it to guide an AI agent while building the Spring Boot implementation, and continuously validate the running service against the expected contract.',
+      'We’ll also look at how contract failures can be fed back into the coding agent to create an iterative repair loop until the implementation behaves as expected.',
+    ],
+    speakerIds: ['local-harshvardhan-parmar'],
+  },
+]
+
 /** Drops Sessionize's own "Track / Duration / Abstract / Key Takeaways" scaffolding. */
 function cleanDescription(raw: string): string[] {
   const text = raw
@@ -293,22 +392,26 @@ function cleanDescription(raw: string): string[] {
 }
 
 const speakerById = new Map<string, Speaker>()
-const speakerTaglines = new Map(snapshot.speakers.map((s) => [s.slug, s.tagline]))
 
 export const SPEAKERS: Speaker[] = SPEAKER_ORDER.map((slug) => {
+  const local = LOCAL_SPEAKERS.find((s) => s.slug === slug)
+  if (local) {
+    speakerById.set(local.id, local)
+    return local
+  }
   const sz = snapshot.speakers.find((s) => s.slug === slug)
   const extra = SPEAKER_EXTRAS[slug]
   if (!sz || !extra) throw new Error(`Speaker "${slug}" is missing from the Sessionize snapshot or SPEAKER_EXTRAS`)
-  const speaker: Speaker = { id: sz.id, slug, name: sz.name, tagline: speakerTaglines.get(slug) ?? extra.role, sessionIds: sz.sessionIds, ...extra }
+  const speaker: Speaker = { id: sz.id, slug, name: sz.name, sessionIds: sz.sessionIds, ...extra }
   speakerById.set(sz.id, speaker)
   return speaker
 })
 
-export const SESSIONS: Session[] = snapshot.sessions.map((s) => {
+export const SESSIONS: Session[] = [...snapshot.sessions.map((s) => {
   const extra = SESSION_EXTRAS[s.id]
   if (!extra) throw new Error(`Session ${s.id} "${s.title}" has no entry in SESSION_EXTRAS (src/data/program.ts)`)
   return { id: s.id, title: s.title, speakerIds: s.speakerIds, description: cleanDescription(s.description), ...extra }
-})
+}), ...LOCAL_SESSIONS]
 
 export const sessionBySlug = (slug: string) => SESSIONS.find((s) => s.slug === slug)
 export const speakerBySlug = (slug: string) => SPEAKERS.find((s) => s.slug === slug)
@@ -385,6 +488,14 @@ export const VENUE: Record<DayId, Venue> = {
 
 export type SlotKind = 'checkin' | 'break' | 'ceremony' | 'session' | 'social'
 
+/** Organisers who host a non-session slot (welcome / closing note). Photos match the Organizers section. */
+export interface Host { name: string; role: string; image: string; linkedin: string }
+export const HOSTS: Record<string, Host> = {
+  'dhaval-gajjar': { name: 'Dhaval Gajjar', role: 'Organizer, JUG Gujarat', image: '/assets/6966fdb6-41ad-44ae-a9ac-c106a39f43c8.webp', linkedin: 'https://www.linkedin.com/in/dhavalgajjarin/' },
+  'vikas-rajput': { name: 'Vikas Rajput', role: 'Organizer, JUG Gujarat', image: '/assets/c7e0ec15-621a-484b-994f-e4f1f100b8a5.webp', linkedin: 'https://linkedin.com/in/vikasrajputin' },
+  'bharat-ranpariya': { name: 'Bharat Ranpariya', role: 'Organizer, JUG Gujarat', image: '/assets/13a9f265-6945-4618-bbdc-b6a3b040e3c8.webp', linkedin: 'https://www.linkedin.com/in/bharat-ranpariya/' },
+}
+
 export interface ScheduleItem {
   /** 24h "HH:MM", Asia/Kolkata. */
   start: string
@@ -396,39 +507,41 @@ export interface ScheduleItem {
   /** Slot exists but the speaker/topic isn't confirmed yet. */
   tbc?: boolean
   note?: string
+  /** Keys into HOSTS for slots led by organisers (welcome / closing note). */
+  hosts?: string[]
 }
 
 /**
- * Rough plan, to be tightened once Sessionize has final times. Conference rule: 5-minute
- * changeover between consecutive sessions (talks, keynote, jam, closing); lunch and the
- * opening/closing ceremonies sit where the organisers placed them.
+ * The running order, as set by the organisers. Conference: 8:00 AM to 6:00 PM, back-to-back
+ * 30-minute talks with no changeover gap; one 60-minute slot (2:00 PM) is still to be revealed.
  */
 export const SCHEDULE: Record<DayId, ScheduleItem[]> = {
   workshop: [
     { start: '10:00', end: '10:15', title: 'Check-in', kind: 'checkin' },
     { start: '10:15', end: '10:25', title: 'Opening note', kind: 'ceremony' },
-    { start: '10:25', end: '11:55', title: 'Workshop #1', kind: 'session', sessionId: '1351496' },
+    { start: '10:25', end: '11:55', title: 'Workshop #1', kind: 'session', sessionId: '1345089' },
     { start: '11:55', end: '12:55', title: 'Lunch & networking', kind: 'break' },
     { start: '12:55', end: '13:20', title: 'Engagement activity', kind: 'social' },
-    { start: '13:20', end: '14:50', title: 'Workshop #2', kind: 'session', sessionId: '1345089' },
+    { start: '13:20', end: '14:50', title: 'Workshop #2', kind: 'session', sessionId: '1351496' },
     { start: '14:50', end: '15:00', title: 'Closing note', kind: 'ceremony' },
   ],
   conference: [
-    { start: '08:00', end: '09:30', title: 'Check-in & registration', kind: 'checkin' },
-    { start: '08:30', end: '10:00', title: 'Breakfast', kind: 'break' },
-    { start: '10:00', end: '10:30', title: 'Opening note', kind: 'ceremony' },
-    { start: '10:30', end: '11:00', title: 'Keynote session', kind: 'session', tbc: true, note: 'Keynote speaker to be announced.' },
-    { start: '11:05', end: '11:35', title: 'Talk', kind: 'session', sessionId: '1333755' },
-    { start: '11:40', end: '12:10', title: 'Talk', kind: 'session', sessionId: '1333086' },
-    { start: '12:15', end: '12:45', title: 'Session 6', kind: 'session', tbc: true, note: 'Speaker and topic to be announced.' },
-    { start: '12:45', end: '13:45', title: 'Lunch', kind: 'break' },
-    { start: '13:45', end: '14:15', title: 'Engagement activity', kind: 'social' },
-    { start: '14:20', end: '14:50', title: 'Talk', kind: 'session', sessionId: '1333056' },
-    { start: '14:55', end: '15:25', title: 'Talk', kind: 'session', sessionId: '1305730' },
-    { start: '15:30', end: '16:00', title: 'Session 7', kind: 'session', tbc: true, note: 'Speaker and topic to be announced.' },
-    { start: '16:05', end: '16:35', title: 'Session 8', kind: 'session', tbc: true, note: 'Speaker and topic to be announced.' },
-    { start: '16:40', end: '17:00', title: 'Closing note', kind: 'ceremony' },
-    { start: '17:00', end: '17:30', title: 'High tea, networking & goodies', kind: 'social' },
+    { start: '08:00', end: '09:30', title: 'Registration, Networking & Breakfast', kind: 'checkin' },
+    { start: '09:30', end: '09:45', title: 'Pre-engagement Activities', kind: 'social' },
+    { start: '09:45', end: '10:00', title: 'Welcome Note', kind: 'ceremony', hosts: ['dhaval-gajjar', 'vikas-rajput'] },
+    { start: '10:00', end: '10:30', title: 'Keynote session', kind: 'session', sessionId: 'local-keynote-java-ai-era' },
+    { start: '10:30', end: '11:00', title: 'Talk', kind: 'session', sessionId: '1333755' },
+    { start: '11:00', end: '11:30', title: 'Talk', kind: 'session', sessionId: '1333086' },
+    { start: '11:30', end: '12:00', title: 'Sponsors Session', kind: 'social' },
+    { start: '12:00', end: '13:30', title: 'Lunch Break & Networking', kind: 'break' },
+    { start: '13:30', end: '14:00', title: 'Live Jamming Session', kind: 'social' },
+    { start: '14:00', end: '15:00', title: 'Session to be revealed soon', kind: 'session', tbc: true, note: 'Speaker and topic will be revealed soon.' },
+    { start: '15:00', end: '15:30', title: 'Talk', kind: 'session', sessionId: '1305730' },
+    { start: '15:30', end: '16:00', title: 'Talk', kind: 'session', sessionId: 'local-ai-spring-boot-api-contract' },
+    { start: '16:00', end: '16:30', title: 'Talk', kind: 'session', sessionId: '1333056' },
+    { start: '16:30', end: '16:45', title: 'Engagement Activities', kind: 'social' },
+    { start: '16:45', end: '17:00', title: 'Closing Note', kind: 'ceremony', hosts: ['bharat-ranpariya'] },
+    { start: '17:00', end: '18:00', title: 'Networking, Goodies & High Tea', kind: 'social' },
   ],
 }
 
@@ -446,8 +559,8 @@ export const minutesBetween = (a: string, b: string) => {
 /** "2026-10-24" + "14:20" -> "2026-10-24T14:20:00+05:30" (event time zone). */
 export const isoAt = (day: DayId, hhmm: string) => `${DAYS[day].iso}T${hhmm}:00+05:30`
 
-/** When each day officially starts. Conference check-in and breakfast open earlier (8:00 AM). */
-const PROGRAMME_START: Record<DayId, string> = { workshop: '10:00', conference: '10:00' }
+/** When each day officially opens: the conference doors open at 8:00 AM (registration and breakfast) and the day ends at 6:00 PM. */
+const PROGRAMME_START: Record<DayId, string> = { workshop: '10:00', conference: '08:00' }
 export const programmeStart = (day: DayId) => PROGRAMME_START[day]
 export const dayEnd = (day: DayId) => SCHEDULE[day][SCHEDULE[day].length - 1].end
 
@@ -476,7 +589,7 @@ export const LINEUP: LineupEntry[] = (() => {
       if (session) {
         for (const speaker of speakersOf(session)) confirmed.push({ kind: 'speaker', key: `${day}-${speaker.id}`, day, speaker, session })
       } else {
-        pending.push({ kind: 'tba', key: `${day}-${slot.start}`, day, slot: slot.title === 'Keynote session' ? 'Keynote speaker' : `${slot.title} speaker` })
+        pending.push({ kind: 'tba', key: `${day}-${slot.start}`, day, slot: slot.title === 'Keynote session' ? 'Keynote speaker' : slot.title })
       }
     }
   }

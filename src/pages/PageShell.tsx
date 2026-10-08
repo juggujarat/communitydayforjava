@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
+import ScrollButtons from '../components/ScrollButtons'
 import BrickDivider from '../components/BrickDivider'
 import TicketsModal from '../components/TicketsModal'
 import { useDCEffects } from '../hooks/useDCEffects'
@@ -13,19 +14,22 @@ import { A } from '../lib/assets'
  * "Register Now" on these pages opens checkout in place. `#program-page` carries the
  * spacer for the fixed nav (stepped down at 768px in global.css, like #cfp-page).
  */
-export default function PageShell({ children }: { children: ReactNode }) {
+export default function PageShell({ children, after }: { children: ReactNode; after?: ReactNode }) {
   useDCEffects()
   const ticketsOpen = useTicketsOpen()
   return (
     <div id="dc-root">
       <div id="program-page" style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#131C56', paddingTop: '110px' }}>
         <Nav hashPrefix="/" />
-        <main style={{ padding: '48px 24px 84px', background: 'radial-gradient(100% 80% at 85% 0%,#1a2670,#0E1667 72%)' }}>
+        <main style={{ padding: '48px 24px 84px', background: '#131C56' }}>
           <div style={{ maxWidth: '1120px', margin: '0 auto' }}>{children}</div>
         </main>
+        {/* Full-bleed sections that sit outside the 1120px content column (e.g. the sponsor deck). */}
+        {after}
         <BrickDivider src={A['6310b061-eeb8-4ae2-a75c-7a329ad216e1']} />
         <Footer />
       </div>
+      <ScrollButtons />
       {ticketsOpen && <TicketsModal onClose={closeTickets} />}
     </div>
   )

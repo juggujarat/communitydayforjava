@@ -36,7 +36,9 @@ export default function AgendaPage() {
                 <p style={{ margin: '6px 0 0', fontSize: '14.5px', lineHeight: 1.5, color: '#c4caf0' }}>{d.blurb}</p>
               </div>
               <div style={{ textAlign: 'left', fontSize: '12.5px', fontWeight: 700, color: d.accent, textTransform: 'uppercase', letterSpacing: '.8px', lineHeight: 1.6 }}>
-                {fmtTime(programmeStart(id))} to {fmtTime(dayEnd(id))}<br />{slots} {id === 'workshop' ? 'workshops' : 'sessions'}
+                {fmtTime(programmeStart(id))} to {fmtTime(dayEnd(id))}
+                {/* Session count shown for the workshop only; the conference count was removed by request. */}
+                {id === 'workshop' && <><br />{slots} workshops</>}
               </div>
             </div>
 
