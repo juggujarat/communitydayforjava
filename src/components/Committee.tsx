@@ -38,7 +38,7 @@ export default function Committee() {
               <div style={{ padding: '14px 18px 18px', textAlign: 'left', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '19px', color: '#0E1667', lineHeight: 1.2, letterSpacing: '-.3px' }}>{m.name}</div>
                 <div style={{ fontSize: '13.5px', color: '#0D5CDB', fontWeight: 700, marginTop: '6px' }}>{m.role}</div>
-                <div style={{ fontSize: '12.5px', color: '#6b73a8', marginTop: '4px' }}>{m.orgHref ? <a href={m.orgHref} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{m.org}</a> : m.org}</div>
+                <div style={{ fontSize: '12.5px', color: '#6b73a8', marginTop: '4px' }}>{m.orgHref ? <a href={m.orgHref} target="_blank" rel="noopener noreferrer" onMouseEnter={(e) => { e.currentTarget.style.color = '#0D5CDB'; e.currentTarget.style.textDecoration = 'underline' }} onMouseLeave={(e) => { e.currentTarget.style.color = 'inherit'; e.currentTarget.style.textDecoration = 'none' }} onFocus={(e) => { e.currentTarget.style.color = '#0D5CDB'; e.currentTarget.style.textDecoration = 'underline' }} onBlur={(e) => { e.currentTarget.style.color = 'inherit'; e.currentTarget.style.textDecoration = 'none' }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color .2s ease' }}>{m.org}</a> : m.org}</div>
                   <div className="committee-bio" style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#42498a', marginTop: '12px', textAlign: 'left', textWrap: 'pretty' as React.CSSProperties['textWrap'] }}>{m.bio}</div>
               </div>
             </div>

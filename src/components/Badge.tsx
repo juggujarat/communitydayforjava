@@ -76,7 +76,7 @@ function listPhrase(items: string[]) {
 
 const STEPS = [
   { n: '1', text: 'Tap the circle on the badge to add your photo, then drag and zoom until your face fills it.' },
-  { n: '2', text: 'Add your name, role and company, pick how you are joining, and choose your line.' },
+  { n: '2', text: 'Add your name, role and company, pick how you are joining, then add your session topic or choose your line.' },
   { n: '3', text: 'Download or copy the badge, then post it and tag us — we reshare every one.' },
 ]
 
@@ -144,6 +144,7 @@ export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
   const [name, setName] = useState('')
   const [title, setTitle] = useState('')
   const [company, setCompany] = useState('')
+  const [topic, setTopic] = useState('')
   /** One of SLOGAN_OPTIONS; empty means the default line is the one stamped. */
   const [slogan, setSlogan] = useState('')
   const [role, setRole] = useState<BadgeRole>(roles[0])
@@ -175,8 +176,8 @@ export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d')
     if (!ctx) return
-    drawBadge(ctx, { name, title, company, slogan, role, photo, zoom, offset }, art)
-  }, [name, title, company, slogan, role, photo, zoom, offset, art, fontsReady])
+    drawBadge(ctx, { name, title, company, slogan, topic, role, photo, zoom, offset }, art)
+  }, [name, title, company, slogan, topic, role, photo, zoom, offset, art, fontsReady])
 
   const acceptFile = useCallback(async (file: File | null | undefined) => {
     if (!file) return
@@ -344,6 +345,7 @@ export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
     !name.trim() && 'your name',
     !title.trim() && 'your role',
     !company.trim() && 'your company',
+    role.id === 'speaker' && !topic.trim() && 'your session topic',
   ].filter(Boolean) as string[]
   const blocked = missing.length > 0 || busy !== null
   const exportCursor = busy ? 'wait' : missing.length ? 'not-allowed' : 'pointer'
@@ -431,6 +433,21 @@ export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
                 })}
               </div>
 
+              {role.id === 'speaker' ? (
+                <>
+                  <label style={{ ...labelStyle, marginTop: '20px' }} htmlFor="badge-topic">Your session topic</label>
+                  <textarea
+                    id="badge-topic"
+                    value={topic}
+                    maxLength={100}
+                    rows={3}
+                    placeholder="e.g. Building resilient Java services"
+                    onChange={(e) => setTopic(e.target.value)}
+                    style={{ ...inputStyle, minHeight: '90px', resize: 'vertical', marginBottom: '20px' }}
+                  />
+                </>
+              ) : (
+              <>
               {/* Fixed set, one always selected — the badge never goes out without a
                   line, and every line on it is one we wrote. */}
               <span style={{ ...labelStyle, marginTop: '20px' }}>Your slogan</span>
@@ -458,6 +475,8 @@ export default function Badge({ roleIds }: { roleIds?: string[] } = {}) {
                   )
                 })}
               </div>
+              </>
+              )}
 
               {/* Three ready-made captions per role — never stamped on the badge itself.
                   Tapping one both picks it and copies it, ready to paste anywhere. */}
