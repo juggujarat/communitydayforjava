@@ -38,7 +38,7 @@ export default function SponsorPage({ sponsor }: { sponsor: Sponsor }) {
         </div>
       </div>
 
-      <div data-reveal style={{ marginBottom: '48px' }}>
+      <div id="sponsor-offerings" data-reveal style={{ marginBottom: '48px' }}>
         <h2 style={{ margin: '0 0 18px', color: '#fff', fontSize: '30px', textTransform: 'none' }}>{sponsor.offeringsTitle ?? (sponsor.person ? 'Gluu products' : 'Products & services')}</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '14px' }}>
           {sponsor.offerings.map((o) => (
@@ -50,7 +50,7 @@ export default function SponsorPage({ sponsor }: { sponsor: Sponsor }) {
         </div>
       </div>
 
-      <div data-reveal style={{ marginBottom: '48px' }}>
+      <div id="sponsor-connect" data-reveal style={{ marginBottom: '48px' }}>
         <h2 style={{ margin: '0 0 18px', color: '#fff', fontSize: '30px', textTransform: 'none' }}>Connect with {first}</h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
           <a href={sponsor.website} target="_blank" rel="noopener noreferrer" style={chip}>
@@ -72,9 +72,9 @@ export default function SponsorPage({ sponsor }: { sponsor: Sponsor }) {
       </div>
 
       <div style={{ margin: '0 0 20px' }}><div style={label}>Other sponsors</div></div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '52px' }}>
+      <div id="sponsor-other" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '52px' }}>
         {others.map((o) => (
-          <a key={o.slug} href={sponsorPath(o)} style={{ padding: '10px 16px', borderRadius: '30px', border: '1px solid rgba(255,255,255,.2)', color: '#fff', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>{o.name}</a>
+          <a key={o.slug} href={sponsorPath(o)} style={{ maxWidth: '100%', boxSizing: 'border-box', overflowWrap: 'anywhere', padding: '10px 16px', borderRadius: '30px', border: '1px solid rgba(255,255,255,.2)', color: '#fff', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>{o.name}</a>
         ))}
         <a href="/sponsors/" style={{ padding: '10px 16px', borderRadius: '30px', background: '#FEC400', color: '#131C56', fontSize: '14px', fontWeight: 800, textDecoration: 'none' }}>All sponsors →</a>
       </div>
