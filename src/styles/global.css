@@ -51,6 +51,19 @@
   @media (max-width:700px){
     #speaker-hero{ grid-template-columns:1fr!important; gap:28px!important; }
     #speaker-hero > div:first-child{ max-width:360px; margin:0 auto; }
+    #sponsor-hero{ grid-template-columns:minmax(0,1fr)!important; gap:28px!important; }
+    #sponsor-hero > div:first-child{ width:100%; max-width:320px!important; margin:0 auto; }
+    #sponsor-hero > div{ min-width:0; }
+    #sponsor-hero h1{ overflow-wrap:anywhere; }
+    #sponsor-hero p{ font-size:17px!important; }
+    #sponsor-offerings h2,#sponsor-connect h2{ font-size:26px!important; }
+    #sponsor-other > a{ max-width:100%; overflow-wrap:anywhere; }
+  }
+  @media (max-width:420px){
+    #sponsor-hero{ gap:22px!important; margin-bottom:34px!important; }
+    #sponsor-connect > div:first-of-type a{ padding:10px 13px!important; font-size:13px!important; }
+    #sponsor-other{ gap:8px!important; }
+    #sponsor-other a{ padding:9px 12px!important; }
   }
   /* CFP tracks run 4-across on wide screens; step down before the cards get too narrow */
   @media (max-width:1100px){
