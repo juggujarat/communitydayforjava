@@ -39,7 +39,7 @@ export default function Organizers() {
               <div style={{ padding: '24px 24px 28px', textAlign: 'left', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ fontWeight: 800, fontSize: '22px', color: '#0E1667' }}>{o.name}</div>
                 <div style={{ fontSize: '14px', color: '#FF384B', fontWeight: 700, marginTop: '6px' }}>{o.role}</div>
-                <div style={{ fontSize: '13px', color: '#6b73a8', marginTop: '4px' }}>{o.orgHref ? <a href={o.orgHref} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{o.org}</a> : o.org}</div>
+                <div style={{ fontSize: '13px', color: '#6b73a8', marginTop: '4px' }}>{o.orgHref ? <a href={o.orgHref} target="_blank" rel="noopener noreferrer" onMouseEnter={(e) => { e.currentTarget.style.color = '#FF384B'; e.currentTarget.style.textDecoration = 'underline' }} onMouseLeave={(e) => { e.currentTarget.style.color = 'inherit'; e.currentTarget.style.textDecoration = 'none' }} onFocus={(e) => { e.currentTarget.style.color = '#FF384B'; e.currentTarget.style.textDecoration = 'underline' }} onBlur={(e) => { e.currentTarget.style.color = 'inherit'; e.currentTarget.style.textDecoration = 'none' }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color .2s ease' }}>{o.org}</a> : o.org}</div>
               </div>
             </div>
           ))}

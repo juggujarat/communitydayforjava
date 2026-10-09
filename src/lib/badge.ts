@@ -211,6 +211,8 @@ export interface BadgeState {
   /** Free-text role/job title, e.g. "Java Developer". Required, like the company. */
   title: string
   company: string
+  /** Free-text session topic, required for speakers and drawn in place of a slogan. */
+  topic: string
   /** One of SLOGAN_OPTIONS[role.id]. Empty means that role's first line is stamped. */
   slogan: string
   role: BadgeRole
@@ -309,6 +311,22 @@ function clipText(ctx: Ctx, text: string, maxWidth: number) {
   let out = text
   while (out.length > 1 && ctx.measureText(out + '…').width > maxWidth) out = out.slice(0, -1)
   return out + '…'
+}
+
+function wrapText(ctx: Ctx, text: string, maxWidth: number) {
+  const lines: string[] = []
+  let line = ''
+  for (const word of text.split(/\s+/).filter(Boolean)) {
+    const candidate = line ? `${line} ${word}` : word
+    if (line && ctx.measureText(candidate).width > maxWidth) {
+      lines.push(line)
+      line = word
+    } else {
+      line = candidate
+    }
+  }
+  if (line) lines.push(line)
+  return lines
 }
 
 // ---- photo geometry ----
@@ -525,14 +543,15 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   ctx.stroke()
 
   const name = (state.name.trim() || 'Your Name').toUpperCase()
-  let nameSize = 96
+  let nameSize = state.role.id === 'speaker' ? 78 : 96
   ctx.font = `700 ${nameSize}px Oswald, sans-serif`
   while (ctx.measureText(name).width > 960 && nameSize > 48) {
     nameSize -= 4
     ctx.font = `700 ${nameSize}px Oswald, sans-serif`
   }
   ctx.fillStyle = state.name.trim() ? '#fff' : 'rgba(255,255,255,.55)'
-  ctx.fillText(clipText(ctx, name, 960), BADGE_W / 2, 812)
+  const detailsOffset = state.role.id === 'speaker' ? -28 : 0
+  ctx.fillText(clipText(ctx, name, 960), BADGE_W / 2, 812 + detailsOffset)
 
   const credential = [state.title.trim() || 'Your role', state.company.trim() || 'Your company'].join(', ')
   ctx.font = '700 30px Inter, sans-serif'
@@ -540,20 +559,37 @@ export function drawBadge(ctx: Ctx, state: BadgeState, art: BadgeArt | null) {
   const credentialWidth = Math.min(660, ctx.measureText(credentialText).width + 46)
   ctx.strokeStyle = 'rgba(255,255,255,.9)'
   ctx.lineWidth = 2
-  ctx.strokeRect(BADGE_W / 2 - credentialWidth / 2, 840, credentialWidth, 58)
+  ctx.strokeRect(BADGE_W / 2 - credentialWidth / 2, 840 + detailsOffset, credentialWidth, 58)
   ctx.fillStyle = state.title.trim() || state.company.trim() ? '#fff' : 'rgba(255,255,255,.55)'
   ctx.font = '700 28px Inter, sans-serif'
-  ctx.fillText(clipText(ctx, credential.toUpperCase(), credentialWidth - 28), BADGE_W / 2, 879)
+  ctx.fillText(clipText(ctx, credential.toUpperCase(), credentialWidth - 28), BADGE_W / 2, 879 + detailsOffset)
 
-  const slogan = badgeSlogan(state).toUpperCase()
-  let sloganSize = 42
-  ctx.font = `700 ${sloganSize}px Inter, sans-serif`
-  while (ctx.measureText(slogan).width > 965 && sloganSize > 30) {
-    sloganSize -= 2
-    ctx.font = `700 ${sloganSize}px Inter, sans-serif`
-  }
   ctx.fillStyle = '#fec400'
-  ctx.fillText(clipText(ctx, slogan, 965), BADGE_W / 2, 965)
+  if (state.role.id === 'speaker') {
+    const topic = (state.topic.trim() || 'Your session topic').toUpperCase()
+    let topicSize = 36
+    let topicLines: string[] = []
+    do {
+      ctx.font = `700 ${topicSize}px Inter, sans-serif`
+      topicLines = wrapText(ctx, topic, 965)
+      if (topicLines.length <= 3 || topicSize <= 26) break
+      topicSize -= 2
+    } while (true)
+    const lineHeight = topicSize + 8
+    const firstBaseline = 965 - ((topicLines.length - 1) * lineHeight) / 2
+    topicLines.slice(0, 3).forEach((line, index) => {
+      ctx.fillText(clipText(ctx, line, 965), BADGE_W / 2, firstBaseline + index * lineHeight)
+    })
+  } else {
+    const slogan = badgeSlogan(state).toUpperCase()
+    let sloganSize = 42
+    ctx.font = `700 ${sloganSize}px Inter, sans-serif`
+    while (ctx.measureText(slogan).width > 965 && sloganSize > 24) {
+      sloganSize -= 2
+      ctx.font = `700 ${sloganSize}px Inter, sans-serif`
+    }
+    ctx.fillText(clipText(ctx, slogan, 965), BADGE_W / 2, 965)
+  }
   ctx.restore()
 }
 
