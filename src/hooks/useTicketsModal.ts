@@ -55,11 +55,6 @@ if (typeof window !== 'undefined') {
       emit()
     }
   })
-  // Deep link straight to /register (including the 404.html bounce-back): open already.
-  if (location.pathname === REGISTER_PATH) {
-    prevPath = '/'
-    open = true
-  }
 }
 
 export function useTicketsOpen() {
