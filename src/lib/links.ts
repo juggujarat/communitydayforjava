@@ -5,7 +5,7 @@ export const TICKET_MAILTO =
 export const CFP_SESSIONIZE = 'https://sessionize.com/community-day-for-java-2026/'
 
 /** Canonical copy for the ticket CTA + its follow-socials caption — keep wording identical everywhere it appears. */
-export const TICKETS_CTA_LABEL = 'Register Now'
+export const TICKETS_CTA_LABEL = 'Purchased Closed'
 export const TICKETS_UPDATE_CAPTION = 'Follow us for updates the moment tickets go live.'
 
 /** Canonical URL of the badge builder — used by its social share intents. */
